@@ -15,6 +15,33 @@
         <p><a href="contacto.html">Contacto</a></p>
 
 		<h1> Contacto </h1>
-		<p>  </p>
+		<p>Rellene el siguiente formulario de contacto: </p>
+        <form action="mailto:martgo81@ucm.es" method="POST">
+            <div>
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre"  name="nombre" value="" />
+            </div>
+            <div>
+                <label for="mail">Correo electrónico:</label>
+                <input type="text" id="mail" name="mail" value="" />
+            </div>
+            <div>
+                <label for="motivo">Motivo de la consulta:</label>
+                <label><input type="radio" name="motivo" value="evaluacion" required/>Evaluación</label>
+                <label><input type="radio" name="motivo" value="sugerencias" />Sugerencias</label>
+                <label><input type="radio" name="motivo" value="criticas" />Críticas</label>
+            </div>
+            <div>                
+                <label for="consulta">Consulta:</label>
+                <textarea name="consulta" rows="5" cols="50">Escriba aquí el motivo de su consulta.</textarea>                
+            </div>  
+            <div>
+                <input type="checkbox" name="confirmacion" value="confirma" required/> Marque esta casilla para verificar que ha leído nuestros términos y condiciones del servicio.
+            </div> 
+            <div>
+                <input type="submit" name="enviar" value="Enviar" />
+            </div>
+        </form>
+
 	</body>
 </html>
