@@ -43,3 +43,25 @@ ALTER TABLE `RolesUsuario`
 ALTER TABLE `Mensajes`
   ADD CONSTRAINT `Mensajes_mensaje` FOREIGN KEY (`idMensajePadre`) REFERENCES `Mensajes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `Mensajes_autor` FOREIGN KEY (`autor`) REFERENCES `Usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+
+CREATE TABLE IF NOT EXISTS `vinilos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(50) COLLATE utf8mb4_general_ci NOT NULL UNIQUE,
+  `autor` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `pistas` TEXT,
+  `muestra_audio` TEXT,
+  `portada` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+CREATE TABLE IF NOT EXISTS `comentarios` (
+    `id` INT(30) NOT NULL AUTO_INCREMENT,
+    `vinilo_id` INT NOT NULL,
+    `nombre` VARCHAR(50) NOT NULL,
+    `comentario` TEXT NOT NULL,
+    `fecha` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`)
+); ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

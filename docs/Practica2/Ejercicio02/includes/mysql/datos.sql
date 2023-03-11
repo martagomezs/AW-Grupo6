@@ -29,3 +29,15 @@ INSERT INTO `Mensajes` (`id`, `autor`, `mensaje`, `fechaHora`, `idMensajePadre`)
 (1, 1, 'Bienvenido al foro', @INICIO, NULL),
 (2, 2, 'Muchas gracias', ADDTIME(@INICIO, '0:15:0'), 1),
 (3, 2, 'Otro mensaje', ADDTIME(@INICIO, '25:15:0'), NULL);
+
+/*
+  VINILOS
+*/
+INSERT INTO vinilos (id, titulo, autor, pistas, muestra_audio, portada)
+VALUES ('1', 'The Dark Side Of The Moon', 'Pink Floyd','Speak To Me, Breathe, Time', 'https://ejemplo.com/audio.mp3', 'portadas/id1.jpg');
+
+INSERT INTO vinilos (id, titulo, autor, pistas, muestra_audio, portada)
+VALUES ('2', 'Motomami', 'Rosalía','Saoko, La Fama', 'https://ejemplo.com/audio.mp3', 'portadas/id2.jpg');
+
+INSERT INTO vinilos (id, titulo, autor, pistas, muestra_audio, portada)
+VALUES ('3', 'Nevermind', 'Nirvana','In Bloom, Breed, Lithium', 'https://ejemplo.com/audio.mp3', 'portadas/id3.jpg');
