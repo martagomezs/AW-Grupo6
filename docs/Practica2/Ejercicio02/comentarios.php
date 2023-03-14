@@ -48,3 +48,5 @@ if ($result->num_rows > 0) {
     }
   } else {
     echo "<p>No hay comentarios todavía </p>";
+  }
+}

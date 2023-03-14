@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS 'Comentarios' (
     PRIMARY KEY ('id'),
     FOREIGN KEY ('autor') REFERENCES 'Usuarios'('Nombre'),
     FOREIGN KEY ('vinilo_id') REFERENCES 'Vinilos'('id')
-); ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS 'Compras'(
   'Id-User' INT(11) NOT NULL,
@@ -56,4 +56,4 @@ CREATE TABLE IF NOT EXISTS 'Compras'(
   PRIMARY KEY ('Id-User', 'Id-Vinilo'),
   FOREIGN KEY ('Id-User') REFERENCES 'Usuarios'('id'),
   FOREIGN KEY ('Id-Vinilo') REFERENCES 'Vinilos'('id')
-)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

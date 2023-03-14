@@ -12,5 +12,5 @@ require_once __DIR__.'/../helpers/usuarios.php';
 
 	<input type="button" name="Ofertas" value="Ofertas">
 
-	<button> <img scr="img/cesta-de-la-compra.png"> </button>
+	<button class="boton-cesta"></button>
 </header>
