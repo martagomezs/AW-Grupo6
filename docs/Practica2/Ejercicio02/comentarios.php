@@ -1,24 +1,36 @@
 <?php
+
+require_once 'includes/config.php';
+require_once 'includes/vistas/helpers/autorizacion.php';
+
 // Conectar a la base de datos
 $servername = "localhost";
-$username = "username";
-$password = "password";
+$username = "Usuario";
+$password = "userpass";
 $dbname = "mysql";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = mysqli_connect($servername, $username, $password, $dbname);
 
 // Comprobar la conexión
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
+if (!$connr) {
+  die("Conexión fallida: " . mysqli_connect_error());
+}
+
+// Obtención del ID del vinilo seleccionado
+if (isset($_GET['id'])) {
+  $vinilo_id = $_GET['id'];
+} else {
+  echo "Error: No se ha seleccionado ningún vinilo.";
+  exit;
 }
 
 // Obtener la información del vinilo de la base de datos
-$sql = "SELECT * FROM vinilos WHERE id = 1"; // Cambiar "1" por el ID del vinilo que se desea mostrar
-$result = $conn->query($sql);
+$sql = "SELECT * FROM vinilos WHERE id =  $vinilo_id";
+$resultado = mysqli_query($conn, $sql);
 
-if ($result->num_rows > 0) {
+if ($resultado->num_rows > 0) {
   // Mostrar la información del vinilo
-  $row = $result->fetch_assoc();
+  $row = $resultado->fetch_assoc();
   echo "<h1>" . $row["titulo"] . " - " . $row["artista"] . "</h1>";
   echo "<img src='" . $row["portada"] . "' alt='" . $row["titulo"] . "'>";
 
@@ -39,11 +51,11 @@ if ($result->num_rows > 0) {
 
   // Mostrar los comentarios existentes
   echo "<h2>Comentarios</h2>";
-  $sql = "SELECT * FROM comentarios WHERE vinilo_id = 1"; // Cambiar "1" por el ID del vinilo que se desea mostrar
-  $result = $conn->query($sql);
+  $sql = "SELECT * FROM comentarios WHERE vinilo_id =  $vinilo_id";
+  $resultado = mysqli_query($conn, $sql);
 
-  if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
+  if ($resultado->num_rows > 0) {
+    while($row = $resultado->fetch_assoc()) {
       echo "<p><strong>" . $row["nombre"] . "</strong> - " . $row["comentario"] . "</p>";
     }
   } else {

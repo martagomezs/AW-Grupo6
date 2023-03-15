@@ -151,9 +151,9 @@ a.deshabilitado {
 .boton-cesta {
 	width: 30px; 
 	height: 30px;
-	background-image: "img/cesta-de-la-compra.png"; /* Agrega la ruta de tu imagen */
-	background-size: cover; /* Escala la imagen para cubrir el tamaño completo del botón */
-	background-position: center; /* Centra la imagen dentro del botón */
-	
-  }
+	background-image: 'img/cesta-de-la-compra.png'; 
+	background-size: cover;
+	background-position: center; 
+	border: none;
+}
   

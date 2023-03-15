@@ -4,7 +4,7 @@ require_once __DIR__.'/../helpers/usuarios.php';
 
 ?>
 <header>
-	<img src="img/logo.png" width="50">
+	<img src="img/logo.png" width="70">
 
 	<input type="button" name="Catálogo" value="Catalogo" >
 
