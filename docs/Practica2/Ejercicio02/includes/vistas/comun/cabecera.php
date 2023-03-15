@@ -4,11 +4,9 @@ require_once __DIR__.'/../helpers/usuarios.php';
 
 ?>
 <header>
-<<<<<<< Updated upstream
-	<img src="img/logo.png" width="70">
-=======
+
+
 	<img src="img/logo.png" width="75">
->>>>>>> Stashed changes
 
 	<input type="button" name="Catálogo" value="Catalogo" >
 
