@@ -23,8 +23,8 @@ CREATE TABLE IF NOT EXISTS `Vinilos` (
   `titulo` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   `autor` INT(11) COLLATE utf8mb4_general_ci NOT NULL,
   `precio` INT(15) NOT NULL,
-  `canciones` BLOB NOT NULL,
-  `portada` BLOB NOT NULL,
+  `canciones` varchar(50) NOT NULL,
+  `portada` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`autor`) REFERENCES `Usuarios`(`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

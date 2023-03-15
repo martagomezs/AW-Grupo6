@@ -3,10 +3,11 @@
 class Vinilo{
     use MagicProperties;
 
-    public int id = 1;
+    private $n = 1;
 
     public static function añade($titulo, $idAutor, $precio, $canciones, $portada){
-        $v = new Vinilo(id, $titulo, $idAutor, $precio, $canciones, $portada);
+        $v = new Vinilo($n, $titulo, $idAutor, $precio, $canciones, $portada);
+        $n = $n + 1;
         return $v;
     }
 
@@ -37,9 +38,30 @@ class Vinilo{
          
         if($rs){
             while($fila = $rs->fetch_assoc()){
-                $result[] = new Vinilo($fila['id'], $fila['titulo'], $fila['autor'], $fila['precio'], )
+                $result[] = new Vinilo($fila['id'], $fila['titulo'], $fila['autor'], $fila['precio'], $fila['canciones'], $fila['portada']);
             }
+            $rs->free();
         }
+        return $result;
+    }
+
+    public static function buscaPorAutor($autor = ''){
+        $result = [];
+
+        $conn = BD::getInstance()->getConexionBd();
+
+        $query = sprintf("SELECT * FROM Vinilos V WHERE V.autor LIKE '%autor_buscado%';",
+            $conn->real_escape_string($autor));
+
+        $rs = $conn->query($query);
+         
+        if($rs){
+            while($fila = $rs->fetch_assoc()){
+                $result[] = new Vinilo($fila['id'], $fila['titulo'], $fila['autor'], $fila['precio'], $fila['canciones'], $fila['portada']);
+            }
+            $rs->free();
+        }
+        return $result;
     }
 
     private static function inserta($vinilo){
@@ -47,12 +69,12 @@ class Vinilo{
 
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "INSERT INTO vinilos (titulo, autor, precio, canciones, portada) VALUES (%d, '%s', %d, %d, ?,?)",
+            "INSERT INTO vinilos (id, titulo, autor, precio, canciones, portada) VALUES (%d, '%s', %d, %d, %s, %s)",
             $conn->real_escape_string($vinilo->titulo),
             $vinilo->idAutor,
             $vinilo->precio,
-            $vinilo->canciones,
-            $vinilo->portada
+            $vinilo->real_escape_string($vinilo->canciones),
+            $vinilo->real_escape_string($vinilo->portada)
         );
         $result = $conn->query($query);
         if($result){
@@ -63,6 +85,123 @@ class Vinilo{
             error_log($conn->error);
         }
         return $result;
+    }
+
+    private static function actualiza($vinilo){
+        $result = false;
+
+        $conn = BD::getInstance()->getConexionBd();
+
+        $query = sprintf(
+            "UPDATE vinilos V SET titulo = %s, autor = %d, precio = %d, canciones = %s, portada = %s WHERE V.id = %d",
+            $vinilo->id,
+            $vinilo->idAutor,
+            $conn->real_escape_string($vinilo->titulo),
+            $vinilo->idAutor,
+            $vinilo->precio,
+            $vinilo->real_escape_string($vinilo->canciones),
+            $vinilo->real_escape_string($vinilo->portada)
+        );
+        $result = $conn->query($query);
+        if(!result){
+            error_log($conn->error);
+        }
+        else if($conn->affected_rows != 1){
+            error_log("Se han actualizado '$conn->affected_rows' ");
+        }
+        return $result;
+    }
+
+    private static function borra($vinilo){
+        return self::borraPorId($vinilo->id);
+    }
+
+    public static function borraPorId($idVinilo){
+        if(!$idVinilo){
+            return false;
+        }
+        $result = false;
+
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf("DELETE FROM vinilos WHERE id = %d", $idVinilo);
+        $result = $conn->query($query);
+        if(!$result){
+            error_log($conn->error);
+        }
+        else if(conn->affected_rows != 1){
+            error_log("Se han borrado '$conn->affected_rows' ");
+        }
+        return $result;
+
+        
+    }
+    private $id;
+    private $titulo;
+    private $idAutor;
+    private $precio;
+    private $canciones;
+    private $portada;
+
+    private function __construct($id,$titulo,$idAutor,$precio,$canciones,$portada){
+        $this->id = $id !== null ? intval($id) : null;
+        $this->titulo = $titulo;
+        $this->idAutor = intval($idAutor);
+        $this->precio = intval($precio);
+        $this->canciones = $canciones;
+        $this->portada = $portada;
+    }
+
+    public function getId(){
+        return $this->id;
+    }
+
+    public function getTitulo(){
+        return $this->titulo;
+    }
+
+    public function setTitulo($nuevo){
+        $this->titulo = $nuevo;
+    }
+
+    public function getIdAutor(){
+        return $this->idAutor;
+    }
+
+    public function setIdAutor($nuevo){
+        $this->idAutor = $nuevo;
+    }
+
+    public function getPrecio(){
+        return $this->precio;
+    }
+
+    public function setPrecio($nuevo){
+        return $this->precio = $nuevo;
+    }
+
+    public function getCanciones(){
+        return $this->canciones;
+    }
+
+    public function getPortada(){
+        return $this->portada;
+    }
+
+    public function guarda(){
+        if(!$this->id){
+            self::inserta($this);
+        }
+        else{
+            self::actualiza($this);
+        }
+        return $this;
+    }
+
+    public function borrate(){
+        if($this->id != null){
+            return self::borra($this);
+        }
+        return false;
     }
 }
 
