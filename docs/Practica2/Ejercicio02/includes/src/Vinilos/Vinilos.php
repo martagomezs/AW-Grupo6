@@ -11,11 +11,26 @@ class Vinilo{
         return $v;
     }
 
+    public static function buscaVinilos(){
+        $result = null;
+        
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM vinilos");
+        $rs = $conn->query($query);
+        if($rs && $rs->num_rows == 1){
+            while($fila = $rs->fetch_assoc()){
+                $result = new Vinilo($fila['id'],$fila['titulo'],$fila['autor'],$fila['precio'],$fila['canciones'],$fila['portada']);
+            }
+            $rs->free();
+        }
+        return $result;
+    }
+
     public static function buscaPorId($idVinilo){
         $result = null;
 
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf('SELECT * FROM vinilos V WHERE V.id = %d;', $idVinilo);
+        $query = sprintf("SELECT * FROM vinilos V WHERE V.id = %d;", $idVinilo);
         $rs = $conn->query($query);
         if($rs && $rs->num_rows == 1){
             while($fila = $rs->fetch_assoc()){

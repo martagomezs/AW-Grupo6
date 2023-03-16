@@ -70,4 +70,4 @@ Mensaje::init();
 /* */
 require_once 'src/BD.php';
 require_once 'src/usuarios/bd/Usuario.php';
-require_once 'src/mensajes/bd/Mensaje.php';
+require_once 'src/Vinilos/vinilos.php';
