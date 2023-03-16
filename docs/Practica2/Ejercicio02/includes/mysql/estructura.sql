@@ -17,6 +17,19 @@ CREATE TABLE IF NOT EXISTS `Usuarios` (
   PRIMARY KEY (`username`)
   ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
+-- CREATE TABLE IF NOT EXISTS `Artistas` (
+--  `id` INT (11) NOT NULL AUTO_INCREMENT,
+--  `nombre` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+--  `vinilo` varchar(50) NOT NULL,
+--  `seguidores` INT (50),
+--  /*  eventos?  */
+--  PRIMARY KEY (`id`),
+--  FOREIGN KEY (`nombre`) REFERENCES `Vinilos`(`autor`),
+--  FOREIGN KEY (`vinilo`) REFERENCES `Vinilos`(`id`),
+--  ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
 -- CREATE TABLE IF NOT EXISTS `Vinilos` (
 --   `id` INT (11) NOT NULL AUTO_INCREMENT,
 --   `titulo` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
@@ -49,3 +62,4 @@ CREATE TABLE IF NOT EXISTS `Usuarios` (
 --   FOREIGN KEY (`Id-User`) REFERENCES `Usuarios`(`username`),
 --   FOREIGN KEY (`Id-Vinilo`) REFERENCES `Vinilos`(`id`)
 -- ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
