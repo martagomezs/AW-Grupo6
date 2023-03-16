@@ -13,7 +13,9 @@ if(!$vinilo){
     Utils::redirige(Utils::buildUrl('/catalogo.php'));
 }
 
-$contenidoPrincipal .= visualizaVinilo($vinilo);
+$tituloPagina = 'Vinilo';
+
+$contenidoPrincipal = listaVinilos();
 
 require '../includes/vistas/comun/layout.php';
 

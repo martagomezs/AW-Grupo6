@@ -12,14 +12,18 @@ class Vinilo{
     }
 
     public static function buscaVinilos(){
-        $result = null;
+        $result = [];
         
         $conn = BD::getInstance()->getConexionBd();
+        
         $query = sprintf("SELECT * FROM vinilos");
+        
         $rs = $conn->query($query);
-        if($rs && $rs->num_rows == 1){
+        
+        if($rs){
+            
             while($fila = $rs->fetch_assoc()){
-                $result = new Vinilo($fila['id'],$fila['titulo'],$fila['autor'],$fila['precio'],$fila['canciones'],$fila['portada']);
+                $result[] = new Vinilo($fila['id'],$fila['titulo'],$fila['autor'],$fila['precio'],$fila['canciones'],$fila['portada']);
             }
             $rs->free();
         }
@@ -84,7 +88,7 @@ class Vinilo{
 
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "INSERT INTO vinilos (id, titulo, autor, precio, canciones, portada) VALUES (%d, '%s', %d, %d, %s, %s)",
+            "INSERT INTO vinilos (id, titulo, autor, precio, canciones, portada) VALUES (%d, '%s', %s, %d, %s, %s)",
             $conn->real_escape_string($vinilo->titulo),
             $vinilo->idAutor,
             $vinilo->precio,
@@ -108,7 +112,7 @@ class Vinilo{
         $conn = BD::getInstance()->getConexionBd();
 
         $query = sprintf(
-            "UPDATE vinilos V SET titulo = %s, autor = %d, precio = %d, canciones = %s, portada = %s WHERE V.id = %d",
+            "UPDATE vinilos V SET titulo = %s, autor = %s, precio = %d, canciones = %s, portada = %s WHERE V.id = %d",
             $vinilo->id,
             $vinilo->idAutor,
             $conn->real_escape_string($vinilo->titulo),
@@ -160,7 +164,7 @@ class Vinilo{
     private function __construct($id,$titulo,$idAutor,$precio,$canciones,$portada){
         $this->id = $id !== null ? intval($id) : null;
         $this->titulo = $titulo;
-        $this->idAutor = intval($idAutor);
+        $this->idAutor = $idAutor;
         $this->precio = intval($precio);
         $this->canciones = $canciones;
         $this->portada = $portada;
