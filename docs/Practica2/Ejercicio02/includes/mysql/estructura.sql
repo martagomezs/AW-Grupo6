@@ -8,14 +8,13 @@ DROP TABLE IF EXISTS `Comentarios`;
 DROP TABLE IF EXISTS `Compras`;
 
 CREATE TABLE IF NOT EXISTS `Usuarios` (
-  `id` INT (11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(30) COLLATE utf8mb4_general_ci NOT NULL, 
   `password` varchar(70) COLLATE utf8mb4_general_ci NOT NULL,
-  `Ntarjeta` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `Nombre` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `Correo` varchar(120) COLLATE utf8mb4_general_ci NOT NULL,
-  `Rol` varchar(15) COLLATE utf8mb4_general_ci NOT NULL,
-  `Ventas` INT (20),
-  PRIMARY KEY (`id`)
+  `nombre` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `correo` varchar(30) COLLATE utf8mb4_general_ci NOT NULL,
+  `rol` varchar(15) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Usuario',
+  `ventas` INT (20),
+  PRIMARY KEY (`username`)
   ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `Vinilos` (
