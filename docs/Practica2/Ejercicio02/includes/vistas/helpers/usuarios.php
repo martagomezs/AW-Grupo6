@@ -23,7 +23,7 @@ function saludo()
 function logout()
 {
     //Doble seguridad: unset + destroy
-    unset($_SESSION['idUsuario']);
+    unset($_SESSION['username']);
     //unset($_SESSION['roles']);
     unset($_SESSION['nombre']);
     
