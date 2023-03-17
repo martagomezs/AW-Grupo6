@@ -11,9 +11,9 @@ class Usuario
 
     public static function login($nombreUsuario, $password)
     {
-        $user = self::buscaUsuario($nombreUsuario);
-        if ($user && $user->compruebaPassword($password)) {
-            return true;
+        $username = self::buscaUsuario($nombreUsuario);
+        if ($username && $username->compruebaPassword($password)) {
+             return true;
         }
         return false;
     }
@@ -70,15 +70,13 @@ class Usuario
     {
         $result = false;
         $conn = BD::getInstance()->getConexionBd();
-        $query=sprintf("INSERT INTO Usuarios(username, password, nombre, correo, rol, ventas) VALUES ('%s', '%s', '%s')"
+        $query=sprintf("INSERT INTO Usuarios(username, password, nombre, correo, rol, ventas) VALUES ('%s', '%s', '%s', '%s', %s, %d)"
             , $conn->real_escape_string($usuario->username)
             , $conn->real_escape_string($usuario->password)
             , $conn->real_escape_string($usuario->nombre)
             , $conn->real_escape_string($usuario->correo)
             , $conn->real_escape_string($usuario->rol)
-            , $usuario->ventas
-            , 
-
+            , $usuario->ventas 
         );
         if ( $conn->query($query) ) {
             $usuario->username = $conn->username;

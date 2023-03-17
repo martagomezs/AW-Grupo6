@@ -12,19 +12,20 @@ $password = $_POST["password"] ?? null;
 $name = $_POST["name"];
 $mail = $_POST["mail"];
 
-$esValido = $username && $password;
-if (!$esValido) {
-	$htmlFormLogin = buildFormularioLogin($username, $password);
+$esValido = Usuario::buscaUsuario($username);
+if ($esValido) {
+	$htmlFormLogin = buildFormularioRegistro($username, $name, $mail, $password);
 	$contenidoPrincipal=<<<EOS
 		<h1>Error</h1>
-		<p>El usuario o contraseña no son válidos.</p>
+		<p>Existe otro usuario con ese nombre de usuario</p>
 		$htmlFormLogin
 	EOS;
 	require 'includes/vistas/comun/layout.php';
 	exit();
 }
 
-Usuario::crea($username,$password,$name,$mail);
+$insert = Usuario::crea($username,$password,$name,$mail);
+
 
 $_SESSION['idUsuario'] = $username;
 //$_SESSION['roles'] = $usuario->roles;
@@ -32,7 +33,6 @@ $_SESSION['nombre'] = $name;
 
 $contenidoPrincipal=<<<EOS
 	<h1>Bienvenido ${_SESSION['nombre']}</h1>
-	<p>Usa el menú de la izquierda para navegar.</p>
 EOS;
 
 require 'includes/vistas/comun/layout.php';
