@@ -23,7 +23,7 @@ if (!$esValido) {
 }
 
 $_SESSION['username'] = $usuario->username;
-// $_SESSION['roles'] = $usuario->roles;
+// $_SESSION['rol'] = $usuario->rol;
 $_SESSION['nombre'] = $usuario->nombre;
 
 $contenidoPrincipal=<<<EOS
