@@ -8,7 +8,7 @@ $tituloPagina = 'Cesta';
 // 	Utils::paginaError(403, $tituloPagina, 'Usuario no conectado!', 'Debes iniciar sesión para ver el contenido.');
 // }
 
-$ids[] = $_POST['id'];
+
 
 
 
