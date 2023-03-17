@@ -22,8 +22,8 @@ if (!$esValido) {
 	exit();
 }
 
-$_SESSION['idUsuario'] = $usuario->id;
-$_SESSION['roles'] = $usuario->roles;
+$_SESSION['username'] = $usuario->username;
+// $_SESSION['roles'] = $usuario->roles;
 $_SESSION['nombre'] = $usuario->nombre;
 
 $contenidoPrincipal=<<<EOS
