@@ -11,7 +11,6 @@ function esMismoUsuario($username)
     return estaLogado() && $_SESSION['username'] == $username;
 }
 
-function idUsuarioLogado()
 function usernameLogado()
 {
     return $_SESSION['username'] ?? false;
