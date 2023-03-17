@@ -11,10 +11,10 @@ class Usuario
 
     public static function login($nombreUsuario, $password)
     {
-        $username = self::buscaUsuario($nombreUsuario);
-        // if ($username && $username->compruebaPassword($password)) {
-        //     return self::cargaRoles($username);
-        // }
+        $user = self::buscaUsuario($nombreUsuario);
+        if ($user && $user->compruebaPassword($password)) {
+            return true;
+        }
         return false;
     }
     
@@ -100,9 +100,8 @@ class Usuario
             , $conn->real_escape_string($usuario->correo)
             , $conn->real_escape_string($usuario->rol)
             , $usuario->ventas
-            , 
-
-        );        
+        );
+        
         return $result;
     }
     
