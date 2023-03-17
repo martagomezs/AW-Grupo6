@@ -11,9 +11,9 @@ INSERT INTO `Usuarios` (`username`, `password`, `nombre`,`correo`,`rol`,`ventas`
 ('user4', 'user4pass', 'Lucia', 'lucia@gmail.com', 'usuario', NULL);
 
 INSERT INTO `vinilos` (`id`, `titulo`, `autor`, `idAutor`, `precio`, `canciones`, `portada`) VALUES 
-(1, 'The Dark Side Of The Moon', 'Pink Floyd', 1, 50, 'https://ejemplo.com/audio.mp3', 'img/portadas/id1.jpg'),
-(2, 'Motomami', 'Rosalia', 2, 35, 'https://ejemplo.com/audio.mp3', 'img/portadas/id2.jpg'),
-(3, 'Nevermind', 'Nirvana', 3, 40, 'https://ejemplo.com/audio.mp3', 'img/portadas/id3.jpg');
+(1, 'The Dark Side Of The Moon', 'Pink Floyd', 1, 50, 'audio/prueba-audio.mp3', 'img/portadas/id1.jpg'),
+(2, 'Motomami', 'Rosalia', 2, 35, 'audio/prueba-audio.mp3', 'img/portadas/id2.jpg'),
+(3, 'Nevermind', 'Nirvana', 3, 40, 'audio/prueba-audio.mp3', 'img/portadas/id3.jpg');
 
 INSERT INTO `Artistas` (`id`, `nombre`, `vinilo`, `seguidores`, `eventos`, `foto`) VALUES
 (1, 'Pink Floyd', 1, 0, NULL, 'img/artistas/pinkfloyd.png'),
@@ -24,5 +24,5 @@ INSERT INTO `Comentarios` (`id`,`vinilo_id`,`autor`,`comentario`,`fecha`,`padre`
 (1, 2, 'user1', 'Muy buen disco', @INICIO, NULL),
 (2, 2, 'user3', 'Estoy de acuerdo', ADDTIME(@INICIO, '0:10:0'),1);
 
-INSERT INTO `Compras`(`User`,`Id-Vinilo`) VALUES ('user1',2);
+INSERT INTO `Compras`(`User`,`IdVinilo`, `compra`) VALUES ('user1',2, false);
 

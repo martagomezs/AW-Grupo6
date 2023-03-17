@@ -27,11 +27,11 @@ class Artista{
         return $result;
     }
 
-    public static function buscaPorId($id){
+    public static function buscaPorId($idArtista){
         $result = null;
 
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM artistas A WHERE A.id = %d;", $id);
+        $query = sprintf("SELECT * FROM artistas WHERE id = %d;", $idArtista);
         $rs = $conn->query($query);
         if($rs && $rs->num_rows == 1){
             while($fila = $rs->fetch_assoc()){

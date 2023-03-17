@@ -3,7 +3,7 @@
 function visualizaVinilo($vinilo){
     return <<<EOS
     <a href="vinilo.php?id={$vinilo->id}"><img src="{$vinilo->portada}" width="200"></a>
-    <p>{$vinilo->titulo} - <a href="artista.php?id={$vinilo->idAutor}">{$vinilo->autor}</a>: {$vinilo->precio}€</p>
+    <p>{$vinilo->titulo} - <a href="artista.php?idAutor={$vinilo->idAutor}">{$vinilo->autor}</a>: {$vinilo->precio}€</p>
     EOS;
 }
 

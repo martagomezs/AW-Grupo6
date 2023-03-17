@@ -11,7 +11,7 @@ $tituloPagina = "{$vinilo->titulo}";
 
 $contenidoPrincipal = <<< EOS
     <h1>{$vinilo->titulo}</h1>
-    <h2><a href="artista.php?id={$vinilo->idAutor}">{$vinilo->autor}</a></h2>
+    <h2><a href="artista.php?idAutor={$vinilo->idAutor}">{$vinilo->autor}</a></h2>
     <img src="{$vinilo->portada}" width="400">
     <figure>
         <figcaption>Demo audio:</figcaption>
