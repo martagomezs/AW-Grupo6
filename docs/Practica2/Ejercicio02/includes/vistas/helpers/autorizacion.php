@@ -2,24 +2,25 @@
 
 function estaLogado()
 {
-    return isset($_SESSION['idUsuario']);
+    return isset($_SESSION['username']);
 }
 
 
-function esMismoUsuario($idUsuario)
+function esMismoUsuario($username)
 {
-    return estaLogado() && $_SESSION['idUsuario'] == $idUsuario;
+    return estaLogado() && $_SESSION['username'] == $username;
 }
 
 function idUsuarioLogado()
+function usernameLogado()
 {
-    return $_SESSION['idUsuario'] ?? false;
+    return $_SESSION['username'] ?? false;
 }
 
-function esAdmin()
-{
-    return estaLogado() && (array_search(Usuario::ADMIN_ROLE, $_SESSION['roles']) !== false);
-}
+// function esAdmin()
+// {
+//     return estaLogado() && (array_search(Usuario::ADMIN_ROLE, $_SESSION['roles']) !== false);
+// }
 
 function verificaLogado($urlNoLogado)
 {
