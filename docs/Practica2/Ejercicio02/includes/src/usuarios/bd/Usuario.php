@@ -18,10 +18,10 @@ class Usuario
         return false;
     }
     
-    public static function crea($nombreUsuario, $password, $nombre, $correo, $rol, $ventas)
+    public static function crea($nombreUsuario, $password, $nombre, $correo)
     {
-        $user = new Usuario($nombreUsuario, self::hashPassword($password), $nombre, $correo, $rol, $ventas);
-        $user->añadeRol($rol);
+        $user = new Usuario($nombreUsuario, self::hashPassword($password), $nombre, $correo, 2, null);
+        //$user->añadeRol($rol);
         return $user->guarda();
     }
 
@@ -179,7 +179,8 @@ class Usuario
 
     public function compruebaPassword($password)
     {
-        return password_verify($password, $this->password);
+        //return password_verify($password, $this->password);
+        return $password == $this->password;
     }
 
     public function cambiaPassword($nuevoPassword)
@@ -189,7 +190,7 @@ class Usuario
     
     public function guarda()
     {
-        if ($this->id !== null) {
+        if ($this->username !== null) {
             return self::actualiza($this);
         }
         return self::inserta($this);

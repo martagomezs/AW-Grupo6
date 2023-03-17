@@ -9,8 +9,10 @@ $tituloPagina = 'Registro';
 
 $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS);
 $password = $_POST["password"] ?? null;
+$name = $_POST["name"];
+$mail = $_POST["mail"];
 
-$esValido = $username && $password && ($usuario = Usuario::login($username, $password));
+$esValido = $username && $password;
 if (!$esValido) {
 	$htmlFormLogin = buildFormularioLogin($username, $password);
 	$contenidoPrincipal=<<<EOS
@@ -22,9 +24,11 @@ if (!$esValido) {
 	exit();
 }
 
-$_SESSION['idUsuario'] = $usuario->id;
-$_SESSION['roles'] = $usuario->roles;
-$_SESSION['nombre'] = $usuario->nombre;
+Usuario::crea($username,$password,$name,$mail);
+
+$_SESSION['idUsuario'] = $username;
+//$_SESSION['roles'] = $usuario->roles;
+$_SESSION['nombre'] = $name;
 
 $contenidoPrincipal=<<<EOS
 	<h1>Bienvenido ${_SESSION['nombre']}</h1>

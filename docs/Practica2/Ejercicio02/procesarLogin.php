@@ -9,9 +9,9 @@ $tituloPagina = 'Login';
 
 $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS);
 $password = $_POST["password"] ?? null;
-
-$esValido = $username && $password && ($usuario = Usuario::login($username, $password));
-if (!$esValido) {
+$loged = Usuario::login($username, $password);
+$usuario = Usuario::buscaUsuario($username);
+if (!$loged) {
 	$htmlFormLogin = buildFormularioLogin($username, $password);
 	$contenidoPrincipal=<<<EOS
 		<h1>Error</h1>
@@ -22,7 +22,7 @@ if (!$esValido) {
 	exit();
 }
 
-$_SESSION['username'] = $usuario->username;
+$_SESSION['username'] = $usuario->nombreUsuario;
 // $_SESSION['rol'] = $usuario->rol;
 $_SESSION['nombre'] = $usuario->nombre;
 
