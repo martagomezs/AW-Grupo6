@@ -11,10 +11,10 @@ class Usuario
 
     public static function login($nombreUsuario, $password)
     {
-        $usuario = self::buscaUsuario($nombreUsuario);
-        if ($usuario && $usuario->compruebaPassword($password)) {
-            return self::cargaRoles($usuario);
-        }
+        $username = self::buscaUsuario($nombreUsuario);
+        // if ($username && $username->compruebaPassword($password)) {
+        //     return self::cargaRoles($username);
+        // }
         return false;
     }
     
@@ -70,14 +70,19 @@ class Usuario
     {
         $result = false;
         $conn = BD::getInstance()->getConexionBd();
-        $query=sprintf("INSERT INTO Usuarios(nombreUsuario, nombre, password) VALUES ('%s', '%s', '%s')"
-            , $conn->real_escape_string($usuario->nombreUsuario)
-            , $conn->real_escape_string($usuario->nombre)
+        $query=sprintf("INSERT INTO Usuarios(username, password, nombre, correo, rol, ventas) VALUES ('%s', '%s', '%s')"
+            , $conn->real_escape_string($usuario->username)
             , $conn->real_escape_string($usuario->password)
+            , $conn->real_escape_string($usuario->nombre)
+            , $conn->real_escape_string($usuario->correo)
+            , $conn->real_escape_string($usuario->rol)
+            , $usuario->ventas
+            , 
+
         );
         if ( $conn->query($query) ) {
-            $usuario->id = $conn->insert_id;
-            $result = self::insertaRoles($usuario);
+            $usuario->username = $conn->username;
+            //$result = self::insertaRoles($usuario);
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
@@ -89,10 +94,14 @@ class Usuario
         $result = false;
         $conn = BD::getInstance()->getConexionBd();
         $query=sprintf("UPDATE Usuarios U SET nombre='%s', password='%s', correo='%s', rol='%s', ventas='%d' WHERE U.username=%s"
-            , $conn->real_escape_string($usuario->nombre)
+            , $conn->real_escape_string($usuario->username)
             , $conn->real_escape_string($usuario->password)
-            , $conn->real_escape_string($usuario->nombreUsuario)
-            , $usuario->id
+            , $conn->real_escape_string($usuario->nombre)
+            , $conn->real_escape_string($usuario->correo)
+            , $conn->real_escape_string($usuario->rol)
+            , $usuario->ventas
+            , 
+
         );
         if ( $conn->query($query) ) {
             $result = self::borraRoles($usuario);

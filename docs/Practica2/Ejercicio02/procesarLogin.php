@@ -10,7 +10,7 @@ $tituloPagina = 'Login';
 $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS);
 $password = $_POST["password"] ?? null;
 
-$esValido = $username && $password && ($usuario = Usuario::login($username, $password));
+$esValido = $username && $password && ($username = Usuario::login($username, $password));
 if (!$esValido) {
 	$htmlFormLogin = buildFormularioLogin($username, $password);
 	$contenidoPrincipal=<<<EOS
