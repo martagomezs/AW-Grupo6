@@ -130,9 +130,8 @@ class Usuario
         return true;
     }
 
-    private $id;
 
-    private $nombreUsuario;
+    private $username;
 
     private $password;
 
@@ -150,7 +149,7 @@ class Usuario
         $this->password = $password;
         $this->nombre = $nombre;
         $this->correo = $correo;
-        $this->rol = $roles;
+        $this->rol = $rol;
         $this->ventas = $ventas;
     }
 
