@@ -10,10 +10,10 @@ INSERT INTO `Usuarios` (`username`, `password`, `nombre`,`correo`,`rol`,`ventas`
 ('user3', 'user3pass', 'Jose', 'jose@gmail.com', 'usuario', NULL),
 ('user4', 'user4pass', 'Lucia', 'lucia@gmail.com', 'usuario', NULL);
 
-INSERT INTO `vinilos` (`id`, `titulo`, `autor`, `idAutor`, `precio`, `canciones`, `portada`) VALUES 
-(1, 'The Dark Side Of The Moon', 'Pink Floyd', 1, 50, 'audio/prueba-audio.mp3', 'img/portadas/id1.jpg'),
-(2, 'Motomami', 'Rosalia', 2, 35, 'audio/prueba-audio.mp3', 'img/portadas/id2.jpg'),
-(3, 'Nevermind', 'Nirvana', 3, 40, 'audio/prueba-audio.mp3', 'img/portadas/id3.jpg');
+INSERT INTO `vinilos` (`id`, `titulo`, `autor`, `idAutor`, `precio`, `canciones`, `portada`, `ventas`) VALUES 
+(1, 'The Dark Side Of The Moon', 'Pink Floyd', 1, 50, 'audio/prueba-audio.mp3', 'img/portadas/id1.jpg', 0),
+(2, 'Motomami', 'Rosalia', 2, 35, 'audio/prueba-audio.mp3', 'img/portadas/id2.jpg', 0),
+(3, 'Nevermind', 'Nirvana', 3, 40, 'audio/prueba-audio.mp3', 'img/portadas/id3.jpg', 0);
 
 INSERT INTO `Artistas` (`id`, `nombre`, `vinilo`, `seguidores`, `eventos`, `foto`) VALUES
 (1, 'Pink Floyd', 1, 0, NULL, 'img/artistas/pinkfloyd.png'),

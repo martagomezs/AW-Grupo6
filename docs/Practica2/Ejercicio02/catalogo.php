@@ -10,7 +10,6 @@ $tituloPagina = 'Catálogo';
 
 $contenidoPrincipal=<<<EOS
 	<h1>Catálogo</h1>
-	<p> Aquí va el catálogo</p>
 EOS;
 
 $contenidoPrincipal .= listaVinilos();

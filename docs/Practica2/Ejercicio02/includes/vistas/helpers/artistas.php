@@ -8,19 +8,19 @@ function visualizaArtista($artista){
 }
 
 function listaArtistas(){
-    $artistas = Artista::buscaARtistas();
+    $artistas = Artista::buscaArtistas();
 
     if(!is_array($artistas) || count($artistas) == 0){
         return '';
     }
     
-    $html = '<ol>';
+    $html = '<ul>';
     foreach($artistas as $artista){
-        $html .= '<li>';
+        $html .= '<dl>';
         $html .= visualizaArtista($artista);
-        $html .= '</li>';
+        $html .= '</dl>';
     }
-    $html .= '</ol>';
+    $html .= '</ul>';
 
     return $html;
 }

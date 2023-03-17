@@ -16,7 +16,7 @@ class Artista{
 
         $conn = BD::getInstance()->getConexionBd();
 
-        $query = sprintf("SELECT * FROM artistas A ORDER BY A.seguidores DESC");
+        $query = sprintf("SELECT * FROM artistas A ORDER BY A.seguidores DESC;");
         $rs = $conn->query($query);
         if($rs){
             while($fila = $rs->fetch_assoc()){
