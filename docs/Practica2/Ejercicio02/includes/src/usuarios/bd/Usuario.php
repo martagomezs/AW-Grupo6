@@ -18,9 +18,9 @@ class Usuario
         return false;
     }
     
-    public static function crea($nombreUsuario, $password, $nombre, $rol)
+    public static function crea($nombreUsuario, $password, $nombre, $correo, $rol, $ventas)
     {
-        $user = new Usuario($nombreUsuario, self::hashPassword($password), $nombre);
+        $user = new Usuario($nombreUsuario, self::hashPassword($password), $nombre, $correo, $rol, $ventas);
         $user->añadeRol($rol);
         return $user->guarda();
     }
@@ -28,13 +28,13 @@ class Usuario
     public static function buscaUsuario($nombreUsuario)
     {
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Usuarios U WHERE U.nombreUsuario='%s'", $conn->real_escape_string($nombreUsuario));
+        $query = sprintf("SELECT * FROM Usuarios U WHERE U.username='%s'", $conn->real_escape_string($nombreUsuario));
         $rs = $conn->query($query);
         $result = false;
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Usuario($fila['nombreUsuario'], $fila['password'], $fila['nombre'], $fila['id']);
+                $result = new Usuario($fila['username'], $fila['password'], $fila['nombre'], $fila['correo'], $fila['rol'], $fila['ventas']);
             }
             $rs->free();
         } else {
@@ -52,7 +52,7 @@ class Usuario
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Usuario($fila['username'], $fila['password'], $fila['nombre'], $fila['id']);
+                $result = new Usuario($fila['username'], $fila['password'], $fila['nombre'], $fila['correo'], $fila['rol'], $fila['ventas']);
             }
             $rs->free();
         } else {
