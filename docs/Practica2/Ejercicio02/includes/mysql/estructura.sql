@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS `Vinilos` (
     `id` INT (11) NOT NULL AUTO_INCREMENT,
     `titulo` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
     `autor` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+    `idAutor` INT (11) NOT NULL,
     `precio` INT(15) NOT NULL,
     `canciones` varchar(50) NOT NULL,
     `portada` varchar(50) NOT NULL,
@@ -33,6 +34,7 @@ CREATE TABLE IF NOT EXISTS `Artistas` (
     `vinilo` INT(11) NOT NULL,
     `seguidores` INT (50) NOT NULL,
     `eventos` DATETIME,
+    `foto` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
     PRIMARY KEY (`id`),
     FOREIGN KEY (`vinilo`) REFERENCES `Vinilos`(`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

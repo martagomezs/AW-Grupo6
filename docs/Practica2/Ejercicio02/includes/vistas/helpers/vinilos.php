@@ -3,7 +3,7 @@
 function visualizaVinilo($vinilo){
     return <<<EOS
     <a href="vinilo.php?id={$vinilo->id}"><img src="{$vinilo->portada}" width="200"></a>
-    <p>{$vinilo->titulo} - <a href="artista.php">{$vinilo->idAutor}</a>: {$vinilo->precio}€</p>
+    <p>{$vinilo->titulo} - <a href="artista.php?id={$vinilo->idAutor}">{$vinilo->autor}</a>: {$vinilo->precio}€</p>
     EOS;
 }
 
@@ -16,7 +16,6 @@ function listaVinilos(){
 
     $html = '<ul>';
     foreach($vinilos as $vinilo){
-        
         $html .= '<dl>';
         $html .= visualizaVinilo($vinilo);
         $html .= '</dl>';
