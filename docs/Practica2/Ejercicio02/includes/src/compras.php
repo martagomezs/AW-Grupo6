@@ -31,7 +31,7 @@ class Compra{
 
         $conn = BD::getInstance()->getConexionBd();
 
-        $query = sprintf("SELECT * FROM compras C WHERE C.compra = TRUE");
+        $query = sprintf("SELECT * FROM compras C WHERE C.compra = TRUE;");
 
         $rs = $conn->query($query);
 

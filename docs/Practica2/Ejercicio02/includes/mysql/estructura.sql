@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS `Vinilos` (
     `precio` INT(15) NOT NULL,
     `canciones` varchar(50) NOT NULL,
     `portada` varchar(50) NOT NULL,
+    `ventas` INT(11) NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
