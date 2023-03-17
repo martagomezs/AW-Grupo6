@@ -4,7 +4,6 @@ require_once 'includes/vistas/helpers/artistas.php';
 require_once 'includes/vistas/helpers/vinilos.php';
 
 $id = $_GET['idAutor'];
-
 $artista = Artista::buscaPorId($id);
 $vinilo = Vinilo::buscaPorId($artista->vinilo);
 
@@ -21,3 +20,5 @@ $contenidoPrincipal=<<<EOS
 EOS;
 
 require 'includes/vistas/comun/layout.php';
+
+?>

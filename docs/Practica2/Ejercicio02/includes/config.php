@@ -71,4 +71,4 @@ Mensaje::init();
 require_once 'src/BD.php';
 require_once 'src/usuarios/bd/Usuario.php';
 require_once 'src/Vinilos/vinilos.php';
-require_once 'src/artistas.php';
+require_once 'src/Artistas/artistas.php';

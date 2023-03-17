@@ -31,11 +31,11 @@ class Artista{
         $result = null;
 
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM artistas WHERE id = %d;", $idArtista);
+        $query = sprintf("SELECT * FROM artistas A WHERE A.id = %d;", $idArtista);
         $rs = $conn->query($query);
         if($rs && $rs->num_rows == 1){
             while($fila = $rs->fetch_assoc()){
-                $result = new Artista($fila['id'],$fila['nombre'],$fila['vinilo'],$fila['seguidores'],$fila['eventos'],$fila['foto']);
+                $result = new Artista($fila['id'], $fila['nombre'], $fila['vinilo'],$fila['seguidores'],$fila['eventos'],$fila['foto']);
             }
             $rs->free();
         }

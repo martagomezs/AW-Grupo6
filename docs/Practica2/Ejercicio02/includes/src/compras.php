@@ -1,6 +1,6 @@
 <?php
 
-class Compras{
+class Compra{
     use MagicProperties;
 
     public static function añade($user, $idVinilo, $compra){
@@ -8,12 +8,12 @@ class Compras{
         return $c;
     }
 
-    public static function buscaCesta(){
+    public static function buscaCesta($user){
         $result = [];
 
         $conn = BD::getInstance()->getConexionBd();
 
-        $query = sprintf("SELECT * FROM compras C WHERE C.compra = FALSE");
+        $query = sprintf("SELECT * FROM compras C WHERE C.compra = FALSE AND C.User = %s;", $conn->real_escape_string($user));
 
         $rs = $conn->query($query);
 
