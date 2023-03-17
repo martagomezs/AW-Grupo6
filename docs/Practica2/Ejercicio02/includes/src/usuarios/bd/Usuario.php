@@ -102,16 +102,7 @@ class Usuario
             , $usuario->ventas
             , 
 
-        );
-        if ( $conn->query($query) ) {
-            $result = self::borraRoles($usuario);
-            if ($result) {
-                $result = self::insertaRoles($usuario);
-            }
-        } else {
-            error_log("Error BD ({$conn->errno}): {$conn->error}");
-        }
-        
+        );        
         return $result;
     }
     
