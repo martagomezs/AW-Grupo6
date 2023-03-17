@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'includes/config.php';
 require_once 'includes/vistas/helpers/artistas.php';
 require_once 'includes/vistas/helpers/vinilos.php';

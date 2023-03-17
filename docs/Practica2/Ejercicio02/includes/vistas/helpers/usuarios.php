@@ -8,7 +8,7 @@ function saludo()
     if (estaLogado()) {
         $urlLogout = Utils::buildUrl('/logout.php');
         $html = <<<EOS
-        Bienvenido, {$_SESSION['nombre']} <a href="{$urlLogout}">(salir)</a>
+        Hola, {$_SESSION['nombre']}. Si quieres puedes <a href="{$urlLogout}"> cerrar sesión</a>
         EOS;
     } else {
         $urlLogin = Utils::buildUrl('/login.php');

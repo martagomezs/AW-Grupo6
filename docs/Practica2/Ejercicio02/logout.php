@@ -7,7 +7,7 @@ logout();
 $tituloPagina = 'Logout';
 
 $contenidoPrincipal=<<<EOS
-	<h1>Hasta pronto!</h1>
+	<h1>¡Hasta pronto!</h1>
 EOS;
 
 require 'includes/vistas/comun/layout.php';
