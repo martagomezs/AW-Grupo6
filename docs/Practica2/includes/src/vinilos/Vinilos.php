@@ -3,11 +3,8 @@
 class Vinilo{
     use MagicProperties;
 
-    private $n = 1;
-
-    public static function añade($titulo, $autor, $idAutor, $precio, $canciones, $portada, $ventas){
-        $v = new Vinilo($n, $titulo, $autor, $idAutor, $precio, $canciones, $portada, $ventas);
-        $n = $n + 1;
+    public static function añade($titulo, $autor, $idAutor, $precio, $portada, $ventas){
+        $v = new Vinilo($titulo, $autor, $idAutor, $precio, $portada, $ventas);
         return $v;
     }
 
@@ -23,7 +20,7 @@ class Vinilo{
         if($rs){
             
             while($fila = $rs->fetch_assoc()){
-                $result[] = new Vinilo($fila['id'],$fila['titulo'],$fila['autor'],$fila['idAutor'],$fila['precio'],$fila['canciones'],$fila['portada'],$fila['ventas']);
+                $result[] = new Vinilo($fila['id'],$fila['titulo'],$fila['autor'],$fila['idAutor'],$fila['precio'],$fila['portada'],$fila['ventas']);
             }
             $rs->free();
         }
@@ -38,7 +35,7 @@ class Vinilo{
         $rs = $conn->query($query);
         if($rs && $rs->num_rows == 1){
             while($fila = $rs->fetch_assoc()){
-                $result = new Vinilo($fila['id'],$fila['titulo'],$fila['autor'],$fila['idAutor'],$fila['precio'],$fila['canciones'],$fila['portada'],$fila['ventas']);
+                $result = new Vinilo($fila['id'],$fila['titulo'],$fila['autor'],$fila['idAutor'],$fila['precio'],$fila['portada'],$fila['ventas']);
             }
             $rs->free();
         }
@@ -57,26 +54,25 @@ class Vinilo{
          
         if($rs){
             while($fila = $rs->fetch_assoc()){
-                $result[] = new Vinilo($fila['id'], $fila['titulo'], $fila['autor'],$fila['idAutor'], $fila['precio'], $fila['canciones'], $fila['portada'],$fila['ventas']);
+                $result[] = new Vinilo($fila['id'], $fila['titulo'], $fila['autor'],$fila['idAutor'], $fila['precio'], $fila['portada'],$fila['ventas']);
             }
             $rs->free();
         }
         return $result;
     }
 
-    public static function buscaPorAutor($autor = ''){
+    public static function buscaPorAutor($autor){
         $result = [];
 
         $conn = BD::getInstance()->getConexionBd();
 
-        $query = sprintf("SELECT * FROM Vinilos V WHERE V.autor LIKE '%autor_buscado%';",
-            $conn->real_escape_string($autor));
+        $query = sprintf("SELECT * FROM Vinilos V WHERE V.idAutor = %d;", $autor);
 
         $rs = $conn->query($query);
          
         if($rs){
             while($fila = $rs->fetch_assoc()){
-                $result[] = new Vinilo($fila['id'], $fila['titulo'], $fila['autor'], $fila['idAutor'], $fila['precio'], $fila['canciones'], $fila['portada'],$fila['ventas']);
+                $result[] = new Vinilo($fila['id'], $fila['titulo'], $fila['autor'], $fila['idAutor'], $fila['precio'], $fila['portada'],$fila['ventas']);
             }
             $rs->free();
         }
@@ -88,12 +84,11 @@ class Vinilo{
 
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "INSERT INTO vinilos (id, titulo, autor, idAutor, precio, canciones, portada, ventas) VALUES (%d, %s, %s, %d, %d, %s, %s, %d)",
+            "INSERT INTO vinilos (id, titulo, autor, idAutor, precio, portada, ventas) VALUES (%d, %s, %s, %d, %d, %s, %d)",
             $conn->real_escape_string($vinilo->titulo),
             $conn->real_escape_string($vinilo->autor),
             $vinilo->idAutor,
             $vinilo->precio,
-            $conn->real_escape_string($vinilo->canciones),
             $conn->real_escape_string($vinilo->portada),
             $vinilo->ventas
         );
@@ -114,14 +109,13 @@ class Vinilo{
         $conn = BD::getInstance()->getConexionBd();
 
         $query = sprintf(
-            "UPDATE vinilos V SET titulo = %s, autor = %s, idAutor = %d, precio = %d, canciones = %s, portada = %s, ventas = %d WHERE V.id = %d",
+            "UPDATE vinilos V SET titulo = %s, autor = %s, idAutor = %d, precio = %d, portada = %s, ventas = %d WHERE V.id = %d",
             $vinilo->id,
             $conn->real_escape_string($vinilo->autor),
             $vinilo->idAutor,
             $conn->real_escape_string($vinilo->titulo),
             $vinilo->idAutor,
             $vinilo->precio,
-            $conn->real_escape_string($vinilo->canciones),
             $conn->real_escape_string($vinilo->portada),
             $vinilo->ventas
         );
@@ -163,17 +157,15 @@ class Vinilo{
     private $autor;
     private $idAutor;
     private $precio;
-    private $canciones;
     private $portada;
     private $ventas;
 
-    private function __construct($id,$titulo,$autor,$idAutor,$precio,$canciones,$portada,$ventas){
+    private function __construct($id,$titulo,$autor,$idAutor,$precio,$portada,$ventas){
         $this->id = $id !== null ? intval($id) : null;
         $this->titulo = $titulo;
         $this->autor = $autor;
         $this->idAutor = intval($idAutor);
         $this->precio = intval($precio);
-        $this->canciones = $canciones;
         $this->portada = $portada;
         $this->ventas = $ventas;
     }
@@ -212,10 +204,6 @@ class Vinilo{
 
     public function setPrecio($nuevo){
         return $this->precio = $nuevo;
-    }
-
-    public function getCanciones(){
-        return $this->canciones;
     }
 
     public function getPortada(){

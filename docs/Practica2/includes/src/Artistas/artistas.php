@@ -3,11 +3,9 @@
 class Artista{
     use MagicProperties;
 
-    private $n = 1;
 
     public static function añade($nombre,$vinilo,$seguidores,$eventos,$foto){
-        $a = new Artista($n, $nombre, $vinilo, $seguidores, $eventos,$foto);
-        $n = $n + 1;
+        $a = new Artista($nombre, $vinilo, $seguidores, $eventos,$foto);
         return $a;
     }
 
@@ -135,11 +133,11 @@ class Artista{
     private $eventos;
     private $foto;
 
-    private function __contruct($id,$nombre,$vinilo,$seguidores,$eventos,$foto){
+    private function __construct($id,$nombre,$vinilo,$seguidores,$eventos,$foto){
         $this->id = $id !== null ? intval($id) : null;
         $this->nombre = $nombre;
-        $this->vinilo = $vinilo;
-        $this->seguidores = $seguidores;
+        $this->vinilo = intval($vinilo);
+        $this->seguidores = intval($seguidores);
         $this->eventos = $eventos;
         $this->foto = $foto;
     }

@@ -1,3 +1,4 @@
+
 /*
   Recuerda que deshabilitar la opción "Enable foreign key checks" para evitar problemas a la hora de importar el script.
 */
@@ -23,7 +24,6 @@ CREATE TABLE IF NOT EXISTS `Vinilos` (
     `autor` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
     `idAutor` INT (11) NOT NULL,
     `precio` INT(15) NOT NULL,
-    `canciones` varchar(50) NOT NULL,
     `portada` varchar(50) NOT NULL,
     `ventas` INT(11) NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`)
@@ -100,3 +100,4 @@ CREATE TABLE IF NOT EXISTS `Eventos`(
     `portada` varchar(50),
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+

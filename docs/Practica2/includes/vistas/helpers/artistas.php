@@ -2,8 +2,8 @@
 
 function visualizaArtista($artista){
     return <<<EOS
-    <a href="artista.php?id={$artista->id}"><img src="{$artista->foto}" width="200"></a>
-    <p>{$artista->nombre}{$artista->seguidores}</p>
+    <a href="artista.php?idAutor={$artista->id}"><img src="{$artista->foto}" width="200"></a>
+    <p>{$artista->nombre}: {$artista->seguidores}</p>
     EOS;
 }
 

@@ -1,3 +1,4 @@
+
 TRUNCATE TABLE `Usuarios`;
 TRUNCATE TABLE `Vinilos`;
 TRUNCATE TABLE `Artistas`;
@@ -13,10 +14,11 @@ INSERT INTO `Usuarios` (`username`, `password`, `nombre`,`correo`,`rol`,`ventas`
 ('user3', 'user3pass', 'Jose', 'jose@gmail.com', 'usuario', NULL),
 ('user4', 'user4pass', 'Lucia', 'lucia@gmail.com', 'usuario', NULL);
 
-INSERT INTO `vinilos` (`id`, `titulo`, `autor`, `idAutor`, `precio`, `canciones`, `portada`, `ventas`) VALUES 
-(1, 'The Dark Side Of The Moon', 'Pink Floyd', 1, 50, 'audio/prueba-audio.mp3', 'img/portadas/id1.jpg', 0),
-(2, 'Motomami', 'Rosalia', 2, 35, 'audio/prueba-audio.mp3', 'img/portadas/id2.jpg', 0),
-(3, 'Nevermind', 'Nirvana', 3, 40, 'audio/prueba-audio.mp3', 'img/portadas/id3.jpg', 0);
+INSERT INTO `vinilos` (`id`, `titulo`, `autor`, `idAutor`, `precio`, `portada`, `ventas`) VALUES 
+(1, 'The Dark Side Of The Moon', 'Pink Floyd', 1, 50, 'img/portadas/id1.jpg', 0),
+(2, 'Motomami', 'Rosalia', 2, 35, 'img/portadas/id2.jpg', 0),
+(3, 'Nevermind', 'Nirvana', 3, 40, 'img/portadas/id3.jpg', 0),
+(4, 'El Mal Querer', 'Rosalia', 2, 40, 'img/portadas/id4.jpg', 0);
 
 INSERT INTO `Artistas` (`id`, `nombre`, `vinilo`, `seguidores`, `eventos`, `foto`) VALUES
 (1, 'Pink Floyd', 1, 0, NULL, 'img/artistas/pinkfloyd.png'),
@@ -68,7 +70,18 @@ INSERT INTO `Canciones` (`idVinilo`, `titulo`, `audio`) VALUES
 (3, 'Stay Away', 'audio/prueba-audio.mp3'),
 (3, 'On a Plain', 'audio/prueba-audio.mp3'),
 (3, 'Something in the Way', 'audio/prueba-audio.mp3'),
-(3, 'Endless, Nameless', 'audio/prueba-audio.mp3');
+(3, 'Endless, Nameless', 'audio/prueba-audio.mp3'),
+(4, 'MALAMENTE (Cap.1: Augurio)', 'audio/prueba-audio.mp3'),
+(4, 'QUE NO SALGA LA LUNA (Cap.2: Boda)', 'audio/prueba-audio.mp3'),
+(4, 'PIENSO EN TU MIRÁ (Cap.3: Celos)', 'audio/prueba-audio.mp3'),
+(4, 'DE AQUÍ NO SALES (Cap.4: Disputa)', 'audio/prueba-audio.mp3'),
+(4, 'RENIEGO (Cap.5: Lamento)', 'audio/prueba-audio.mp3'),
+(4, 'PRESO (Cap.6: Clausura)', 'audio/prueba-audio.mp3'),
+(4, 'BAGDAD (Cap.7: Liturgia)', 'audio/prueba-audio.mp3'),
+(4, 'DI MI NOMBRE (Cap.8: Éxtasis)', 'audio/prueba-audio.mp3'),
+(4, 'NANA (Cap.9: Concepción)', 'audio/prueba-audio.mp3'),
+(4, 'MALDICIÓN (Cap.10: Cordura)', 'audio/prueba-audio.mp3'),
+(4, 'A NINGÚN HOMBRE (Cap.11: Poder)', 'audio/prueba-audio.mp3');
 
 INSERT INTO `Discografia` (`idArtista`, `idVinilo`) VALUES 
 (1, 1),
