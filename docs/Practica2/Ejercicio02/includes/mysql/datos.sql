@@ -3,6 +3,9 @@ TRUNCATE TABLE `Vinilos`;
 TRUNCATE TABLE `Artistas`;
 TRUNCATE TABLE `Comentarios`;
 TRUNCATE TABLE `Compras`;
+TRUNCATE TABLE `Canciones`;
+TRUNCATE TABLE `Discografia`;
+TRUNCATE TABLE `Seguidos`;
 
 INSERT INTO `Usuarios` (`username`, `password`, `nombre`,`correo`,`rol`,`ventas`) VALUES
 ('user1', 'user1pass', 'Juan', 'juan@gmail.com', 'usuario', NULL),
@@ -25,4 +28,50 @@ INSERT INTO `Comentarios` (`id`,`vinilo_id`,`autor`,`comentario`,`fecha`,`padre`
 (2, 2, 'user3', 'Estoy de acuerdo', ADDTIME(@INICIO, '0:10:0'),1);
 
 INSERT INTO `Compras`(`User`,`IdVinilo`, `compra`) VALUES ('user1',2, false);
+
+INSERT INTO `Canciones` (`idVinilo`, `titulo`, `audio`) VALUES 
+(1, 'Speak to Me', 'audio/prueba-audio.mp3'),
+(1, 'Breathe', 'audio/prueba-audio.mp3'),
+(1, 'On the Run', 'audio/prueba-audio.mp3'),
+(1, 'Time', 'audio/prueba-audio.mp3'),
+(1, 'The Great Gig in the Sky', 'audio/prueba-audio.mp3'),
+(1, 'Money', 'audio/prueba-audio.mp3'),
+(1, 'Us and Them', 'audio/prueba-audio.mp3'),
+(1, 'Any Colour You Like', 'audio/prueba-audio.mp3'),
+(1, 'Brain Damage', 'audio/prueba-audio.mp3'),
+(1, 'Eclipse', 'audio/prueba-audio.mp3'),
+(2, 'SAOKO', 'audio/prueba-audio.mp3'),
+(2, 'CANDY', 'audio/prueba-audio.mp3'),
+(2, 'LA FAMA', 'audio/prueba-audio.mp3'),
+(2, 'BULERÍAS', 'audio/prueba-audio.mp3'),
+(2, 'CHICKEN TERIYAKI', 'audio/prueba-audio.mp3'),
+(2, 'HENTAI', 'audio/prueba-audio.mp3'),
+(2, 'BIZCOCHITO', 'audio/prueba-audio.mp3'),
+(2, 'G3 N15', 'audio/prueba-audio.mp3'),
+(2, 'MOTOMAMI', 'audio/prueba-audio.mp3'),
+(2, 'DIABLO', 'audio/prueba-audio.mp3'),
+(2, 'DELIRIO DE GRANDEZA', 'audio/prueba-audio.mp3'),
+(2, 'CUUUUuuuuuute', 'audio/prueba-audio.mp3'),
+(2, 'COMO UN G', 'audio/prueba-audio.mp3'),
+(2, 'Abcdefg', 'audio/prueba-audio.mp3'),
+(2, 'LA COMBI VERSACE', 'audio/prueba-audio.mp3'),
+(2, 'SAKURA', 'audio/prueba-audio.mp3'),
+(3, 'Smells Like Teen Spirit', 'audio/prueba-audio.mp3'),
+(3, 'In Bloom', 'audio/prueba-audio.mp3'),
+(3, 'Come as You Are', 'audio/prueba-audio.mp3'),
+(3, 'Breed', 'audio/prueba-audio.mp3'),
+(3, 'Lithium', 'audio/prueba-audio.mp3'),
+(3, 'Polly', 'audio/prueba-audio.mp3'),
+(3, 'Territorial Pissings', 'audio/prueba-audio.mp3'),
+(3, 'Drain You', 'audio/prueba-audio.mp3'),
+(3, 'Lounge Act', 'audio/prueba-audio.mp3'),
+(3, 'Stay Away', 'audio/prueba-audio.mp3'),
+(3, 'On a Plain', 'audio/prueba-audio.mp3'),
+(3, 'Something in the Way', 'audio/prueba-audio.mp3'),
+(3, 'Endless, Nameless', 'audio/prueba-audio.mp3');
+
+INSERT INTO `Discografia` (`idArtista`, `idVinilo`) VALUES 
+(1, 1),
+(2, 2),
+(3, 3);
 
