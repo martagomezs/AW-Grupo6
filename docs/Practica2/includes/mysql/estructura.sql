@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS `Artista`;
 DROP TABLE IF EXISTS `Vinilos`;
 DROP TABLE IF EXISTS `Comentarios`;
 DROP TABLE IF EXISTS `Compras`;
+DROP TABLE IF EXISTS `Eventos`;
 
 CREATE TABLE IF NOT EXISTS `Usuarios` (
     `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL, 
@@ -72,15 +73,6 @@ CREATE TABLE IF NOT EXISTS `Canciones`(
     FOREIGN KEY (`idVinilo`) REFERENCES `Vinilos`(`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE IF NOT EXISTS `Discografia`(
-    `id` INT (11) NOT NULL AUTO_INCREMENT,
-    `idArtista` INT (11) NOT NULL,
-    `idVinilo` INT (11) NOT NULL,
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`idArtista`) REFERENCES `Artistas`(`id`),
-    FOREIGN KEY (`idVinilo`) REFERENCES `Vinilos`(`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 CREATE TABLE IF NOT EXISTS `Seguidos`(
     `id` INT (11) NOT NULL AUTO_INCREMENT,
     `idArtista` INT (11) NOT NULL,
@@ -93,11 +85,10 @@ CREATE TABLE IF NOT EXISTS `Seguidos`(
 CREATE TABLE IF NOT EXISTS `Eventos`(
     `id` INT (11) NOT NULL AUTO_INCREMENT,
     `fecha` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `titulo` varchar(50) COLLATE utf8mb4_general_ci,
-    `autor` varchar(50) COLLATE utf8mb4_general_ci,
-    `precio` INT(15),
-    `canciones` varchar(50),
-    `portada` varchar(50),
-    PRIMARY KEY (`id`)
+    `idArtista` INT (11) NOT NULL,
+    `idVinilo` INT (11) NOT NULL,
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`idArtista`) REFERENCES `Artistas`(`id`),
+    FOREIGN KEY (`idVinilo`) REFERENCES `Vinilos`(`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
