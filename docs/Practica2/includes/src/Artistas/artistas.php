@@ -63,7 +63,7 @@ class Artista{
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
             "INSERT INTO artistas (id, nombre, vinilo, seguidores, eventos, foto) VALUES (%d, %s, %d, %d, %s, %s)",
-            $conn->real_escpe_string($artista->nombre),
+            $conn->real_escape_string($artista->nombre),
             $artista->vinilo,
             $artista->seguidores,
             $conn->real_escape_string($artista->eventos),
@@ -72,7 +72,7 @@ class Artista{
         $result = $conn->query($query);
         if($result){
             $artista->id = $conn->insert_id;
-            $result = $vinilo;
+            $result = $artista;
         }
         else{
             error_log($conn->error);
@@ -88,7 +88,7 @@ class Artista{
 
         $query = sprintf(
             "UPDATE artistas A set nombre = %s, vinilo = %d, seguidores = %d, eventos = %s, foto = %s WHERE A.id = %d",
-            $conn->real_escpe_string($artista->nombre),
+            $conn->real_escape_string($artista->nombre),
             $artista->vinilo,
             $artista->seguidores,
             $conn->real_escape_string($artista->eventos),
