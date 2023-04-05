@@ -3,10 +3,12 @@
   Recuerda que deshabilitar la opción "Enable foreign key checks" para evitar problemas a la hora de importar el script.
 */
 DROP TABLE IF EXISTS `Usuarios`;
-DROP TABLE IF EXISTS `Artista`;
 DROP TABLE IF EXISTS `Vinilos`;
+DROP TABLE IF EXISTS `Artistas`;
 DROP TABLE IF EXISTS `Comentarios`;
 DROP TABLE IF EXISTS `Compras`;
+DROP TABLE IF EXISTS `Canciones`;
+DROP TABLE IF EXISTS `Seguidos`;
 DROP TABLE IF EXISTS `Eventos`;
 
 CREATE TABLE IF NOT EXISTS `Usuarios` (
@@ -38,8 +40,8 @@ CREATE TABLE IF NOT EXISTS `Artistas` (
     `eventos` DATETIME,
     `foto` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
     PRIMARY KEY (`id`),
-    FOREIGN KEY (`vinilo`) REFERENCES `Vinilos`(`id`),
-    FOREIGN KEY (`nombre`) REFERENCES `Vinilos`(`idAutor`)
+    FOREIGN KEY (`vinilo`) REFERENCES `Vinilos`(`id`)
+   /* FOREIGN KEY (`nombre`) REFERENCES `Vinilos`(`autor`) */
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `Comentarios` (

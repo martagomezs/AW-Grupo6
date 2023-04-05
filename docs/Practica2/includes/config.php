@@ -12,6 +12,7 @@ define('INSTALADA', true);
 
 // Parámetros de configuración de la BD
 define('BD_HOST', 'localhost');
+// zsdefine('BD_HOST', 'vm05.db.swarm.test');
 define('BD_NAME', 'beatstore');
 define('BD_USER', 'usuario');
 define('BD_PASS', 'userpass');

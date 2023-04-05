@@ -5,7 +5,6 @@ TRUNCATE TABLE `Artistas`;
 TRUNCATE TABLE `Comentarios`;
 TRUNCATE TABLE `Compras`;
 TRUNCATE TABLE `Canciones`;
-TRUNCATE TABLE `Discografia`;
 TRUNCATE TABLE `Seguidos`;
 
 INSERT INTO `Usuarios` (`username`, `password`, `nombre`,`correo`,`rol`,`ventas`) VALUES
@@ -14,7 +13,7 @@ INSERT INTO `Usuarios` (`username`, `password`, `nombre`,`correo`,`rol`,`ventas`
 ('user3', 'user3pass', 'Jose', 'jose@gmail.com', 'usuario', NULL),
 ('user4', 'user4pass', 'Lucia', 'lucia@gmail.com', 'usuario', NULL);
 
-INSERT INTO `vinilos` (`id`, `titulo`, `autor`, `idAutor`, `precio`, `portada`, `ventas`) VALUES 
+INSERT INTO `Vinilos` (`id`, `titulo`, `autor`, `idAutor`, `precio`, `portada`, `ventas`) VALUES 
 (1, 'The Dark Side Of The Moon', 'Pink Floyd', 1, 50, 'img/portadas/id1.jpg', 0),
 (2, 'Motomami', 'Rosalia', 2, 35, 'img/portadas/id2.jpg', 0),
 (3, 'Nevermind', 'Nirvana', 3, 40, 'img/portadas/id3.jpg', 0),
@@ -83,8 +82,8 @@ INSERT INTO `Canciones` (`idVinilo`, `titulo`, `audio`) VALUES
 (4, 'MALDICIÓN (Cap.10: Cordura)', 'audio/prueba-audio.mp3'),
 (4, 'A NINGÚN HOMBRE (Cap.11: Poder)', 'audio/prueba-audio.mp3');
 
-INSERT INTO `Discografia` (`idArtista`, `idVinilo`) VALUES 
+/* INSERT INTO `Discografia` (`idArtista`, `idVinilo`) VALUES 
 (1, 1),
 (2, 2),
 (3, 3);
-
+ */
