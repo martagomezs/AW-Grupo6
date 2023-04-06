@@ -58,12 +58,13 @@ CREATE TABLE IF NOT EXISTS `Comentarios` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `Compras`(
-   `user` varchar(50) NOT NULL,
-   `idVinilo` INT(11) NOT NULL,
-   `compra` BOOLEAN NOT NULL DEFAULT false,
-   PRIMARY KEY (`User`, `IdVinilo`),
-   FOREIGN KEY (`User`) REFERENCES `Usuarios`(`username`),
-   FOREIGN KEY (`IdVinilo`) REFERENCES `Vinilos`(`id`)
+    `id` INT(11) NOT NULL,
+    `user` varchar(50) NOT NULL,
+    `idVinilo` INT(11) NOT NULL,
+    `compra` BOOLEAN NOT NULL DEFAULT false,
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`User`) REFERENCES `Usuarios`(`username`),
+    FOREIGN KEY (`IdVinilo`) REFERENCES `Vinilos`(`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `Canciones`(
