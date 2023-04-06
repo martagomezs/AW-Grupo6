@@ -187,7 +187,7 @@ class Vinilo{
     }
 
     public function setAutor($nuevo){
-        return $this->autor;
+        return $this->autor = $nuevo;
     }
 
     public function getIdAutor(){

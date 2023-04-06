@@ -58,8 +58,8 @@ CREATE TABLE IF NOT EXISTS `Comentarios` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `Compras`(
-   `User` varchar(50) NOT NULL,
-   `IdVinilo` INT(11) NOT NULL,
+   `user` varchar(50) NOT NULL,
+   `idVinilo` INT(11) NOT NULL,
    `compra` BOOLEAN NOT NULL DEFAULT false,
    PRIMARY KEY (`User`, `IdVinilo`),
    FOREIGN KEY (`User`) REFERENCES `Usuarios`(`username`),
