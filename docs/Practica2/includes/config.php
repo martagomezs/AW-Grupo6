@@ -4,7 +4,7 @@
 /* */
 
 // Parámetros de configuración generales
-define('RUTA_APP', '/AW-Grupo6/docs/Practica2/Ejercicio02');
+define('RUTA_APP', '/AW-Grupo6/docs/Practica2');
 define('RUTA_IMGS', RUTA_APP . '/img');
 define('RUTA_CSS', RUTA_APP . '/css');
 define('RUTA_JS', RUTA_APP . '/js');
