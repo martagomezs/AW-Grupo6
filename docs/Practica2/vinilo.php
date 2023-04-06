@@ -1,9 +1,19 @@
 <?php
 require_once 'includes/config.php';
 require_once 'includes/vistas/helpers/vinilos.php';
+require_once 'includes/vistas/helpers/autorizacion.php';
 
 
 $id = $_GET['id'];
+if(isset($_POST['idVinilo'])){
+    if(!estaLogado()){
+        Utils::paginaError(403, $tituloPagina, 'Usuario no conectado!', 'Debes iniciar sesión para poder añadir el articulo a la cesta');
+    }
+    else{
+    $compra = Compra::añade($_SESSION['username'], $_POST['idVinilo'], 0);
+    $compra->guarda();
+    }
+}
 
 $vinilo = Vinilo::buscaPorId($id);
 
@@ -30,8 +40,8 @@ EOS;
     }
         
     $contenidoPrincipal .= <<< EOS
-    <form action="cesta.php" method="post">
-        <input type="hidden" name="id" value="{$vinilo->id}">
+    <form method="post">
+        <input type="hidden" name="idVinilo" value="{$vinilo->id}">
         <input type="submit" value="Añadir a Cesta">
     </form>
 EOS;

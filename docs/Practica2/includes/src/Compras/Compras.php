@@ -4,8 +4,26 @@ class Compra{
     use MagicProperties;
 
     public static function añade($user, $idVinilo, $compra){
-        $c = new Compra($user, $idVinilo, $compra);
+        $c = new Compra(self::numFilas() + 1, $user, $idVinilo, $compra);
         return $c;
+    }
+
+    private static function numFilas(){
+        $result = 0;
+
+        $conn = BD::getInstance()->getConexionBd();
+
+        $query = sprintf("SELECT COUNT(*) as total FROM compras;");
+
+        $rs = $conn->query($query);
+
+        if($rs){
+            while($fila = $rs->fetch_assoc()){
+                $result = $fila['total'];
+            }
+            $rs->free();
+        }
+        return $result;
     }
 
     public static function buscaCesta($user){
@@ -13,14 +31,14 @@ class Compra{
         
         $conn = BD::getInstance()->getConexionBd();
         
-        $query = sprintf("SELECT * FROM compras WHERE user=%s", $user);
+        $query = sprintf("SELECT * FROM compras WHERE user='%s' AND compra = 0;", $user);
         
         $rs = $conn->query($query);
         
         if($rs){
             
             while($fila = $rs->fetch_assoc()){
-                $result[] = new Compra($fila['user'],$fila['idVinilo'],$fila['compra']);
+                $result[] = new Compra($fila['id'],$fila['user'],$fila['idVinilo'],$fila['compra']);
             }
             $rs->free();
         }
@@ -32,10 +50,10 @@ class Compra{
 
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "INSERT INTO compras (user, idVinilo, compra) VALUES (%s, %d, %d)",
-            $_SESSION['username'],
-            $vinilo->id,
-            1
+            "INSERT INTO compras (user, idVinilo, compra) VALUES ('%s', %d, %d);",
+            $conn->real_escape_string($compra->user),
+            $compra->idVinilo,
+            $compra->compra
         );
         $result = $conn->query($query);
         if($result){
@@ -53,15 +71,12 @@ class Compra{
 
         $conn = BD::getInstance()->getConexionBd();
 
-        // $query = sprintf(
-        //     "UPDATE compra C SET user = %s, idVinilo = %d, compra = %d WHERE C.id = %d",
-        //     $compra->user,
-        //     $compra->idVinilo,
-        //     $vinilo->idAutor,
-        //     $vinilo->precio,
-        //     $conn->real_escape_string($vinilo->portada),
-        //     $vinilo->ventas
-        // );
+        $query = sprintf(
+             "UPDATE compra SET user = '%s', idVinilo = %d, compra = %d WHERE id = %d;",
+             $conn->real_escape_string($compra->user),
+             $compra->idVinilo,
+             $compra->compra
+        );
         $result = $conn->query($query);
         if(!$result){
             error_log($conn->error);
@@ -136,7 +151,7 @@ class Compra{
     }
 
     public function guarda(){
-        if(!$this->id){
+        if($this->id){
             self::inserta($this);
         }
         else{
