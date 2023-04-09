@@ -79,8 +79,9 @@ class Usuario
             , $usuario->ventas 
         );
         if ( $conn->query($query) ) {
-            $usuario->username = $conn->username;
+            $usuario->username = $conn->insert_id;
             //$result = self::insertaRoles($usuario);
+            $result = $usuario;
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
@@ -91,7 +92,7 @@ class Usuario
     {
         $result = false;
         $conn = BD::getInstance()->getConexionBd();
-        $query=sprintf("UPDATE Usuarios U SET nombre='%s', password='%s', correo='%s', rol='%s', ventas='%d' WHERE U.username=%s"
+        $query=sprintf("UPDATE Usuarios U SET nombre='%s', password='%s', correo='%s', rol='%s', ventas=%d WHERE U.username='%s'"
             , $conn->real_escape_string($usuario->username)
             , $conn->real_escape_string($usuario->password)
             , $conn->real_escape_string($usuario->nombre)
@@ -99,7 +100,13 @@ class Usuario
             , $conn->real_escape_string($usuario->rol)
             , $usuario->ventas
         );
-        
+        $result = $conn->query($query); 
+        if(!$result){
+            error_log($conn->error);
+        }
+        else if($conn->affected_rows != 1){
+            error_log("Se han actualizado '$conn->affected_rows' ");
+        }
         return $result;
     }
     
@@ -188,15 +195,18 @@ class Usuario
     
     public function guarda()
     {
-        if ($this->username !== null) {
-            return self::actualiza($this);
-        }
-        return self::inserta($this);
+        //if (!$this->username) {
+            self::inserta($this);
+        //} 
+        //else{
+        //    self::actualiza($this);
+        //}
+        return $this;
     }
     
     public function borrate()
     {
-        if ($this->id !== null) {
+        if ($this->username != null) {
             return self::borra($this);
         }
         return false;

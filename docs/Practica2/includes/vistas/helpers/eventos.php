@@ -33,11 +33,12 @@ function calendario($eventos){
         $calendario .= '<td>' . $dia;
         $fecha = new DateTime($year . "-" . $mes . "-" . $dia);
         foreach($eventos as $ev){
-            if($ev->fecha == $fecha){
-                if($ev[0]->tipo == "disco"){
+            $date = new DateTime($ev->fecha);
+            if($date == $fecha){
+                if($ev->tipo == "disco"){
                     $calendario .= '<img src="img/utils/disco.png" width="30">';
                 }
-                elseif($ev[0]->tipo == "concierto"){
+                elseif($ev->tipo == "concierto"){
                     $calendario .= '<img src="img/utils/micro.png" width="30">';
                 }
             }   

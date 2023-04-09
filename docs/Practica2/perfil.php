@@ -24,7 +24,19 @@ foreach($artistas as $artista){
 $contenidoPrincipal = '<p>Artistas seguidos</p>';
 $contenidoPrincipal .= listaArtistas($a);
 
+$mes = 1;
+$year = 2023;
 $contenidoPrincipal .= '<p>Eventos</p>';
 $contenidoPrincipal .= calendario($eventos);
+$contenidoPrincipal .= 
+		'<form method="post">
+    		<label for="mes">Mes:</label>
+    		<input type="number" id="mes" name="mes" min="1" max="12" value= ' . $mes . '>
+    		<label for="año">Año:</label>
+    		<input type="number" id="año" name="año" min="2023" value=' . $year . '>
+    		<button type="submit">Aceptar</button>
+		</form>';
+
+require 'includes/vistas/comun/layout.php';
 
 ?>
