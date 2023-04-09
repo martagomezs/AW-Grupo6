@@ -8,7 +8,6 @@ require_once 'includes/vistas/helpers/autorizacion.php';
 $id = $_GET['idAutor'];
 $user = null;
 $artista = Artista::buscaPorId($id);
-$eventos = Evento::buscaPorArtista($artista->id);
 $seguidores = Artista::buscaSeguidores($artista->id);
 
 $tituloPagina = "{$artista->nombre}";
@@ -56,7 +55,8 @@ elseif(Artista::siguiendo($artista->id,$user)){
 	$mes = 1;
 	$year = 2023;
 	$contenidoPrincipal .= '<p>Eventos</p>';
-	$contenidoPrincipal .= calendario();
+	$eventos = Evento::buscaPorArtista($artista->id);
+	$contenidoPrincipal .= calendario($eventos);
 	$contenidoPrincipal .= 
 		'<form method="post">
     		<label for="mes">Mes:</label>

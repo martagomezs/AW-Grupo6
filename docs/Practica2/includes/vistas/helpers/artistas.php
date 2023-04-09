@@ -7,8 +7,7 @@ function visualizaArtista($artista){
     EOS;
 }
 
-function listaArtistas(){
-    $artistas = Artista::buscaArtistas();
+function listaArtistas($artistas){
 
     if(!is_array($artistas) || count($artistas) == 0){
         return '';

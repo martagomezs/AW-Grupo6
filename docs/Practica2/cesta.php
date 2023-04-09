@@ -5,9 +5,9 @@ require_once 'includes/vistas/helpers/compras.php';
 
 $tituloPagina = 'Cesta';
 
-// if (! estaLogado()) {
-// 	Utils::paginaError(403, $tituloPagina, 'Usuario no conectado!', 'Debes iniciar sesión para ver el contenido.');
-// }
+/*if (! estaLogado()) {
+ 	Utils::paginaError(403, $tituloPagina, 'Usuario no conectado!', 'Debes iniciar sesión para ver el contenido.');
+}*/
 
 $contenidoPrincipal=<<<EOS
 	<h1>Cesta</h1>

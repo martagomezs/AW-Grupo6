@@ -3,21 +3,38 @@
 class Evento{
     use MagicProperties;
 
-    public static function añade($fecha,$idArtista,$idVinilo){
-        $a = new Evento($fecha,$idArtista,$idVinilo);
+    public static function añade($fecha,$idArtista,$tipo,$descripcion){
+        $a = new Evento(self::numFilas() + 1,$fecha,$idArtista,$tipo,$descripcion);
         return $a;   
+    }
+
+    private static function numFilas(){
+        $result = 0;
+
+        $conn = BD::getInstance()->getConexionBd();
+
+        $query = sprintf("SELECT COUNT(*) as total FROM eventos;");
+
+        $rs = $conn->query($query);
+
+        if($rs){
+            while($fila = $rs->fetch_assoc()){
+                $result = $fila['total'];
+            }
+            $rs->free();
+        }
+        return $result;
     }
 
     public static function buscaPorArtista($idArtista){
         $result = [];
 
         $conn = BD::getInstance()->getConexionBd();
-
         $query = sprintf("SELECT * FROM eventos WHERE idArtista = %d;", $idArtista);
         $rs = $conn->query($query);
         if($rs){
             while($fila = $rs->fetch_assoc()){
-                $result[] = new Evento($fila['id'],$fila['idArtista'],$fila['idVinilo']);
+                $result[] = new Evento($fila['id'],$fila['fecha'],$fila['idArtista'],$fila['tipo'],$fila['descripcion']);
             }
             $rs->free();
         }
@@ -29,11 +46,11 @@ class Evento{
 
         $conn = BD::getInstance()->getConexionBd();
         $date = date_format($fecha, "Y-m-d");
-        $query = sprintf("SELECT * FROM eventos WHERE fecha = %s;", $date);
+        $query = sprintf("SELECT * FROM eventos WHERE fecha = '%s';", $date);
         $rs = $conn->query($query);
         if($rs){
             while($fila = $rs->fetch_assoc()){
-                $result[] = new Evento($fila['id'],$fila['idArtista'],$fila['idVinilo']);
+                $result[] = new Evento($fila['id'],$fila['fecha'],$fila['idArtista'],$fila['tipo'],$fila['descripcion']);
             }
             $rs->free();
         }
@@ -43,13 +60,15 @@ class Evento{
     private $id;
     private $fecha;
     private $idArtista;
-    private $idVinilo;
+    private $tipo;
+    private $descripcion;
 
-    private function __construct($id,$fecha,$idArtista,$idVinilo){
+    private function __construct($id,$fecha,$idArtista,$tipo,$descripcion){
         $this->id = $id !== null ? intval($id) : null;
         $this->fecha = $fecha;
         $this->idArtista = intval($idArtista);
-        $this->idVinilo = intval($idVinilo);
+        $this->tipo = $tipo;
+        $this->descripcion = $descripcion;
     }
 
     public function getId(){
@@ -60,12 +79,32 @@ class Evento{
         return $this->fecha;
     }
 
+    public function setFecha($nuevo){
+        $this->fecha = $nuevo;
+    }
+
     public function getArtista(){
         return $this->idArtista;
     }
 
-    public function getVinilo(){
-        return $this->idVinilo;
+    public function setArtista($nuevo){
+        $this->idArtista = $nuevo;
+    }
+
+    public function getTipo(){
+        return $this->tipo;
+    }
+
+    public function setTipo($nuevo){
+        $this->tipo = $nuevo;
+    }
+
+    public function getDesc(){
+        return $this->descripcion;
+    }
+
+    public function setDesc($nuevo){
+        $this->descripcion = $nuevo;
     }
 }
 

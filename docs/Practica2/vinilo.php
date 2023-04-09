@@ -5,6 +5,12 @@ require_once 'includes/vistas/helpers/autorizacion.php';
 
 
 $id = $_GET['id'];
+
+$vinilo = Vinilo::buscaPorId($id);
+
+$tituloPagina = "{$vinilo->titulo}";
+
+
 if(isset($_POST['idVinilo'])){
     if(!estaLogado()){
         Utils::paginaError(403, $tituloPagina, 'Usuario no conectado!', 'Debes iniciar sesión para poder añadir el articulo a la cesta');
@@ -14,10 +20,6 @@ if(isset($_POST['idVinilo'])){
     $compra->guarda();
     }
 }
-
-$vinilo = Vinilo::buscaPorId($id);
-
-$tituloPagina = "{$vinilo->titulo}";
 
 $contenidoPrincipal = <<< EOS
     <h1>{$vinilo->titulo}</h1>

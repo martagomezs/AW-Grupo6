@@ -12,6 +12,8 @@ require_once __DIR__.'/../helpers/usuarios.php';
 
 	<input type="button" onclick="window.location.href = 'ofertas.php';" name="Ofertas" value="Ofertas">
 
+	<input type="button" onclick="window.location.href = 'perfil.php';" name="Perfil" value="Perfil">
+
 	<a href="cesta.php"><img src="img/utils/cesta.png" width="50"></a>
 
 	<a href="login.php"><img src="img/utils/user.png" width="50"></a>

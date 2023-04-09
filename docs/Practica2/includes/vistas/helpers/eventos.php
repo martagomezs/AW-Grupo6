@@ -1,6 +1,6 @@
 <?php
 
-function calendario(){
+function calendario($eventos){
     if(isset($_POST['mes'])){
         $mes = $_POST['mes'];
     }
@@ -32,14 +32,25 @@ function calendario(){
         }
         $calendario .= '<td>' . $dia;
         $fecha = new DateTime($year . "-" . $mes . "-" . $dia);
-        $ev = Evento::buscaPorFecha($fecha);
-        if($ev != null){
-            
+        foreach($eventos as $ev){
+            if($ev->fecha == $fecha){
+                if($ev[0]->tipo == "disco"){
+                    $calendario .= '<img src="img/utils/disco.png" width="30">';
+                }
+                elseif($ev[0]->tipo == "concierto"){
+                    $calendario .= '<img src="img/utils/micro.png" width="30">';
+                }
+            }   
         }
+        
         $calendario .= '</td>';
     }
     $calendario .= '</tr> </table>';
     return $calendario;
+}
+
+function visualizarEvento($evento){
+
 }
 
 ?>

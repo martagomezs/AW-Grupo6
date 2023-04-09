@@ -71,6 +71,22 @@ class Artista{
         return $result;
     }
 
+    public static function buscaSeguidos($idUser){
+        $result = [];
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM Seguidos WHERE idUser = '%s';", 
+            $conn->real_escape_string($idUser)
+        );
+        $rs = $conn->query($query);
+        if($rs){
+            while($fila = $rs->fetch_assoc()){
+                $result[] = $fila['idArtista'];
+            }
+            $rs->free();
+        }
+        return $result;
+    }
+
     public static function siguiendo($idArtista,$idUser){
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM Seguidos WHERE idArtista = %d AND idUser = '%s'",

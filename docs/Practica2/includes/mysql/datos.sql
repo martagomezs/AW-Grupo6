@@ -6,6 +6,8 @@ TRUNCATE TABLE `Comentarios`;
 TRUNCATE TABLE `Compras`;
 TRUNCATE TABLE `Canciones`;
 TRUNCATE TABLE `Seguidos`;
+TRUNCATE TABLE `Discografia`;
+TRUNCATE TABLE `Eventos`;
 
 INSERT INTO `Usuarios` (`username`, `password`, `nombre`,`correo`,`rol`,`ventas`) VALUES
 ('user1', 'user1pass', 'Juan', 'juan@gmail.com', 'usuario', NULL),
@@ -82,8 +84,11 @@ INSERT INTO `Canciones` (`idVinilo`, `titulo`, `audio`) VALUES
 (4, 'MALDICIÓN (Cap.10: Cordura)', 'audio/prueba-audio.mp3'),
 (4, 'A NINGÚN HOMBRE (Cap.11: Poder)', 'audio/prueba-audio.mp3');
 
-/* INSERT INTO `Discografia` (`idArtista`, `idVinilo`) VALUES 
+INSERT INTO `Discografia` (`idArtista`, `idVinilo`) VALUES 
 (1, 1),
 (2, 2),
 (3, 3);
- */
+
+INSERT INTO `Eventos` (`fecha`, `idArtista`, `tipo`, `descripcion`) VALUES
+('2023-04-29', 2, 'disco', NULL),
+('2023-04-14', 1, 'concierto', 'Concierto en Madrid a las 22:00');

@@ -89,9 +89,9 @@ CREATE TABLE IF NOT EXISTS `Eventos`(
     `id` INT (11) NOT NULL AUTO_INCREMENT,
     `fecha` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `idArtista` INT (11) NOT NULL,
-    `idVinilo` INT (11) NOT NULL,
+    `tipo` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+    `descripcion` varchar(150) COLLATE utf8mb4_general_ci,
     PRIMARY KEY (`id`),
-    FOREIGN KEY (`idArtista`) REFERENCES `Artistas`(`id`),
-    FOREIGN KEY (`idVinilo`) REFERENCES `Vinilos`(`id`)
+    FOREIGN KEY (`idArtista`) REFERENCES `Artistas`(`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
