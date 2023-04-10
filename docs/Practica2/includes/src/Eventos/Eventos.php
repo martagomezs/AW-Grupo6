@@ -83,11 +83,11 @@ class Evento{
         $this->fecha = $nuevo;
     }
 
-    public function getArtista(){
+    public function getidArtista(){
         return $this->idArtista;
     }
 
-    public function setArtista($nuevo){
+    public function setidArtista($nuevo){
         $this->idArtista = $nuevo;
     }
 

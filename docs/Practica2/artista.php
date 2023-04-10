@@ -7,6 +7,10 @@ require_once 'includes/vistas/helpers/autorizacion.php';
 
 $id = $_GET['idAutor'];
 $user = null;
+if(estaLogado()){
+	$user = $_SESSION['username'];
+}
+
 $artista = Artista::buscaPorId($id);
 $seguidores = Artista::buscaSeguidores($artista->id);
 
@@ -42,7 +46,7 @@ if(!estaLogado() || !Artista::siguiendo($artista->id,$user)){
 		<input type="submit" name="seguir" value="Seguir">
 		</form>';
 }
-elseif(Artista::siguiendo($artista->id,$user)){
+else if(Artista::siguiendo($artista->id,$user)){
 	$contenidoPrincipal .= '<form method="post">
 		<input type="submit" name="dejar" value="Dejar de seguir">
 		</form>';

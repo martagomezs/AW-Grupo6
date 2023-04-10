@@ -13,7 +13,7 @@ function calendario($eventos){
     else{
         $year = 2023;
     }
-
+    $e = [];
     $calendario = '';
     $dias = cal_days_in_month(CAL_GREGORIAN, $mes, $year);
     $primero = date('N', strtotime("$year-$mes-01"));
@@ -36,11 +36,33 @@ function calendario($eventos){
             $date = new DateTime($ev->fecha);
             if($date == $fecha){
                 if($ev->tipo == "disco"){
-                    $calendario .= '<img src="img/utils/disco.png" width="30">';
+                    $calendario .= '<img src="img/utils/disco.png" width="30" id="img">';
                 }
                 elseif($ev->tipo == "concierto"){
-                    $calendario .= '<img src="img/utils/micro.png" width="30">';
+                    $calendario .= '<img src="img/utils/micro.png" width="30" id="img">';
                 }
+                $e[] = $ev;
+                $cont = visualizarEventos($e);
+                $calendario .= <<<EOS
+                    <dialog id="myDialog">
+                        {$cont}
+                        <button id="closeButton">Cerrar</button>
+                    </dialog>
+
+                    <script>
+                        var imagen = document.getElementById('img');
+                        var dialog = document.getElementById('myDialog');
+                        var closeButton = document.getElementById('closeButton');
+                        
+                        imagen.addEventListener('click', function() {
+                            dialog.showModal();
+                        });
+                        
+                        closeButton.addEventListener('click', function() {
+                            dialog.close();
+                        });
+                    </script>
+                EOS;
             }   
         }
         
@@ -50,8 +72,22 @@ function calendario($eventos){
     return $calendario;
 }
 
-function visualizarEvento($evento){
+function visualizarEventos($eventos){
+    $dialog = '<ul>';
+    foreach($eventos as $ev){
+        $artista = Artista::buscaPorId($ev->idArtista);
+        $dialog .= '<dl>';
+        $dialog .= '<a href="artista.php?idAutor=' . $artista->id . '"><img src="' . $artista->foto . '" width="200"></a>';
+        $dialog .= "<p>{$artista->nombre} - {$ev->fecha}</p>";
+        $dialog .= "<p>{$ev->tipo}</p>";
+        if($ev->desc != null){
+            $dialog .= "<p>{$ev->desc}</p>";
+        }
+        $dialog .= '</dl>';
+    }
+    $dialog .= '</ul>';
 
+    return $dialog;
 }
 
 ?>
