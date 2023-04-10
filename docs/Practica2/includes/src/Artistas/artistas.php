@@ -57,94 +57,12 @@ class Artista{
         return $result;
     }
 
-    public static function buscaSeguidores($idArtista){
-        $result = 0;
-        $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("SELECT COUNT(*) as num FROM Seguidos WHERE idArtista = %d;", $idArtista);
-        $rs = $conn->query($query);
-        if($rs){
-            while($fila = $rs->fetch_assoc()){
-                $result = $fila['num'];
-            }
-            $rs->free();
-        }
-        return $result;
-    }
-
-    public static function buscaSeguidos($idUser){
-        $result = [];
-        $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Seguidos WHERE idUser = '%s';", 
-            $conn->real_escape_string($idUser)
-        );
-        $rs = $conn->query($query);
-        if($rs){
-            while($fila = $rs->fetch_assoc()){
-                $result[] = $fila['idArtista'];
-            }
-            $rs->free();
-        }
-        return $result;
-    }
-
-    public static function siguiendo($idArtista,$idUser){
-        $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Seguidos WHERE idArtista = %d AND idUser = '%s'",
-            $idArtista, 
-            $conn->real_escape_string($idUser)
-        );
-        $rs = $conn->query($query);
-        if($rs && $rs->num_rows > 0){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-
-    public static function seguir($idArtista,$idUser){
-        $conn = BD::getInstance()->getConexionBd();
-        if(self::siguiendo($idArtista,$idUser)){
-            return false;
-        }
-        $query = sprintf("INSERT INTO Seguidos (idArtista, idUser) VALUES (%d, '%s')",
-             $idArtista, 
-             $conn->real_escape_string($idUser)
-        );
-        $rs = $conn->query($query);
-        if($rs){
-            $query = sprintf("UPDATE Artistas SET seguidores = seguidores + 1 WHERE id = %d", $idArtista);
-            $rs = $conn->query($query);
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-
-    public static function dejarDeSeguir($idArtista,$idUser){
-        $conn  = BD::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM Seguidos WHERE idArtista = %d AND idUser = '%s';",
-            $idArtista,
-            $conn->real_escape_string($idUser)
-        );
-        $rs = $conn->query($query);
-        if($rs){
-            $query = sprintf("UPDATE Artistas SET seguidores = seguidores - 1 WHERE id = %d", $idArtista);
-            $rs = $conn->query($query);
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-
     private static function inserta($artista){
         $result = false;
 
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "INSERT INTO artistas (id, nombre, vinilo, seguidores, eventos, foto) VALUES (%d, %s, %d, %d, %s, %s)",
+            "INSERT INTO artistas (id, nombre, vinilo, seguidores, eventos, foto) VALUES (%d, '%s', %d, %d, '%s', '%s')",
             $conn->real_escape_string($artista->nombre),
             $artista->vinilo,
             $artista->seguidores,
@@ -169,12 +87,13 @@ class Artista{
         $conn = BD::getInstance()->getConexionBd();
 
         $query = sprintf(
-            "UPDATE artistas A set nombre = %s, vinilo = %d, seguidores = %d, eventos = %s, foto = %s WHERE A.id = %d",
+            "UPDATE artistas A set nombre = '%s', vinilo = %d, seguidores = %d, eventos = '%s', foto = '%s' WHERE A.id = %d",
             $conn->real_escape_string($artista->nombre),
             $artista->vinilo,
             $artista->seguidores,
             $conn->real_escape_string($artista->eventos),
-            $conn->real_escape_string($artista->foto)
+            $conn->real_escape_string($artista->foto),
+            $artista->id
         );
         $result = $conn->query($query);
         if(!$result){
@@ -184,6 +103,18 @@ class Artista{
             error_log("Se han actualizado '$conn->affected_rows' ");
         }
         return $result;
+    }
+
+    public static function sumaSeguidores($idArtista){
+        $artista = self::buscaPorId($idArtista);
+        $artista->seguidores = $artista->seguidores + 1;
+        return self::actualiza($artista);
+    }
+
+    public static function restaSeguidores($idArtista){
+        $artista = self::buscaPorId($idArtista);
+        $artista->seguidores = $artista->seguidores - 1;
+        return self::actualiza($artista);
     }
 
     private static function borra($artista){

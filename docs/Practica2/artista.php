@@ -12,17 +12,17 @@ if(estaLogado()){
 }
 
 $artista = Artista::buscaPorId($id);
-$seguidores = Artista::buscaSeguidores($artista->id);
+$seguidores = Seguir::buscaSeguidores($artista->id);
 
 $tituloPagina = "{$artista->nombre}";
 
 if(isset($_POST['seguir'])){
 	if(estaLogado()){
 		$user = $_SESSION['username'];
-		if(!Artista::seguir($artista->id,$user)){
+		if(!Seguir::seguir($artista->id,$user)){
 			Utils::paginaError(403, $tituloPagina, 'No se ha podido seguir', 'xxx');
 		}
-		$seguidores = Artista::buscaSeguidores($artista->id);
+		$seguidores = Seguir::buscaSeguidores($artista->id);
 	}
 	else{
 		Utils::paginaError(403, $tituloPagina, 'Usuario no conectado!', 'Debes iniciar sesión para poder seguir al artista');
@@ -30,10 +30,10 @@ if(isset($_POST['seguir'])){
 }
 if(isset($_POST['dejar'])){
 	$user = $_SESSION['username'];
-	if(!Artista::dejarDeSeguir($artista->id,$user)){
+	if(!Seguir::dejarDeSeguir($artista->id,$user)){
 		Utils::paginaError(403, $tituloPagina, 'Fallo al dejar de seguir', 'xxx');
 	}
-	$seguidores = Artista::buscaSeguidores($artista->id);
+	$seguidores = Seguir::buscaSeguidores($artista->id);
 }
 
 $contenidoPrincipal=<<<EOS
@@ -41,12 +41,12 @@ $contenidoPrincipal=<<<EOS
 	<img src="{$artista->foto}" width="400">
 	<p>Seguidores: {$seguidores}</p>
 EOS;
-if(!estaLogado() || !Artista::siguiendo($artista->id,$user)){
+if(!estaLogado() || !Seguir::siguiendo($artista->id,$user)){
 	$contenidoPrincipal .= '<form method="post">
 		<input type="submit" name="seguir" value="Seguir">
 		</form>';
 }
-else if(Artista::siguiendo($artista->id,$user)){
+else if(Seguir::siguiendo($artista->id,$user)){
 	$contenidoPrincipal .= '<form method="post">
 		<input type="submit" name="dejar" value="Dejar de seguir">
 		</form>';

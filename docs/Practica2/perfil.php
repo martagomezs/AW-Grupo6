@@ -12,7 +12,7 @@ if (! estaLogado()) {
 
 $user = $_SESSION['username'];
 
-$artistas = Artista::buscaSeguidos($user);
+$artistas = Seguir::buscaSeguidos($user);
 $a = [];
 $eventos = [];
 foreach($artistas as $artista){

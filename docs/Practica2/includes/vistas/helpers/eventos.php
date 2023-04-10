@@ -14,6 +14,7 @@ function calendario($eventos){
         $year = 2023;
     }
     $e = [];
+    $i = 0;
     $calendario = '';
     $dias = cal_days_in_month(CAL_GREGORIAN, $mes, $year);
     $primero = date('N', strtotime("$year-$mes-01"));
@@ -33,42 +34,52 @@ function calendario($eventos){
         $calendario .= '<td>' . $dia;
         $fecha = new DateTime($year . "-" . $mes . "-" . $dia);
         foreach($eventos as $ev){
+            $e = [];
             $date = new DateTime($ev->fecha);
             if($date == $fecha){
                 if($ev->tipo == "disco"){
-                    $calendario .= '<img src="img/utils/disco.png" width="30" id="img">';
+                    $calendario .= '<img src="img/utils/disco.png" width="30" class="event-img" id="img' . $i . '">';
                 }
                 elseif($ev->tipo == "concierto"){
-                    $calendario .= '<img src="img/utils/micro.png" width="30" id="img">';
+                    $calendario .= '<img src="img/utils/micro.png" width="30" class="event-img" id="img' . $i . '">';
                 }
                 $e[] = $ev;
                 $cont = visualizarEventos($e);
                 $calendario .= <<<EOS
-                    <dialog id="myDialog">
+                    <dialog id="myDialog{$i}">
                         {$cont}
-                        <button id="closeButton">Cerrar</button>
+                        <button class="closeButton">Cerrar</button>
                     </dialog>
-
-                    <script>
-                        var imagen = document.getElementById('img');
-                        var dialog = document.getElementById('myDialog');
-                        var closeButton = document.getElementById('closeButton');
-                        
-                        imagen.addEventListener('click', function() {
-                            dialog.showModal();
-                        });
-                        
-                        closeButton.addEventListener('click', function() {
-                            dialog.close();
-                        });
-                    </script>
-                EOS;
+                    EOS;
+                $i++;
             }   
         }
-        
-        $calendario .= '</td>';
+        $calendario .= '</td>';   
     }
+    
     $calendario .= '</tr> </table>';
+
+    $calendario .=<<<EOS
+        <script>
+            var imagenes = document.querySelectorAll('.event-img');
+            var closeButtons = document.querySelectorAll('.closeButton');
+            
+            imagenes.forEach(function(imagen, index) {
+                var dialog = document.getElementById('myDialog' + index);
+                
+                imagen.addEventListener('click', function() {
+                    dialog.showModal();
+                });
+            });
+            
+            closeButtons.forEach(function(closeButton) {
+                closeButton.addEventListener('click', function() {
+                    this.parentNode.close();
+                });
+            });
+        </script>
+    EOS;
+    
     return $calendario;
 }
 
