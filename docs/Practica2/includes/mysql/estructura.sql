@@ -10,7 +10,6 @@ DROP TABLE IF EXISTS `Compras`;
 DROP TABLE IF EXISTS `Canciones`;
 DROP TABLE IF EXISTS `Seguidos`;
 DROP TABLE IF EXISTS `Eventos`;
-DROP TABLE IF EXISTS `Discografia`;
 
 CREATE TABLE IF NOT EXISTS `Usuarios` (
     `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL, 
@@ -18,7 +17,6 @@ CREATE TABLE IF NOT EXISTS `Usuarios` (
     `nombre` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
     `correo` varchar(30) COLLATE utf8mb4_general_ci NOT NULL,
     `rol` varchar(15) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Usuario',
-    `ventas` INT (20),
     PRIMARY KEY (`username`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -27,10 +25,11 @@ CREATE TABLE IF NOT EXISTS `Vinilos` (
     `titulo` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
     `autor` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
     `idAutor` INT (11) NOT NULL,
-    `precio` INT(15) NOT NULL,
+    `precio` DECIMAL(10,2) NOT NULL,
     `portada` varchar(50) NOT NULL,
-    `ventas` INT(11) NOT NULL DEFAULT 0,
-    PRIMARY KEY (`id`)
+    `stock` INT(11) NOT NULL
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`idAutor`) REFERENCES `Artistas`(`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `Artistas` (
@@ -61,11 +60,13 @@ CREATE TABLE IF NOT EXISTS `Comentarios` (
 CREATE TABLE IF NOT EXISTS `Compras`(
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `user` varchar(50) NOT NULL,
-    `idVinilo` INT(11) NOT NULL,
-    `compra` BOOLEAN NOT NULL DEFAULT false,
+    `idsVinilos` VARCHAR(255),
+    `precio` DECIMAL(10,2),
+    `enCesta` BOOLEAN NOT NULL DEFAULT false,
+    `comprado` BOOLEAN NOT NULL DEFAULT false,
+    `fechaCompra` DATE NOT NULL,
     PRIMARY KEY (`id`),
     FOREIGN KEY (`User`) REFERENCES `Usuarios`(`username`),
-    FOREIGN KEY (`IdVinilo`) REFERENCES `Vinilos`(`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `Canciones`(
@@ -95,12 +96,3 @@ CREATE TABLE IF NOT EXISTS `Eventos`(
     PRIMARY KEY (`id`),
     FOREIGN KEY (`idArtista`) REFERENCES `Artistas`(`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-CREATE TABLE IF NOT EXISTS `Discografia`(
-    `idArtista` INT (11) NOT NULL, 
-    `idVinilo` INT (11) NOT NULL,
-    FOREIGN KEY (`idArtista`) REFERENCES `Artistas`(`id`),
-    FOREIGN KEY (`idVinilo`) REFERENCES `Vinilos`(`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-
