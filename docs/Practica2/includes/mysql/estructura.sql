@@ -101,5 +101,6 @@ CREATE TABLE IF NOT EXISTS `Discografia`(
     `idVinilo` INT (11) NOT NULL,
     FOREIGN KEY (`idArtista`) REFERENCES `Artistas`(`id`),
     FOREIGN KEY (`idVinilo`) REFERENCES `Vinilos`(`id`)
-)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
