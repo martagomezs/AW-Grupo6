@@ -27,7 +27,8 @@ CREATE TABLE IF NOT EXISTS `Vinilos` (
     `idAutor` INT (11) NOT NULL,
     `precio` DECIMAL(10,2) NOT NULL,
     `portada` varchar(50) NOT NULL,
-    `stock` INT(11) NOT NULL
+    `ventas` INT(11) NOT NULL,
+    `stock` INT(11) NOT NULL,
     PRIMARY KEY (`id`),
     FOREIGN KEY (`idAutor`) REFERENCES `Artistas`(`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -66,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `Compras`(
     `comprado` BOOLEAN NOT NULL DEFAULT false,
     `fechaCompra` DATE NOT NULL,
     PRIMARY KEY (`id`),
-    FOREIGN KEY (`User`) REFERENCES `Usuarios`(`username`),
+    FOREIGN KEY (`User`) REFERENCES `Usuarios`(`username`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `Canciones`(

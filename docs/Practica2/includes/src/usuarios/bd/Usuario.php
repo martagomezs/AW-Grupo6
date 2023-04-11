@@ -34,7 +34,7 @@ class Usuario
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Usuario($fila['username'], $fila['password'], $fila['nombre'], $fila['correo'], $fila['rol'], $fila['ventas']);
+                $result = new Usuario($fila['username'], $fila['password'], $fila['nombre'], $fila['correo'], $fila['rol']);
             }
             $rs->free();
         } else {
@@ -52,7 +52,7 @@ class Usuario
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Usuario($fila['username'], $fila['password'], $fila['nombre'], $fila['correo'], $fila['rol'], $fila['ventas']);
+                $result = new Usuario($fila['username'], $fila['password'], $fila['nombre'], $fila['correo'], $fila['rol']);
             }
             $rs->free();
         } else {
@@ -70,13 +70,12 @@ class Usuario
     {
         $result = false;
         $conn = BD::getInstance()->getConexionBd();
-        $query=sprintf("INSERT INTO Usuarios(username, password, nombre, correo, rol, ventas) VALUES ('%s', '%s', '%s', '%s', %s, %d)"
+        $query=sprintf("INSERT INTO Usuarios(username, password, nombre, correo, rol) VALUES ('%s', '%s', '%s', '%s', %s)"
             , $conn->real_escape_string($usuario->username)
             , $conn->real_escape_string($usuario->password)
             , $conn->real_escape_string($usuario->nombre)
             , $conn->real_escape_string($usuario->correo)
             , $conn->real_escape_string($usuario->rol)
-            , $usuario->ventas 
         );
         if ( $conn->query($query) ) {
             $usuario->username = $conn->insert_id;
@@ -92,13 +91,12 @@ class Usuario
     {
         $result = false;
         $conn = BD::getInstance()->getConexionBd();
-        $query=sprintf("UPDATE Usuarios U SET nombre='%s', password='%s', correo='%s', rol='%s', ventas=%d WHERE U.username='%s'"
+        $query=sprintf("UPDATE Usuarios U SET nombre='%s', password='%s', correo='%s', rol='%s' WHERE U.username='%s'"
             , $conn->real_escape_string($usuario->username)
             , $conn->real_escape_string($usuario->password)
             , $conn->real_escape_string($usuario->nombre)
             , $conn->real_escape_string($usuario->correo)
             , $conn->real_escape_string($usuario->rol)
-            , $usuario->ventas
         );
         $result = $conn->query($query); 
         if(!$result){
@@ -145,16 +143,13 @@ class Usuario
 
     private $rol;
 
-    private $ventas;
-
-    private function __construct($username, $password, $nombre, $correo, $rol, $ventas)
+    private function __construct($username, $password, $nombre, $correo, $rol)
     {
         $this->username = $username;
         $this->password = $password;
         $this->nombre = $nombre;
         $this->correo = $correo;
         $this->rol = $rol;
-        $this->ventas = $ventas;
     }
 
     public function getNombreUsuario()
@@ -175,11 +170,6 @@ class Usuario
     public function getRol()
     {
         return $this->rol;
-    }
-
-    public function getVentas()
-    {
-        return $this->ventas;
     }
 
     public function compruebaPassword($password)

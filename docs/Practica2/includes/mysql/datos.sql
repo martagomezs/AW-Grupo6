@@ -6,20 +6,19 @@ TRUNCATE TABLE `Comentarios`;
 TRUNCATE TABLE `Compras`;
 TRUNCATE TABLE `Canciones`;
 TRUNCATE TABLE `Seguidos`;
-TRUNCATE TABLE `Discografia`;
 TRUNCATE TABLE `Eventos`;
 
-INSERT INTO `Usuarios` (`username`, `password`, `nombre`,`correo`,`rol`,`ventas`) VALUES
-('user1', 'user1pass', 'Juan', 'juan@gmail.com', 'usuario', NULL),
-('user2', 'user2pass', 'Maria', 'maria@gmail.com', 'usuario', NULL),
-('user3', 'user3pass', 'Jose', 'jose@gmail.com', 'usuario', NULL),
-('user4', 'user4pass', 'Lucia', 'lucia@gmail.com', 'usuario', NULL);
+INSERT INTO `Usuarios` (`username`, `password`, `nombre`,`correo`,`rol`) VALUES
+('user1', 'user1pass', 'Juan', 'juan@gmail.com', 'usuario'),
+('user2', 'user2pass', 'Maria', 'maria@gmail.com', 'usuario'),
+('user3', 'user3pass', 'Jose', 'jose@gmail.com', 'usuario'),
+('user4', 'user4pass', 'Lucia', 'lucia@gmail.com', 'usuario');
 
-INSERT INTO `Vinilos` (`id`, `titulo`, `autor`, `idAutor`, `precio`, `portada`, `ventas`) VALUES 
-(1, 'The Dark Side Of The Moon', 'Pink Floyd', 1, 50, 'img/portadas/id1.jpg', 30),
-(2, 'Motomami', 'Rosalia', 2, 35, 'img/portadas/id2.jpg', 30),
-(3, 'Nevermind', 'Nirvana', 3, 40, 'img/portadas/id3.jpg', 30),
-(4, 'El Mal Querer', 'Rosalia', 2, 40, 'img/portadas/id4.jpg', 30);
+INSERT INTO `Vinilos` (`id`, `titulo`, `autor`, `idAutor`, `precio`, `portada`, `ventas`, `stock`) VALUES 
+(1, 'The Dark Side Of The Moon', 'Pink Floyd', 1, 50, 'img/portadas/id1.jpg', 0, 30),
+(2, 'Motomami', 'Rosalia', 2, 35, 'img/portadas/id2.jpg', 0, 30),
+(3, 'Nevermind', 'Nirvana', 3, 40, 'img/portadas/id3.jpg', 0, 30),
+(4, 'El Mal Querer', 'Rosalia', 2, 40, 'img/portadas/id4.jpg', 0, 30);
 
 INSERT INTO `Artistas` (`id`, `nombre`, `vinilo`, `seguidores`, `eventos`, `foto`) VALUES
 (1, 'Pink Floyd', 1, 0, NULL, 'img/artistas/pinkfloyd.png'),
@@ -30,7 +29,7 @@ INSERT INTO `Comentarios` (`id`,`vinilo_id`,`autor`,`comentario`,`fecha`,`padre`
 (1, 2, 'user1', 'Muy buen disco', @INICIO, NULL),
 (2, 2, 'user3', 'Estoy de acuerdo', ADDTIME(@INICIO, '0:10:0'),1);
 
-INSERT INTO `Compras`(`User`,`IdVinilo`, `compra`) VALUES 
+INSERT INTO `Compras`(`id`, `user`, `idsVinilos`, `precio`, `enCesta`, `comprado`, `fechaCompra`) VALUES 
 (1, 'user1', '2,3', 60, true, false, '2023-02-10');
 
 INSERT INTO `Canciones` (`idVinilo`, `titulo`, `audio`) VALUES 
@@ -83,7 +82,7 @@ INSERT INTO `Canciones` (`idVinilo`, `titulo`, `audio`) VALUES
 (4, 'DI MI NOMBRE (Cap.8: Éxtasis)', 'audio/prueba-audio.mp3'),
 (4, 'NANA (Cap.9: Concepción)', 'audio/prueba-audio.mp3'),
 (4, 'MALDICIÓN (Cap.10: Cordura)', 'audio/prueba-audio.mp3'),
-(4, 'A NINGÚN HOMBRE (Cap.11: Poder)', 'audio/prueba-audio.mp3');EE
+(4, 'A NINGÚN HOMBRE (Cap.11: Poder)', 'audio/prueba-audio.mp3');
 
 INSERT INTO `Eventos` (`fecha`, `idArtista`, `tipo`, `descripcion`) VALUES
 ('2023-04-29', 2, 'disco', NULL),
