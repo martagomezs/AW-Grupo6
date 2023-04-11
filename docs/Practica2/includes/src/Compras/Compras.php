@@ -3,83 +3,114 @@
 class Compra{
     use MagicProperties;
 
-    public static function añade($user, $idVinilo, $compra){
-        $c = new Compra(self::numFilas() + 1, $user, $idVinilo, $compra);
+    public static function añade($user, $idsVinilos, $precio, $enCesta, $comprado, $fechaCompra){
+        $c = new Compra($user, $idsVinilos, $precio, $enCesta, $comprado, $fechaCompra);
         return $c;
-    }
-
-    private static function numFilas(){
-        $result = 0;
-
-        $conn = BD::getInstance()->getConexionBd();
-
-        $query = sprintf("SELECT COUNT(*) as total FROM compras;");
-
-        $rs = $conn->query($query);
-
-        if($rs){
-            while($fila = $rs->fetch_assoc()){
-                $result = $fila['total'];
-            }
-            $rs->free();
-        }
-        return $result;
     }
 
     public static function buscaCesta($user){
         $result = [];
-        
+
         $conn = BD::getInstance()->getConexionBd();
-        
-        $query = sprintf("SELECT * FROM compras WHERE user='%s' AND compra = 0;", $user);
-        
+
+        $query = sprintf("SELECT * FROM compras C WHERE C.enCesta = TRUE AND C.user = %s;", $conn->real_escape_string($user));
+
         $rs = $conn->query($query);
-        
+
         if($rs){
-            
             while($fila = $rs->fetch_assoc()){
-                $result[] = new Compra($fila['id'],$fila['user'],$fila['idVinilo'],$fila['compra']);
+                $result[] = new Compra($fila['user'],$fila['idsVinilos'],$fila['precio'],$fila['enCesta'],$fila['comprado'],$fila['fechaCompra']);
             }
             $rs->free();
         }
         return $result;
     }
 
-    private static function inserta($compra){
-        $result = false;
+    public static function buscaCompra($user){
+        $result = [];
 
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf(
-            "INSERT INTO compras (user, idVinilo, compra) VALUES ('%s', %d, %d);",
-            $conn->real_escape_string($compra->user),
-            $compra->idVinilo,
-            $compra->compra
-        );
-        $result = $conn->query($query);
-        if($result){
-            $compra->id = $conn->insert_id;
-            $result = $compra;
-        }
-        else{
-            error_log($conn->error);
+
+        $query = sprintf("SELECT * FROM compras C WHERE C.comprado = TRUE AND C.user = %s;", $conn->real_escape_string($user));
+
+        $rs = $conn->query($query);
+
+        if($rs){
+            while($fila = $rs->fetch_assoc()){
+                $result[] = new Compra($fila['user'],$fila['idsVinilos'],$fila['precio'],$fila['enCesta'],$fila['comprado'],$fila['fechaCompra']);
+            }
+            $rs->free();
         }
         return $result;
     }
 
-    private static function actualiza($compra){
+    public static function buscaPorUser($username){
+        $result = [];
+
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM compras C WHERE C.User = %s", 
+                $conn->real_escape_string($username));
+        $rs = $conn->query($query);
+        if($rs && $rs->num_rows == 1){
+            while($fila = $rs->fetch_assoc()){
+                $result[] = new Compra($fila['user'],$fila['idsVinilos'],$fila['precio'],$fila['enCesta'],$fila['comprado'],$fila['fechaCompra']);
+            }
+            $rs->fila();
+        }
+        return $result;
+    }
+
+    public static function buscaPorVinilo($vinilo){
+        $result = [];
+
+        $conn = sprintf("SELECT * FROM compras C WHERE FIND_IN_SET(%d, C.idsVinilos) > 0", $vinilo);
+        $rs = $conn->query($query);
+
+        if($rs){
+            while($fila = $rs->fetch_assoc()){
+                $result[] = new Compra($fila['user'],$fila['idsVinilos'],$fila['precio'],$fila['enCesta'],$fila['comprado'],$fila['fechaCompra']);
+            }
+            $rs->free();
+        }
+        return $result;
+    }
+
+    private static function inserta($comp){
         $result = false;
 
         $conn = BD::getInstance()->getConexionBd();
-
         $query = sprintf(
-             "UPDATE compra SET user = '%s', idVinilo = %d, compra = %d WHERE id = %d;",
-             $conn->real_escape_string($compra->user),
-             $compra->idVinilo,
-             $compra->compra
+            "INSERT INTO compras (user, idsVinilos, precio, enCesta, comprado, fechaCompra) VALUES (%s, %s, %f, %d, %d, %s)",
+            $conn->real_escape_string($comp->user),
+            $comp->real_escape_string($comp->idsVinilos),
+            $comp->precio,
+            $comp->enCesta,
+            $comp->comprado,
+            $comp->fechaCompra
         );
         $result = $conn->query($query);
         if(!$result){
-            error_log($conn->error);
+           error_log($conn->error);
+        }
+        return $result;
+    }
+
+    private static function actualiza($comp){
+        $result = false;
+
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf(
+            "UPDATE compras C SET idsVinilos = %s, precio = %f, enCesta=%d, comprado=%d, fechaCompra=%s  WHERE C.user = %s",
+            $conn->real_escape_string($comp->user),
+            $comp->real_escape_string($comp->idsVinilos),
+            $comp->precio,
+            $comp->enCesta,
+            $comp->comprado,
+            $comp->fechaCompra
+        );
+        $result = $conn->query($query);
+        if(!$result){
+           error_log($conn->error); 
         }
         else if($conn->affected_rows != 1){
             error_log("Se han actualizado '$conn->affected_rows' ");
@@ -87,71 +118,86 @@ class Compra{
         return $result;
     }
 
-    private static function borra($compra){
-        return self::borraPorId($compra->id);
+    private static function borra($comp){
+        return self::borraPorUser($comp->user);
     }
 
-    public static function borraPorId($idCompra){
-        if(!$idCompra){
+    public static function borraPorUser($user){
+        if(!$user){
             return false;
         }
         $result = false;
 
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM vinilos WHERE id = %d", $idCompra);
+        $query = sprintf("DELETE FROM compras WHERE user = %s",$user);
         $result = $conn->query($query);
         if(!$result){
-            error_log($conn->error);
+           error_log($conn->error); 
         }
         else if($conn->affected_rows != 1){
-            error_log("Se han borrado '$conn->affected_rows' ");
+            error_log("Se ha borrado '$conn->affected_rows' ");
         }
         return $result;
-
-        
     }
-    private $id;
+
     private $user;
-    private $idVinilo;
-    private $compra;
+    private $idsVinilos;
+    private $precio;
+    private $enCesta;
+    private $comprado;
+    private $fechaCompra;
 
-    private function __construct($id,$user,$idVinilo,$compra){
-        $this->id = $id !== null ? intval($id) : null;
+    private function __construct($user,$idsVinilos,$precio,$enCesta,$comprado,$fechaCompra){
         $this->user = $user;
-        $this->idVinilo = intval($idVinilo);
-        $this->compra = $compra;
-    }
-
-    public function getId(){
-        return $this->id;
+        $this->idsVinilos = $idsVinilos;
+        $this->precio = $precio;
+        $this->enCesta = $enCesta;
+        $this->comprado = $comprado;
+        $this->fechaCompra = $fechaCompra;
     }
 
     public function getUser(){
         return $this->user;
     }
 
-    public function setUser($nuevo){
-        $this->user = $nuevo;
+    public function getVinilos(){
+        return $this->idsVinilos;
     }
 
-    public function getIdVinilo(){
-        return $this->idVinilo;
+    public function getPrecio(){
+        return $this->precio;
     }
 
-    public function setIdVinilo($nuevo){
-        return $this->idVinilo = $nuevo;
+    public function setPrecio($nuevo){
+        $this->precio = $nuevo;
+    }
+    
+    public function getEnCesta(){
+        return $this->enCesta;
     }
 
-    public function getCompra(){
-        return $this->compra;
+    public function setEnCesta($nuevo){
+        $this->enCesta = $nuevo;
+    }
+    
+    public function getComprado(){
+        return $this->comprado;
     }
 
-    public function setCompra($nuevo){
-        $this->compra = $nuevo;
+    public function setComprado($nuevo){
+        $this->comprado = $nuevo;
+    }
+
+    public function getFechaCompra(){
+        return $this->fechaCompra;
+    }
+
+    public function setFechaCompra($nuevo){
+        $this->fechaCompra = $nuevo;
     }
 
     public function guarda(){
-        if($this->id){
+        if(!$this->id){
             self::inserta($this);
         }
         else{
@@ -162,10 +208,11 @@ class Compra{
 
     public function borrate(){
         if($this->id != null){
-            return self::borra($this);
+            return self:: borra($this);
         }
-        return false;
+        return $this;
     }
+
 }
 
 ?>

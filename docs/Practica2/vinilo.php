@@ -16,7 +16,8 @@ if(isset($_POST['idVinilo'])){
         Utils::paginaError(403, $tituloPagina, 'Usuario no conectado!', 'Debes iniciar sesión para poder añadir el articulo a la cesta');
     }
     else{
-    $compra = Compra::añade($_SESSION['username'], $_POST['idVinilo'], 0);
+    $fecha_actual = date('Y-m-d');
+    $compra = Compra::añade($_SESSION['username'], $_POST['idVinilo'], $vinilo->precio, true, false, $fecha_actual);
     $compra->guarda();
     }
 }
