@@ -222,7 +222,6 @@ class Compra{
 
     public function guarda(){
         self::inserta($this);
-        
         return $this;
     }
 
