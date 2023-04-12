@@ -61,13 +61,14 @@ CREATE TABLE IF NOT EXISTS `Comentarios` (
 CREATE TABLE IF NOT EXISTS `Compras`(
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `user` varchar(50) NOT NULL,
-    `idsVinilos` VARCHAR(255),
+    `idVinilo` INT (11) NOT NULL,
     `precio` DECIMAL(10,2),
     `enCesta` BOOLEAN NOT NULL DEFAULT false,
     `comprado` BOOLEAN NOT NULL DEFAULT false,
     `fechaCompra` DATE NOT NULL,
     PRIMARY KEY (`id`),
-    FOREIGN KEY (`User`) REFERENCES `Usuarios`(`username`)
+    FOREIGN KEY (`User`) REFERENCES `Usuarios`(`username`),
+    FOREIGN KEY (`idVinilo`) REFERENCES `Vinilos`(`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `Canciones`(

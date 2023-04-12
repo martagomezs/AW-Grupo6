@@ -29,8 +29,9 @@ INSERT INTO `Comentarios` (`id`,`vinilo_id`,`autor`,`comentario`,`fecha`,`padre`
 (1, 2, 'user1', 'Muy buen disco', @INICIO, NULL),
 (2, 2, 'user3', 'Estoy de acuerdo', ADDTIME(@INICIO, '0:10:0'),1);
 
-INSERT INTO `Compras`(`id`, `user`, `idsVinilos`, `precio`, `enCesta`, `comprado`, `fechaCompra`) VALUES 
-(1, 'user1', '2,3', 60, true, false, '2023-02-10');
+INSERT INTO `Compras`(`id`, `user`, `idVinilo`, `precio`, `enCesta`, `comprado`, `fechaCompra`) VALUES 
+(1, 'user1', 2, 30, true, false, '2023-02-10'),
+(2, 'user1', 3, 30, true, false, '2023-02-10');
 
 INSERT INTO `Canciones` (`idVinilo`, `titulo`, `audio`) VALUES 
 (1, 'Speak to Me', 'audio/prueba-audio.mp3'),
