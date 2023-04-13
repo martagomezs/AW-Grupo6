@@ -84,6 +84,19 @@ class Artista{
         }
         return $result;
     }
+
+    public static function insertaAdmin($nombre, $foto){
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf(
+            "INSERT INTO artistas (nombre, seguidores, eventos, foto) VALUES ('%s', %d , '%s', '%s')",
+            $nombre,
+            0, 
+            NULL,
+            $foto
+        );
+        $result = $conn->query($query);
+        return $result;
+    }
     
     private static function actualiza($artista){
         
@@ -106,6 +119,20 @@ class Artista{
         else if($conn->affected_rows != 1){
             error_log("Se han actualizado '$conn->affected_rows' ");
         }
+        return $result;
+    }
+
+    public static function actualizaNombreAdmin($nombre, $id){
+        $result = false;
+
+        $conn = BD::getInstance()->getConexionBd();
+
+        $query = sprintf(
+            "UPDATE artistas A SET nombre = '%s' WHERE A.id = %d",
+            $nombre,
+            $id
+        );
+        $result = $conn->query($query);
         return $result;
     }
 
