@@ -39,9 +39,9 @@ CREATE TABLE IF NOT EXISTS `Artistas` (
     `seguidores` INT (50) NOT NULL,
     `eventos` DATETIME,
     `foto` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`vinilo`) REFERENCES `Vinilos`(`id`)
-   /* FOREIGN KEY (`nombre`) REFERENCES `Vinilos`(`autor`) */
+    PRIMARY KEY (`id`)
+--     /* FOREIGN KEY (`vinilo`) REFERENCES `Vinilos`(`id`)
+--    FOREIGN KEY (`nombre`) REFERENCES `Vinilos`(`autor`) */
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `Comentarios` (

@@ -20,7 +20,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 }
 
 $contenidoPrincipal = '<h1>Lista de Usuarios</h1>';
-$contenidoPrincipal .= '<p>Selecciona los usuarios que quieres eliminiar</p>';
+$contenidoPrincipal .= '<p>Selecciona los usuarios que quieres eliminar</p>';
 
 $contenidoPrincipal .= '<form method="post">';
 

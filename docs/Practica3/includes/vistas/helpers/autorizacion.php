@@ -17,7 +17,7 @@ function usernameLogado()
 }
 
 function esAdmin(){
-    return estaLogado() && (array_search(Usuario::ADMIN_ROLE, $_SESSION['roles']) !== false);
+    return estaLogado() && $_SESSION['rol']=='admin';
 }
 
 function verificaLogado($urlNoLogado)
