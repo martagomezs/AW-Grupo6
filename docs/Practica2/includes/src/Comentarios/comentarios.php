@@ -88,7 +88,7 @@ class Comentario{
 
         $query = sprintf(
 
-            "UPDATE comentarios SET vinilo_id = %d, autor = '%s', comentario = '%s', fecha = '%s', padre = %d WHERE id = %d",
+            "UPDATE comentarios C SET vinilo_id = %d, autor = '%s', comentario = '%s', fecha = '%s', padre = %d WHERE C.id = %d",
             $coment->vinilo_id,
             $conn->real_escape_string($coment->autor),
             $conn->real_escape_string($coment->comentario),
