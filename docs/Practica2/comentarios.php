@@ -29,8 +29,7 @@ EOS;
 		$contenidoPrincipal .= '<p>Autor: ' . $comentario->autor . '</p>';
 		$contenidoPrincipal .= '<p>Comentario: ' . $comentario->comentario . '</p>';
 	}
-	/* $contenidoPrincipal .= '<p><a href="nuevoComentario.php?vinilo=' . $vinilo->id . '">Añadir comentario</a></p>';
- */
+	$contenidoPrincipal .= '<p><a href="comentarioNuevo.php?vinilo=' . $vinilo->id . '">Añadir comentario</a></p>';
 
 require 'includes/vistas/comun/layout.php';
 
