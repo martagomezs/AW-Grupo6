@@ -16,10 +16,9 @@ function usernameLogado()
     return $_SESSION['username'] ?? false;
 }
 
-// function esAdmin()
-// {
-//     return estaLogado() && (array_search(Usuario::ADMIN_ROLE, $_SESSION['roles']) !== false);
-// }
+function esAdmin(){
+    return estaLogado() && (array_search(Usuario::ADMIN_ROLE, $_SESSION['roles']) !== false);
+}
 
 function verificaLogado($urlNoLogado)
 {

@@ -25,6 +25,22 @@ class Usuario
         return $user->guarda();
     }
 
+    public static function buscaUsuarios(){
+        $result = [];
+
+        $conn = BD::getInstance()->getConexionBd();
+
+        $query = sprintf("SELECT * FROM Usuarios WHERE rol != 'admin'");
+        $rs = $conn->query($query);
+        if($rs){
+            while($fila = $rs->fetch_assoc()){
+                $result[] = new Usuario($fila['username'], $fila['password'], $fila['nombre'], $fila['correo'], $fila['rol']);
+            }
+            $rs->free();
+        }
+        return $result;
+    }
+
     public static function buscaUsuario($nombreUsuario)
     {
         $conn = BD::getInstance()->getConexionBd();
@@ -108,7 +124,7 @@ class Usuario
         return $result;
     }
     
-    private static function borra($usuario)
+    public static function borra($usuario)
     {
         return self::borraPorUsername($usuario->username);
     }
@@ -118,13 +134,11 @@ class Usuario
         if (!$username) {
             return false;
         } 
-        /* Los roles se borran en cascada por la FK
-         * $result = self::borraRoles($usuario) !== false;
-         */
+        if(!Comentario::borraPorUser($username)){
+            return false;
+        }
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM Usuarios U WHERE U.username = %s"
-            , $username
-        );
+        $query = sprintf("DELETE FROM Usuarios WHERE username = '%s'", $username);
         if ( ! $conn->query($query) ) {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
             return false;
@@ -152,7 +166,7 @@ class Usuario
         $this->rol = $rol;
     }
 
-    public function getNombreUsuario()
+    public function getUsername()
     {
         return $this->username;
     }

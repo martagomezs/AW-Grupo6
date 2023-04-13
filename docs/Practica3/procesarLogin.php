@@ -22,13 +22,21 @@ if (!$loged) {
 	exit();
 }
 
-$_SESSION['username'] = $usuario->nombreUsuario;
-// $_SESSION['rol'] = $usuario->rol;
+$_SESSION['username'] = $usuario->username;
+$_SESSION['rol'] = $usuario->rol;
 $_SESSION['nombre'] = $usuario->nombre;
 
-$contenidoPrincipal=<<<EOS
-	<h1>Bienvenido ${_SESSION['nombre']}</h1>
-	<p>Usa el menú superior para navegar.</p>
-EOS;
+if($_SESSION['rol'] == "usuario"){
+	$contenidoPrincipal=<<<EOS
+		<h1>Bienvenido ${_SESSION['nombre']}</h1>
+		<p>Usa el menú superior para navegar.</p>
+	EOS;
+}
+else if($_SESSION['rol'] == "admin"){
+	$contenidoPrincipal=<<<EOS
+		<h1>Bienvenido ${_SESSION['nombre']}</h1>
+		<p>Selecciona en el menú superior lo que quieras gestionar.</p>
+	EOS;
+}
 
 require 'includes/vistas/comun/layout.php';

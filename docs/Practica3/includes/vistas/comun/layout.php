@@ -9,7 +9,17 @@
 <div id="contenedor">
 <?php
 
-require('cabecera.php');
+if(isset($_SESSION['rol'])){
+	if($_SESSION['rol'] == "usuario"){
+		require('cabecera.php');
+	}
+	else if($_SESSION['rol'] == "admin"){
+		require('admin.php');
+	}
+}
+else{
+	require('cabecera.php');
+}
 
 ?>
 <main>

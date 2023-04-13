@@ -19,6 +19,21 @@ class Cancion{
         return $result;
     }
 
+    public static function borraPorVinilo($idVinilo){
+        if(!$idVinilo){
+            return false;
+        }
+        $result = false;
+        
+        $conn = $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf("DELETE FROM canciones WHERE idVinilo = %d", $idVinilo);
+        $result = $conn->query($query);
+        if(!$result){
+            error_log($conn->error);
+        }
+        return $result;
+    }
+
     private $id;
     private $idVinilo;
     private $titulo;

@@ -36,7 +36,6 @@ CREATE TABLE IF NOT EXISTS `Vinilos` (
 CREATE TABLE IF NOT EXISTS `Artistas` (
     `id` INT (11) NOT NULL AUTO_INCREMENT,
     `nombre` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-    `vinilo` INT(11) NOT NULL,
     `seguidores` INT (50) NOT NULL,
     `eventos` DATETIME,
     `foto` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
@@ -67,8 +66,7 @@ CREATE TABLE IF NOT EXISTS `Compras`(
     `comprado` BOOLEAN NOT NULL DEFAULT false,
     `fechaCompra` DATE NOT NULL,
     PRIMARY KEY (`id`),
-    FOREIGN KEY (`User`) REFERENCES `Usuarios`(`username`),
-    FOREIGN KEY (`idVinilo`) REFERENCES `Vinilos`(`id`)
+    FOREIGN KEY (`User`) REFERENCES `Usuarios`(`username`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `Canciones`(
@@ -76,8 +74,7 @@ CREATE TABLE IF NOT EXISTS `Canciones`(
     `idVinilo` INT (11) NOT NULL,
     `titulo` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
     `audio` varchar(50) NOT NULL,
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`idVinilo`) REFERENCES `Vinilos`(`id`)
+    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `Seguidos`(

@@ -4,8 +4,8 @@ class Artista{
     use MagicProperties;
 
 
-    public static function añade($nombre,$vinilo,$seguidores,$eventos,$foto){
-        $a = new Artista($nombre, $vinilo, $seguidores, $eventos,$foto);
+    public static function añade($nombre,$seguidores,$eventos,$foto){
+        $a = new Artista($nombre,$seguidores, $eventos,$foto);
         return $a;
     }
 
@@ -18,8 +18,7 @@ class Artista{
         $rs = $conn->query($query);
         if($rs){
             while($fila = $rs->fetch_assoc()){
-                $result[] = new Artista($fila['id'],$fila['nombre'],$fila['vinilo'],$fila['seguidores'],$fila['eventos'],$fila['foto']);
-            }
+                $result[] = new Artista($fila['id'],$fila['nombre'],$fila['seguidores'],$fila['eventos'],$fila['foto']);            }
             $rs->free();
         }
         return $result;
@@ -33,8 +32,7 @@ class Artista{
         $rs = $conn->query($query);
         if($rs && $rs->num_rows == 1){
             while($fila = $rs->fetch_assoc()){
-                $result = new Artista($fila['id'], $fila['nombre'], $fila['vinilo'],$fila['seguidores'],$fila['eventos'],$fila['foto']);
-            }
+                $result = new Artista($fila['id'], $fila['nombre'],$fila['seguidores'],$fila['eventos'],$fila['foto']);            }
             $rs->free();
         }
         return $result;
@@ -50,8 +48,7 @@ class Artista{
 
         if($rs){
             while($fila = $rs->fetch_assoc()){
-                $result[] = new Artista($fila['id'],$fila['nombre'],$fila['vinilo'],$fila['seguidores'],$fila['eventos'],$fila['foto']);
-            }
+                $result[] = new Artista($fila['id'],$fila['nombre'],$fila['seguidores'],$fila['eventos'],$fila['foto']);            }
             $rs->free();
         }
         return $result;
@@ -62,9 +59,8 @@ class Artista{
 
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "INSERT INTO artistas (id, nombre, vinilo, seguidores, eventos, foto) VALUES (%d, '%s', %d, %d, '%s', '%s')",
+            "INSERT INTO artistas (id, nombre, seguidores, eventos, foto) VALUES (%d, '%s', %d, '%s', '%s')",
             $conn->real_escape_string($artista->nombre),
-            $artista->vinilo,
             $artista->seguidores,
             $conn->real_escape_string($artista->eventos),
             $conn->real_escape_string($artista->foto)
@@ -87,9 +83,8 @@ class Artista{
         $conn = BD::getInstance()->getConexionBd();
 
         $query = sprintf(
-            "UPDATE artistas A set nombre = '%s', vinilo = %d, seguidores = %d, eventos = '%s', foto = '%s' WHERE A.id = %d",
+            "UPDATE artistas A set nombre = '%s', seguidores = %d, eventos = '%s', foto = '%s' WHERE A.id = %d",
             $conn->real_escape_string($artista->nombre),
-            $artista->vinilo,
             $artista->seguidores,
             $conn->real_escape_string($artista->eventos),
             $conn->real_escape_string($artista->foto),
@@ -141,15 +136,13 @@ class Artista{
 
     private $id;
     private $nombre;
-    private $vinilo;
     private $seguidores;
     private $eventos;
     private $foto;
 
-    private function __construct($id,$nombre,$vinilo,$seguidores,$eventos,$foto){
+    private function __construct($id,$nombre,$seguidores,$eventos,$foto){
         $this->id = $id !== null ? intval($id) : null;
         $this->nombre = $nombre;
-        $this->vinilo = intval($vinilo);
         $this->seguidores = intval($seguidores);
         $this->eventos = $eventos;
         $this->foto = $foto;
@@ -165,14 +158,6 @@ class Artista{
 
     public function setNombre($nuevo){
         $this->nombre = $nuevo;
-    }
-
-    public function getVinilo(){
-        return $this->vinilo;
-    }
-
-    public function setVinilo($nuevo){
-        $this->vinilo = $nuevo;
     }
 
     public function getSeguidores(){
