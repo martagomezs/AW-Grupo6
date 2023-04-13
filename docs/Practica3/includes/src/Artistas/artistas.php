@@ -38,6 +38,15 @@ class Artista{
         return $result;
     }
 
+    public static function nombrePorId($idArtista){
+        $result = null;
+
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf("SELECT nombre FROM artistas A WHERE A.id = %d", $idArtista);
+        $result = $conn->query($query);
+        return $result;
+    }
+
     public static function buscaPorNombre($nombre = ''){
         $result = [];
         $conn = BD::getInstance()->getConexionBd();

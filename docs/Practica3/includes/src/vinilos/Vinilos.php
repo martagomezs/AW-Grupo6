@@ -3,8 +3,8 @@
 class Vinilo{
     use MagicProperties;
 
-    public static function añade($titulo, $autor, $idAutor, $precio, $portada, $ventas, $stock){
-        $v = new Vinilo($titulo, $autor, $idAutor, $precio, $portada, $ventas, $stock);
+    public static function añade($id, $titulo, $autor, $idAutor, $precio, $portada, $ventas, $stock){
+        $v = new Vinilo($id, $titulo, $autor, $idAutor, $precio, $portada, $ventas, $stock);
         return $v;
     }
 
@@ -79,12 +79,12 @@ class Vinilo{
         return $result;
     }
 
-    private static function inserta($vinilo){
+    public static function inserta($vinilo){
         $result = false;
 
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "INSERT INTO vinilos (id, titulo, autor, idAutor, precio, portada, ventas, stock) VALUES (%d, %s, %s, %d, %d, %s, %d, %d)",
+            "INSERT INTO vinilos (titulo, autor, idAutor, precio, portada, ventas, stock) VALUES (%d, %s, %s, %d, %d, %s, %d, %d)",
             $conn->real_escape_string($vinilo->titulo),
             $conn->real_escape_string($vinilo->autor),
             $vinilo->idAutor,
@@ -101,6 +101,22 @@ class Vinilo{
         else{
             error_log($conn->error);
         }
+        return $result;
+    }
+
+    public static function insertaAdmin($titulo, $autor, $idAutor, $precio, $portada, $ventas, $stock){
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf(
+            "INSERT INTO vinilos (titulo, autor, idAutor, precio, portada, ventas, stock) VALUES ('%s', '%s', %d, %d, '%s', %d, %d)",
+            $titulo,
+            $autor, 
+            $idAutor,
+            $precio,
+            $portada,
+            $ventas,
+            $stock
+        );
+        $result = $conn->query($query);
         return $result;
     }
 
@@ -128,6 +144,34 @@ class Vinilo{
         else if($conn->affected_rows != 1){
             error_log("Se han actualizado '$conn->affected_rows' ");
         }
+        return $result;
+    }
+
+    public static function actualizaPrecioAdmin($precio, $id){
+        $result = false;
+
+        $conn = BD::getInstance()->getConexionBd();
+
+        $query = sprintf(
+            "UPDATE vinilos V SET precio = %d WHERE V.id = %d",
+            $precio,
+            $id
+        );
+        $result = $conn->query($query);
+        return $result;
+    }
+
+    public static function actualizaStockAdmin($stock, $id){
+        $result = false;
+
+        $conn = BD::getInstance()->getConexionBd();
+
+        $query = sprintf(
+            "UPDATE vinilos V SET stock = %d WHERE V.id = %d",
+            $stock, 
+            $id
+        );
+        $result = $conn->query($query);
         return $result;
     }
 

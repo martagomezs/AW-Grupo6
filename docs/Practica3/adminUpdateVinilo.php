@@ -14,21 +14,15 @@ if(isset($_POST['update'])){
     if(isset($_POST['id'])){
         $nuevo = Vinilo::buscaPorId($_POST['id']);
     }
-    if(isset($_POST['titulo'])){
-        $nuevo->titulo = $_POST['titulo'];
-    }
-    if(isset($_POST['autor'])){
-        $nuevo->autor = $_POST['autor'];
-    }
     if(isset($_POST['precio'])){
         $nuevo->precio = $_POST['precio'];
+        Vinilo::actualizaPrecioAdmin($_POST['precio'],$_POST['id']);
     }
     if(isset($_POST['stock'])){
         $nuevo->stock = $_POST['stock'];
+        Vinilo::actualizaStockAdmin($_POST['stock'],$_POST['id']);
     }
-    if(Vinilo::actualiza($nuevo)){
-        echo '<script>Se ha actualizado correctamente</script>';
-    }
+    
 }
 
 $contenidoPrincipal = '<h2>Lista de Vinilos</h2>';
@@ -49,20 +43,12 @@ if(isset($_POST['boton'])){
             <h1>$nuevo->titulo</h1>
             <form method="post">
                 <div>
-                <label for="titulo">Titulo:</label>
-                <input type="text" id="titulo" name="titulo" required minlength="1" size="10">
-                </div>
-                <div>
-                <label for="autor">Autor:</label>
-                <input type="text" id="autor" name="autor" required minlength="1" size="10">
-                </div>
-                <div>
                 <label for="precio">Precio:</label>
-                <input type="number" id="precio" name="precio" min="1">
+                <input type="number" id="precio" name="precio" min="1" placeholder="{$nuevo->precio}" value="{$nuevo->precio}">
                 </div>
                 <div>
                 <label for="stock">Stock:</label>
-                <input type="number" id="stock" name="stock" min="1">
+                <input type="number" id="stock" name="stock" min="1" placeholder="{$nuevo->stock}" value="{$nuevo->stock}">
                 </div>
                 <input type="hidden" name="id" value="{$nuevo->id}">
                 <div>
