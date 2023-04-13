@@ -1,5 +1,9 @@
 <?php
 
+function eliminaElemento($idCesta) {
+    Compra::eliminaElementoCesta($idCesta);
+}
+
 function visualizaCesta($user){
     $cesta = Compra::buscaCesta($user);
     
@@ -12,7 +16,7 @@ function visualizaCesta($user){
         $vinilo = Vinilo::buscaPorId($c->idVinilo);
         $html .= '<dl>';
         $html .= '<a href="vinilo.php?id=' . $vinilo->id . '"><img src="' . $vinilo->portada . '" width="50"></a>';
-        $html .= '<p>' . $vinilo->titulo . ' - ' . $vinilo->autor . ': ' . $vinilo->precio . '€</p>';
+        $html .= '<p>' . $vinilo->titulo . ' - ' . $vinilo->autor . ': ' . $vinilo->precio . '€ <button onclick=' . eliminaElemento($c->id) . '><img src="img/utils/papelera.png" width="15"></button><p>';
         $html .= '</dl>';
         $precioTotal +=$vinilo->precio;
     }

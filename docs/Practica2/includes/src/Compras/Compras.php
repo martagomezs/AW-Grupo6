@@ -136,6 +136,12 @@ class Compra{
         return $result;
     }
 
+    public static function eliminaElementoCesta($idCesta){
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf("DELETE FROM compras WHERE id = %d", $idCesta);
+        $conn->query($query); 
+    }
+
     private static function borra($comp){
         return self::borraPorUser($comp->user);
     }
@@ -156,6 +162,22 @@ class Compra{
             error_log("Se ha borrado '$conn->affected_rows' ");
         }
         return $result;
+    }
+
+    public static function actualizaCestaCompra($user){
+        $fecha_actual = date('Y-m-d');
+	    $cesta = Compra::buscaCesta($user);
+	    foreach($cesta as $c){
+            $conn = BD::getInstance()->getConexionBd();
+            $query = sprintf(
+            "UPDATE compras SET enCesta=%d, comprado=%d, fechaCompra='%s'  WHERE user = '%s'",
+            0, 
+            1,
+            $fecha_actual,
+            $conn->real_escape_string($user)
+            );
+            $conn->query($query);
+        }
     }
 
     private $id;
