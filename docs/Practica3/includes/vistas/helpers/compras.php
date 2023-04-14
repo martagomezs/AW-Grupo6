@@ -20,8 +20,10 @@ function visualizaCesta($user){
         $html .= '</dl>';
         $precioTotal +=$vinilo->precio;
     }
-    $html .= '<p>Total: ' . $precioTotal . '€</p>';
+    
     $html .= '</ul>';
+
+    $html .= '<p>Total: ' . $precioTotal . '€</p>';
 
     return $html;
 }

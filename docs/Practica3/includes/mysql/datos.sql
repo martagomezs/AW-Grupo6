@@ -19,12 +19,14 @@ INSERT INTO `Vinilos` (`id`, `titulo`, `autor`, `idAutor`, `precio`, `portada`, 
 (1, 'The Dark Side Of The Moon', 'Pink Floyd', 1, 50, 'img/portadas/id1.jpg', 0, 30),
 (2, 'Motomami', 'Rosalia', 2, 35, 'img/portadas/id2.jpg', 0, 30),
 (3, 'Nevermind', 'Nirvana', 3, 40, 'img/portadas/id3.jpg', 0, 30),
-(4, 'El Mal Querer', 'Rosalia', 2, 40, 'img/portadas/id4.jpg', 0, 30);
+(4, 'El Mal Querer', 'Rosalia', 2, 40, 'img/portadas/id4.jpg', 0, 30),
+(5, 'Donde Quiero Estar', 'Quevedo', 4, 30, 'img/portadas/id5.jpg', 0, 30);
 
 INSERT INTO `Artistas` (`id`, `nombre`, `seguidores`, `eventos`, `foto`) VALUES
 (1, 'Pink Floyd', 0, NULL, 'img/artistas/pinkfloyd.png'),
 (2, 'Rosalía', 0, NULL, 'img/artistas/rosalia.png'),
-(3, 'Nirvana', 0, NULL, 'img/artistas/nirvana.png');
+(3, 'Nirvana', 0, NULL, 'img/artistas/nirvana.png'),
+(4, "Quevedo", 0, NULL, 'img/artistas/quevedo.png');
 
 INSERT INTO `Comentarios` (`id`,`vinilo_id`,`autor`,`comentario`,`fecha`,`padre`) VALUES
 (1, 2, 'user1', 'Muy buen disco', @INICIO, NULL),
@@ -84,7 +86,23 @@ INSERT INTO `Canciones` (`idVinilo`, `titulo`, `audio`) VALUES
 (4, 'DI MI NOMBRE (Cap.8: Éxtasis)', 'audio/prueba-audio.mp3'),
 (4, 'NANA (Cap.9: Concepción)', 'audio/prueba-audio.mp3'),
 (4, 'MALDICIÓN (Cap.10: Cordura)', 'audio/prueba-audio.mp3'),
-(4, 'A NINGÚN HOMBRE (Cap.11: Poder)', 'audio/prueba-audio.mp3');
+(4, 'A NINGÚN HOMBRE (Cap.11: Poder)', 'audio/prueba-audio.mp3'),
+(5, 'INTRO - SPEECH CRUZZI', 'audio/prueba-audio.mp3'),
+(5, 'AHORA QUÉ', 'audio/prueba-audio.mp3'),
+(5, 'YANKEE', 'audio/prueba-audio.mp3'),
+(5, 'VISTA AL MAR', 'audio/prueba-audio.mp3'),
+(5, 'PLAYA DEL INGLÉS', 'audio/prueba-audio.mp3'),
+(5, 'SIN SEÑAL', 'audio/prueba-audio.mp3'),
+(5, 'DAME', 'audio/prueba-audio.mp3'),
+(5, 'CUÉNTALE', 'audio/prueba-audio.mp3'),
+(5, 'LUCES AZULES', 'audio/prueba-audio.mp3'),
+(5, 'PUNTO G', 'audio/prueba-audio.mp3'),
+(5, 'MUÑECA', 'audio/prueba-audio.mp3'),
+(5, 'WANDA', 'audio/prueba-audio.mp3'),
+(5, 'ME FALTA ALGO', 'audio/prueba-audio.mp3'),
+(5, 'LISBOA', 'audio/prueba-audio.mp3'),
+(5, 'ÉRAMOS DOS', 'audio/prueba-audio.mp3'),
+(5, 'DONDE QUIERO ESTAR', 'audio/prueba-audio.mp3');
 
 INSERT INTO `Eventos` (`fecha`, `idArtista`, `tipo`, `descripcion`) VALUES
 ('2023-04-29', 2, 'disco', NULL),

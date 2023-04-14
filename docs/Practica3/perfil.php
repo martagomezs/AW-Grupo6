@@ -20,13 +20,16 @@ foreach($artistas as $artista){
     $aux = Evento::buscaPorArtista($artista);
     $eventos = array_merge($eventos, $aux);
 }
+$contenidoPrincipal=<<<EOS
+	<h1 class="titulo">Perfil</h1>
+EOS;
 
-$contenidoPrincipal = '<p>Artistas seguidos</p>';
+$contenidoPrincipal .= '<h2>Artistas seguidos</h2>';
 $contenidoPrincipal .= listaArtistas($a);
 
 $mes = 1;
 $year = 2023;
-$contenidoPrincipal .= '<p>Eventos</p>';
+$contenidoPrincipal .= '<h2>Eventos</h2>';
 $contenidoPrincipal .= calendario($eventos);
 $contenidoPrincipal .= 
 		'<form method="post">

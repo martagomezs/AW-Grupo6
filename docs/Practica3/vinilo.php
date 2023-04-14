@@ -7,6 +7,7 @@ require_once 'includes/vistas/helpers/autorizacion.php';
 $id = $_GET['id'];
 
 $vinilo = Vinilo::buscaPorId($id);
+$canciones = Cancion::canciones($id);
 
 $tituloPagina = "{$vinilo->titulo}";
 
@@ -21,28 +22,33 @@ if(isset($_POST['idVinilo'])){
     $compra->guarda();
     }
 }
-
-$contenidoPrincipal = <<< EOS
-    <h1>{$vinilo->titulo}</h1>
+$contenidoPrincipal = '';
+$contenidoPrincipal .= <<< EOS
+    <h1 class="titulo">{$vinilo->titulo}</h1>
     <h2><a href="artista.php?idAutor={$vinilo->idAutor}">{$vinilo->autor}</a></h2>
-    <img src="{$vinilo->portada}" width="400">
+    <div class="vinilo-canciones">
+        <img src="{$vinilo->portada}" width="400">
+        <div class="canciones">
+EOS;
+
+foreach($canciones as $cancion){
+    $contenidoPrincipal .= 
+            '<dl> 
+            <figure>
+            <figcaption>' . $cancion->titulo . ':
+            </figcaption>
+            <audio controls src="' . $cancion->audio . '">
+            </figure>
+            </dl>';
+}
+
+$contenidoPrincipal .= <<< EOS
+        </div>
+    </div>
     <p>{$vinilo->precio}€</p>
 EOS;
 
-    $canciones = Cancion::canciones($vinilo->id);
-    
-    foreach($canciones as $cancion){
-        $contenidoPrincipal .= 
-                '<dl> 
-                <figure>
-                <figcaption>' . $cancion->titulo . ':
-                </figcaption>
-                <audio controls src="' . $cancion->audio . '">
-                </figure>
-                </dl>';
-    }
-        
-    $contenidoPrincipal .= <<< EOS
+$contenidoPrincipal .= <<< EOS
     <form method="post">
         <input type="hidden" name="idVinilo" value="{$vinilo->id}">
         <input type="submit" value="Añadir a Cesta">

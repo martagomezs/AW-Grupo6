@@ -195,9 +195,25 @@ class Vinilo{
             error_log("Se han borrado '$conn->affected_rows' ");
         }
         return $result;
-
-        
     }
+
+    public static function borraPorArtista($idArtista){
+        if(!$idArtista){
+            return false;
+        }
+        $result = false;
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf("DELETE FROM vinilos WHERE idAutor = %d", $idArtista);
+        $result = $conn->query($query);
+        if(!$result){
+            error_log($conn->error);
+        }
+        else if($conn->affected_rows != 1){
+            error_log("Se han borrado '$conn->affected_rows' ");
+        }
+        return $result;
+    }
+
     private $id;
     private $titulo;
     private $autor;

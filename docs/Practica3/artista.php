@@ -37,7 +37,9 @@ if(isset($_POST['dejar'])){
 }
 
 $contenidoPrincipal=<<<EOS
-	<h1>{$artista->nombre}</h1>
+	<h1 class="titulo">{$artista->nombre}</h1>
+	<div class="artista-contenido">
+	<div class="art">
 	<img src="{$artista->foto}" width="400">
 	<p>Seguidores: {$seguidores}</p>
 EOS;
@@ -51,14 +53,23 @@ else if(Seguir::siguiendo($artista->id,$user)){
 		<input type="submit" name="dejar" value="Dejar de seguir">
 		</form>';
 }
-	$contenidoPrincipal .= '<p>Discografía:</p>';
+	$contenidoPrincipal .= 
+		'</div>
+		<div class="discografia">
+		<h2>Discografía:</h2>
+		<section>';
+		
 	$vinilos = Vinilo::buscaPorAutor($artista->id);
 	foreach($vinilos as $vinilo){
 		$contenidoPrincipal .= '<a href="vinilo.php?id=' . $vinilo->id . '"><img src="' . $vinilo->portada . '" width="200"></a>';
 	}
 	$mes = 1;
 	$year = 2023;
-	$contenidoPrincipal .= '<p>Eventos</p>';
+	$contenidoPrincipal .= 
+		'</section>
+		</div>
+		<div class="eventos">
+		<h2>Eventos</h2>';
 	$eventos = Evento::buscaPorArtista($artista->id);
 	$contenidoPrincipal .= calendario($eventos);
 	$contenidoPrincipal .= 
@@ -68,7 +79,10 @@ else if(Seguir::siguiendo($artista->id,$user)){
     		<label for="año">Año:</label>
     		<input type="number" id="año" name="año" min="2023" value=' . $year . '>
     		<button type="submit">Aceptar</button>
-		</form>';
+		</form>
+		</div>
+		</div>';
+		
 require 'includes/vistas/comun/layout.php';
 
 ?>

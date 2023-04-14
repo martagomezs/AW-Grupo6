@@ -157,7 +157,7 @@ class Artista{
             return false;
         }
         $result = false;
-
+        Vinilo::borraPorArtista($idArtista);
         $conn = $conn = BD::getInstance()->getConexionBd();
         $query = sprintf("DELETE FROM artistas WHERE id = %d", $idArtista);
         $result = $conn->query($query);

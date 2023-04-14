@@ -7,9 +7,13 @@ $tituloPagina = 'Top';
 
 $artistas = Artista::buscaArtistas();
 
-$contenidoPrincipal = '<h1>Top Vinilos</h1>';
+$contenidoPrincipal=<<<EOS
+	<h1 class="titulo">TOP</h1>
+EOS;
+
+$contenidoPrincipal .= '<h2>Top Vinilos</h2>';
 $contenidoPrincipal .= listaVinilos();
-$contenidoPrincipal .= '<h1>Top Artistas</h1>';
+$contenidoPrincipal .= '<h2>Top Artistas</h2>';
 $contenidoPrincipal .= listaArtistas($artistas);
 	
 

@@ -13,7 +13,7 @@ if(isset($_POST['comprar'])){
 }
 
 $contenidoPrincipal=<<<EOS
-	<h1>Cesta</h1>
+	<h1 class="titulo">Cesta</h1>
 EOS;
 
 $contenidoPrincipal .= visualizaCesta($_SESSION['username']);
