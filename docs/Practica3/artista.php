@@ -44,7 +44,7 @@ $contenidoPrincipal=<<<EOS
 	<p>Seguidores: {$seguidores}</p>
 EOS;
 if(!estaLogado() || !Seguir::siguiendo($artista->id,$user)){
-	$contenidoPrincipal .= '<form method="post" action="artista.php">
+	$contenidoPrincipal .= '<form method="post">
 		<input type="submit" name="seguir" value="Seguir">
 		</form>';
 }
@@ -71,10 +71,9 @@ else if(Seguir::siguiendo($artista->id,$user)){
 		<div class="eventos">
 		<h2>Eventos</h2>';
 	$eventos = Evento::buscaPorArtista($artista->id);
-	//$contenidoPrincipal .= calendario($eventos);
+	$contenidoPrincipal .= calendario($eventos);
 	$contenidoPrincipal .= 
-		'<p>No se reconoce la funcion cal_days_in_month</p>
-		<form method="post">
+		'<form method="post">
     		<label for="mes">Mes:</label>
     		<input type="number" id="mes" name="mes" min="1" max="12" value= ' . $mes . '>
     		<label for="año">Año:</label>
