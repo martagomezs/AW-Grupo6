@@ -20,6 +20,17 @@ CREATE TABLE IF NOT EXISTS `Usuarios` (
     PRIMARY KEY (`username`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+CREATE TABLE IF NOT EXISTS `Artistas` (
+    `id` INT (11) NOT NULL AUTO_INCREMENT,
+    `nombre` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+    `seguidores` INT (50) NOT NULL,
+    `eventos` DATETIME,
+    `foto` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+    PRIMARY KEY (`id`)
+--     /* FOREIGN KEY (`vinilo`) REFERENCES `Vinilos`(`id`)
+--    FOREIGN KEY (`nombre`) REFERENCES `Vinilos`(`autor`) */
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 CREATE TABLE IF NOT EXISTS `Vinilos` (
     `id` INT (11) NOT NULL AUTO_INCREMENT,
     `titulo` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
@@ -33,16 +44,6 @@ CREATE TABLE IF NOT EXISTS `Vinilos` (
     FOREIGN KEY (`idAutor`) REFERENCES `Artistas`(`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE IF NOT EXISTS `Artistas` (
-    `id` INT (11) NOT NULL AUTO_INCREMENT,
-    `nombre` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-    `seguidores` INT (50) NOT NULL,
-    `eventos` DATETIME,
-    `foto` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-    PRIMARY KEY (`id`)
---     /* FOREIGN KEY (`vinilo`) REFERENCES `Vinilos`(`id`)
---    FOREIGN KEY (`nombre`) REFERENCES `Vinilos`(`autor`) */
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `Comentarios` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -53,7 +54,6 @@ CREATE TABLE IF NOT EXISTS `Comentarios` (
     `padre` INT(11),
     PRIMARY KEY (`id`),
     FOREIGN KEY (`autor`) REFERENCES `Usuarios`(`username`),
-    FOREIGN KEY (`vinilo_id`) REFERENCES `Vinilos`(`id`),
     FOREIGN KEY (`padre`) REFERENCES `Comentarios`(`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `Seguidos`(
     `id` INT (11) NOT NULL AUTO_INCREMENT,
     `idArtista` INT (11) NOT NULL,
     `idUser` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-    PRIMARY KEY (`id`),
+    PRIMARY KEY (id),
     FOREIGN KEY (`idArtista`) REFERENCES `Artistas`(`id`),
     FOREIGN KEY (`idUser`) REFERENCES `Usuarios`(`username`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -92,6 +92,5 @@ CREATE TABLE IF NOT EXISTS `Eventos`(
     `idArtista` INT (11) NOT NULL,
     `tipo` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
     `descripcion` varchar(150) COLLATE utf8mb4_general_ci,
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`idArtista`) REFERENCES `Artistas`(`id`)
+    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
