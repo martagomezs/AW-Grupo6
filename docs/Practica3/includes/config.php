@@ -12,11 +12,7 @@ define('INSTALADA', true);
 
 // Parámetros de configuración de la BD
 define('BD_HOST', 'localhost');
-<<<<<<< HEAD
 //define('BD_HOST', 'vm05.db.swarm.test');
-=======
-// zsdefine('BD_HOST', 'vm05.db.swarm.test');
->>>>>>> parent of 6223aca (conexion vps)
 define('BD_NAME', 'beatstore');
 define('BD_USER', 'usuario');
 define('BD_PASS', 'userpass');
