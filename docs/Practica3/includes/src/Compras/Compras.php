@@ -13,7 +13,7 @@ class Compra{
 
         $conn = BD::getInstance()->getConexionBd();
 
-        $query = sprintf("SELECT COUNT(*) as total FROM compras;");
+        $query = sprintf("SELECT COUNT(*) as total FROM Compras;");
 
         $rs = $conn->query($query);
 
@@ -31,7 +31,7 @@ class Compra{
 
         $conn = BD::getInstance()->getConexionBd();
 
-        $query = sprintf("SELECT * FROM compras C WHERE C.enCesta = TRUE AND C.user = '%s';", $conn->real_escape_string($user));
+        $query = sprintf("SELECT * FROM Compras C WHERE C.enCesta = TRUE AND C.user = '%s';", $conn->real_escape_string($user));
 
         $rs = $conn->query($query);
 
@@ -49,7 +49,7 @@ class Compra{
 
         $conn = BD::getInstance()->getConexionBd();
 
-        $query = sprintf("SELECT * FROM compras C WHERE C.comprado = TRUE AND C.user = '%s';", $conn->real_escape_string($user));
+        $query = sprintf("SELECT * FROM Compras C WHERE C.comprado = TRUE AND C.user = '%s';", $conn->real_escape_string($user));
 
         $rs = $conn->query($query);
 
@@ -66,7 +66,7 @@ class Compra{
         $result = [];
 
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM compras C WHERE C.User = '%s'", 
+        $query = sprintf("SELECT * FROM Compras C WHERE C.User = '%s'", 
                 $conn->real_escape_string($username));
         $rs = $conn->query($query);
         if($rs && $rs->num_rows == 1){
@@ -81,7 +81,7 @@ class Compra{
     public static function buscaPorVinilo($vinilo){
         $result = [];
 
-        $conn = sprintf("SELECT * FROM compras C WHERE C.idVinilo = %d", $vinilo->id);
+        $conn = sprintf("SELECT * FROM Compras C WHERE C.idVinilo = %d", $vinilo->id);
         $rs = $conn->query($query);
 
         if($rs){
@@ -98,7 +98,7 @@ class Compra{
 
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "INSERT INTO compras (user, idVinilo, precio, enCesta, comprado, fechaCompra) VALUES ('%s', %d, %f, %d, %d, '%s')",
+            "INSERT INTO Compras (user, idVinilo, precio, enCesta, comprado, fechaCompra) VALUES ('%s', %d, %f, %d, %d, '%s')",
             $conn->real_escape_string($comp->user),
             $comp->idVinilo,
             $comp->precio,
@@ -118,7 +118,7 @@ class Compra{
 
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "UPDATE compras SET idVinilo = %d, precio = %f, enCesta=%d, comprado=%d, fechaCompra='%s'  WHERE user = '%s'",
+            "UPDATE Compras SET idVinilo = %d, precio = %f, enCesta=%d, comprado=%d, fechaCompra='%s'  WHERE user = '%s'",
             $comp->idVinilo,
             $comp->precio,
             $comp->enCesta,
@@ -138,7 +138,7 @@ class Compra{
 
     public static function eliminaElementoCesta($idCesta){
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM compras WHERE id = %d", $idCesta);
+        $query = sprintf("DELETE FROM Compras WHERE id = %d", $idCesta);
         $conn->query($query); 
     }
 
@@ -153,7 +153,7 @@ class Compra{
         $result = false;
 
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM compras WHERE user = '%s'",$user);
+        $query = sprintf("DELETE FROM Compras WHERE user = '%s'",$user);
         $result = $conn->query($query);
         if(!$result){
            error_log($conn->error); 
@@ -170,7 +170,7 @@ class Compra{
 	    foreach($cesta as $c){
             $conn = BD::getInstance()->getConexionBd();
             $query = sprintf(
-            "UPDATE compras SET enCesta=%d, comprado=%d, fechaCompra='%s'  WHERE user = '%s'",
+            "UPDATE Compras SET enCesta=%d, comprado=%d, fechaCompra='%s'  WHERE user = '%s'",
             0, 
             1,
             $fecha_actual,

@@ -14,7 +14,7 @@ class Artista{
 
         $conn = BD::getInstance()->getConexionBd();
 
-        $query = sprintf("SELECT * FROM artistas A ORDER BY A.seguidores DESC;");
+        $query = sprintf("SELECT * FROM Artistas A ORDER BY A.seguidores DESC;");
         $rs = $conn->query($query);
         if($rs){
             while($fila = $rs->fetch_assoc()){
@@ -28,7 +28,7 @@ class Artista{
         $result = null;
 
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM artistas A WHERE A.id = %d;", $idArtista);
+        $query = sprintf("SELECT * FROM Artistas A WHERE A.id = %d;", $idArtista);
         $rs = $conn->query($query);
         if($rs && $rs->num_rows == 1){
             while($fila = $rs->fetch_assoc()){
@@ -42,7 +42,7 @@ class Artista{
         $result = null;
 
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("SELECT nombre FROM artistas A WHERE A.id = %d", $idArtista);
+        $query = sprintf("SELECT nombre FROM Artistas A WHERE A.id = %d", $idArtista);
         $result = $conn->query($query);
         return $result;
     }
@@ -50,7 +50,7 @@ class Artista{
     public static function buscaPorNombre($nombre = ''){
         $result = [];
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM artistas A WHERE A.nombre LIKE '%s';",
+        $query = sprintf("SELECT * FROM Artistas A WHERE A.nombre LIKE '%s';",
             $conn->real_escape_string($nombre));
 
         $rs = $conn->query($query);
@@ -68,7 +68,7 @@ class Artista{
 
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "INSERT INTO artistas (id, nombre, seguidores, eventos, foto) VALUES (%d, '%s', %d, '%s', '%s')",
+            "INSERT INTO Artistas (id, nombre, seguidores, eventos, foto) VALUES (%d, '%s', %d, '%s', '%s')",
             $conn->real_escape_string($artista->nombre),
             $artista->seguidores,
             $conn->real_escape_string($artista->eventos),
@@ -88,7 +88,7 @@ class Artista{
     public static function insertaAdmin($nombre, $foto){
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "INSERT INTO artistas (nombre, seguidores, eventos, foto) VALUES ('%s', %d , '%s', '%s')",
+            "INSERT INTO Artistas (nombre, seguidores, eventos, foto) VALUES ('%s', %d , '%s', '%s')",
             $nombre,
             0, 
             NULL,
@@ -105,7 +105,7 @@ class Artista{
         $conn = BD::getInstance()->getConexionBd();
 
         $query = sprintf(
-            "UPDATE artistas A set nombre = '%s', seguidores = %d, eventos = '%s', foto = '%s' WHERE A.id = %d",
+            "UPDATE Artistas A set nombre = '%s', seguidores = %d, eventos = '%s', foto = '%s' WHERE A.id = %d",
             $conn->real_escape_string($artista->nombre),
             $artista->seguidores,
             $conn->real_escape_string($artista->eventos),
@@ -128,7 +128,7 @@ class Artista{
         $conn = BD::getInstance()->getConexionBd();
 
         $query = sprintf(
-            "UPDATE artistas A SET nombre = '%s' WHERE A.id = %d",
+            "UPDATE Artistas A SET nombre = '%s' WHERE A.id = %d",
             $nombre,
             $id
         );
@@ -159,7 +159,7 @@ class Artista{
         $result = false;
         Vinilo::borraPorArtista($idArtista);
         $conn = $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM artistas WHERE id = %d", $idArtista);
+        $query = sprintf("DELETE FROM Artistas WHERE id = %d", $idArtista);
         $result = $conn->query($query);
         if(!$result){
             error_log($conn->error);

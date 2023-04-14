@@ -13,7 +13,7 @@ class Evento{
 
         $conn = BD::getInstance()->getConexionBd();
 
-        $query = sprintf("SELECT COUNT(*) as total FROM eventos;");
+        $query = sprintf("SELECT COUNT(*) as total FROM Eventos;");
 
         $rs = $conn->query($query);
 
@@ -30,7 +30,7 @@ class Evento{
         $result = [];
 
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM eventos WHERE idArtista = %d;", $idArtista);
+        $query = sprintf("SELECT * FROM Eventos WHERE idArtista = %d;", $idArtista);
         $rs = $conn->query($query);
         if($rs){
             while($fila = $rs->fetch_assoc()){
@@ -46,7 +46,7 @@ class Evento{
 
         $conn = BD::getInstance()->getConexionBd();
         $date = date_format($fecha, "Y-m-d");
-        $query = sprintf("SELECT * FROM eventos WHERE fecha = '%s';", $date);
+        $query = sprintf("SELECT * FROM Eventos WHERE fecha = '%s';", $date);
         $rs = $conn->query($query);
         if($rs){
             while($fila = $rs->fetch_assoc()){

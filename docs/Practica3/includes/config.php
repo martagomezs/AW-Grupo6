@@ -4,15 +4,16 @@
 /* */
 
 // Parámetros de configuración generales
-define('RUTA_APP', '/AW-Grupo6/docs/Practica3');
+define('RUTA_APP', __DIR__);
 define('RUTA_IMGS', RUTA_APP . '/img');
 define('RUTA_CSS', RUTA_APP . '/css');
 define('RUTA_JS', RUTA_APP . '/js');
+define('RUTA_SRC', RUTA_APP . '/src');
 define('INSTALADA', true);
 
 // Parámetros de configuración de la BD
-define('BD_HOST', 'localhost');
-// zsdefine('BD_HOST', 'vm05.db.swarm.test');
+//define('BD_HOST', 'localhost');
+define('BD_HOST', 'vm05.db.swarm.test');
 define('BD_NAME', 'beatstore');
 define('BD_USER', 'usuario');
 define('BD_PASS', 'userpass');
@@ -69,11 +70,11 @@ Mensaje::init();
 /* */
 /* Clases que usan una BD para almacenar el estado */
 /* */
-require_once 'src/BD.php';
-require_once 'src/usuarios/bd/Usuario.php';
-require_once 'src/Vinilos/vinilos.php';
-require_once 'src/Vinilos/canciones.php';
-require_once 'src/Artistas/artistas.php';
-require_once 'src/Eventos/Eventos.php';
-require_once 'src/Compras/Compras.php';
-require_once 'src/Seguidos/Seguidos.php';
+require_once RUTA_SRC . '/BD.php';
+require_once RUTA_SRC . '/usuarios/bd/Usuario.php';
+require_once RUTA_SRC . '/vinilos/Vinilos.php';
+require_once RUTA_SRC . '/vinilos/Canciones.php';
+require_once RUTA_SRC . '/Artistas/artistas.php';
+require_once RUTA_SRC . '/Eventos/Eventos.php';
+require_once RUTA_SRC . '/Compras/Compras.php';
+require_once RUTA_SRC . '/Seguidos/Seguidos.php';
