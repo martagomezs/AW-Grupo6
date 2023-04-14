@@ -44,7 +44,6 @@ CREATE TABLE IF NOT EXISTS `Vinilos` (
     FOREIGN KEY (`idAutor`) REFERENCES `Artistas`(`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-
 CREATE TABLE IF NOT EXISTS `Comentarios` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `vinilo_id` INT(11) NOT NULL,
