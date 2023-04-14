@@ -8,7 +8,7 @@ class Cancion{
 
         $conn = BD::getInstance()->getConexionBd();
 
-        $query = sprintf("SELECT * FROM Canciones WHERE idVinilo = %d;", $idVinilo);
+        $query = sprintf("SELECT * FROM canciones WHERE idVinilo = %d;", $idVinilo);
         $rs = $conn->query($query);
         if($rs && $rs->num_rows > 0){
             while($fila = $rs->fetch_assoc()){
@@ -26,7 +26,7 @@ class Cancion{
         $result = false;
         
         $conn = $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM Canciones WHERE idVinilo = %d", $idVinilo);
+        $query = sprintf("DELETE FROM canciones WHERE idVinilo = %d", $idVinilo);
         $result = $conn->query($query);
         if(!$result){
             error_log($conn->error);

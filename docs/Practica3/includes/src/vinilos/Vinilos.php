@@ -13,7 +13,7 @@ class Vinilo{
         
         $conn = BD::getInstance()->getConexionBd();
         
-        $query = sprintf("SELECT * FROM Vinilos ORDER BY ventas DESC");
+        $query = sprintf("SELECT * FROM vinilos ORDER BY ventas DESC");
         
         $rs = $conn->query($query);
         
@@ -31,7 +31,7 @@ class Vinilo{
         $result = null;
 
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Vinilos V WHERE V.id = %d;", $idVinilo);
+        $query = sprintf("SELECT * FROM vinilos V WHERE V.id = %d;", $idVinilo);
         $rs = $conn->query($query);
         if($rs && $rs->num_rows == 1){
             while($fila = $rs->fetch_assoc()){
@@ -84,7 +84,7 @@ class Vinilo{
 
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "INSERT INTO Vinilos (titulo, autor, idAutor, precio, portada, ventas, stock) VALUES (%d, %s, %s, %d, %d, %s, %d, %d)",
+            "INSERT INTO vinilos (titulo, autor, idAutor, precio, portada, ventas, stock) VALUES (%d, %s, %s, %d, %d, %s, %d, %d)",
             $conn->real_escape_string($vinilo->titulo),
             $conn->real_escape_string($vinilo->autor),
             $vinilo->idAutor,
@@ -107,7 +107,7 @@ class Vinilo{
     public static function insertaAdmin($titulo, $autor, $idAutor, $precio, $portada, $ventas, $stock){
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "INSERT INTO Vinilos (titulo, autor, idAutor, precio, portada, ventas, stock) VALUES ('%s', '%s', %d, %d, '%s', %d, %d)",
+            "INSERT INTO vinilos (titulo, autor, idAutor, precio, portada, ventas, stock) VALUES ('%s', '%s', %d, %d, '%s', %d, %d)",
             $titulo,
             $autor, 
             $idAutor,
@@ -126,7 +126,7 @@ class Vinilo{
         $conn = BD::getInstance()->getConexionBd();
 
         $query = sprintf(
-            "UPDATE Vinilos V SET titulo = %s, autor = %s, idAutor = %d, precio = %d, portada = %s, ventas = %d, stock = %d WHERE V.id = %d",
+            "UPDATE vinilos V SET titulo = %s, autor = %s, idAutor = %d, precio = %d, portada = %s, ventas = %d, stock = %d WHERE V.id = %d",
             $vinilo->id,
             $conn->real_escape_string($vinilo->autor),
             $vinilo->idAutor,
@@ -153,7 +153,7 @@ class Vinilo{
         $conn = BD::getInstance()->getConexionBd();
 
         $query = sprintf(
-            "UPDATE Vinilos V SET precio = %d WHERE V.id = %d",
+            "UPDATE vinilos V SET precio = %d WHERE V.id = %d",
             $precio,
             $id
         );
@@ -167,7 +167,7 @@ class Vinilo{
         $conn = BD::getInstance()->getConexionBd();
 
         $query = sprintf(
-            "UPDATE Vinilos V SET stock = %d WHERE V.id = %d",
+            "UPDATE vinilos V SET stock = %d WHERE V.id = %d",
             $stock, 
             $id
         );
@@ -186,7 +186,7 @@ class Vinilo{
         $result = false;
 
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM Vinilos WHERE id = %d", $idVinilo);
+        $query = sprintf("DELETE FROM vinilos WHERE id = %d", $idVinilo);
         $result = $conn->query($query);
         if(!$result){
             error_log($conn->error);
@@ -203,7 +203,7 @@ class Vinilo{
         }
         $result = false;
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM Vinilos WHERE idAutor = %d", $idArtista);
+        $query = sprintf("DELETE FROM vinilos WHERE idAutor = %d", $idArtista);
         $result = $conn->query($query);
         if(!$result){
             error_log($conn->error);
