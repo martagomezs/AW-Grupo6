@@ -37,7 +37,7 @@ class Compra{
 
         if($rs){
             while($fila = $rs->fetch_assoc()){
-                $result[] = new Compra($fila['id'],$fila['user'],$fila['idVinilo'],$fila['precio'],$fila['enC esta'],$fila['comprado'],$fila['fechaCompra']);
+                $result[] = new Compra($fila['id'],$fila['user'],$fila['idVinilo'],$fila['precio'],$fila['enCesta'],$fila['comprado'],$fila['fechaCompra']);
             }
             $rs->free();
         }
