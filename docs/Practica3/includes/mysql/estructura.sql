@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `Vinilos` (
 
 CREATE TABLE IF NOT EXISTS `Comentarios` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
-    `vinilo_id` INT(11) NOT NULL,
+    `idVinilo` INT(11) NOT NULL,
     `autor` varchar(50) NOT NULL,
     `comentario` varchar(100) NOT NULL,
     `fecha` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
