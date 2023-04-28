@@ -13,6 +13,15 @@ $comentarios = Comentario::buscaPorVinilo($id);
 
 $tituloPagina = "{$vinilo->titulo}";
 
+if(isset($_POST['Comentario'])){
+    if(!estaLogado()){
+        Utils::paginaError(403, $tituloPagina, 'Usuario no conectado!', 'Debes iniciar sesión para poder publicar un comentario');
+    }
+    else{
+        Comentario::crea($vinilo->id,$_SESSION['username'],$_POST['Comentario'],null);
+    }
+}
+
 if(isset($_POST['idVinilo'])){
     if(!estaLogado()){
         Utils::paginaError(403, $tituloPagina, 'Usuario no conectado!', 'Debes iniciar sesión para poder añadir el articulo a la cesta');
@@ -44,6 +53,7 @@ foreach($canciones as $cancion){
 }
 
 $contenidoPrincipal .= '</div>';
+$contenidoPrincipal .= '<div class="comentarios-escribir">';
 $contenidoPrincipal .= '<div class="comentarios">';
 $contenidoPrincipal .= '<h2>Comentarios</h2>';
 if($comentarios != null){
@@ -52,12 +62,18 @@ if($comentarios != null){
         $contenidoPrincipal .= visualizaComentario($coment);
         $contenidoPrincipal .= '</dl>';  
     }
-    
 }
 else{
     $contenidoPrincipal .= '<p>Aún no hay comentarios</p>';
 }
 $contenidoPrincipal .= '</div>';
+$contenidoPrincipal .= '<div class="escribir">';
+$contenidoPrincipal .= '<form action="" method="post">';
+$contenidoPrincipal .= '<input type="text" name="Comentario" required>';
+$contenidoPrincipal .= '<input type="submit" value="Enviar">';
+$contenidoPrincipal .= '</div></div>';
+
+
 $contenidoPrincipal .= <<< EOS
     </div>
     <p>{$vinilo->precio}€</p>

@@ -56,21 +56,25 @@ ul dl {
     width: 400px;
 }
 
-.comentarios p {
+.comentarios-escribir p {
     word-break: normal;
     word-wrap: normal;
 }
 
-.comentarios dl {
+.comentarios-escribir dl {
     margin: 20px 0;
 }
 
-.comentarios ul {
+.comentarios-escribir ul {
     margin: -5px 0;
 }
 
-.comentarios h3 {
+.comentarios-escribir h3 {
     margin: 0px 0;
+}
+
+.escribir.enviar{
+    margin-left: 10px;
 }
 
 .titulo {
