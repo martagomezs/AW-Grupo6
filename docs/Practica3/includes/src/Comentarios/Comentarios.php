@@ -10,7 +10,7 @@ class Comentario{
         return $m;
     }
 
-    public static function buscaPorPadre($padre = null){
+    public static function buscaPorPadre($padre){
         $result = [];
 
         $conn = BD::getInstance()->getConexionBd();
@@ -28,14 +28,14 @@ class Comentario{
         $rs = $conn->query($query);
         if($rs){
             while($fila = $rs->fetch_assoc()){
-                $result[] = new Comentario($fila['idVinilo'], $fila['autor'], $fila['comentario'], $fila['fecha'], $fila['padre']);
+                $result[] = new Comentario($fila['idVinilo'], $fila['autor'], $fila['comentario'], $fila['fecha'], $fila['padre'], $fila['id']);
             }
             $rs->free();
         }
         return $result;
     }
 
-    public static funciton numComentarios($padre = null){
+    public static function numComentarios($padre = null){
         $result = 0;
 
         $conn = BD::getInstance()->getConexionBd();
@@ -64,7 +64,7 @@ class Comentario{
         $rs = $conn->query($query);
         if($rs && $rs->num_rows == 1){
             while($fila = $rs->fetch_assoc()){
-                $result = new Comentario($fila['idVinilo'], $fila['autor'], $fila['comentario'], $fila['fecha'], $fila['padre']);
+                $result = new Comentario($fila['idVinilo'], $fila['autor'], $fila['comentario'], $fila['fecha'], $fila['padre'], $fila['id']);
             }
             $rs->free();
         }
@@ -75,11 +75,11 @@ class Comentario{
         $result = [];
 
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf('SELECT * FROM Comentarios WHERE idVinilo = %d;', $idVinilo);
+        $query = sprintf('SELECT * FROM Comentarios WHERE idVinilo = %d AND padre IS NULL;', $idVinilo);
         $rs = $conn->query($query);
         if($rs){
             while($fila = $rs->fetch_assoc()){
-                $result[] = new Comentario($fila['idVinilo'], $fila['autor'], $fila['comentario'], $fila['fecha'], $fila['padre']);
+                $result[] = new Comentario($fila['idVinilo'], $fila['autor'], $fila['comentario'], $fila['fecha'], $fila['padre'], $fila['id']);
             }
             $rs->free();
         }
@@ -165,9 +165,10 @@ class Comentario{
     private $fecha;
     private $padre;
 
-    private function __construct($idVinilo, $autor, $comentario, $fecha = null, $padre = null, $id = null){
+    private function __construct($idVinilo, $autor, $comentario, $fecha = null, $padre, $id){
         $this->idVinilo = intval($idVinilo);
         $this->autor = $autor;
+        $this->comentario = $comentario;
         $this->fecha = $fecha !== null ? DateTime::createFromFormat(self::DATE_FORMAT, $fecha) : new DateTime();
         $this->padre = $padre !== null ? intval($padre) : null;
         $this->id = $id !== null ? intval($id) : null;

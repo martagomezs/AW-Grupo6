@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `Comentarios` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `idVinilo` INT(11) NOT NULL,
     `autor` varchar(50) NOT NULL,
-    `comentario` varchar(100) NOT NULL,
+    `comentario` varchar(200) NOT NULL,
     `fecha` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `padre` INT(11),
     PRIMARY KEY (`id`),

@@ -28,9 +28,11 @@ INSERT INTO `Artistas` (`id`, `nombre`, `seguidores`, `eventos`, `foto`) VALUES
 (3, 'Nirvana', 0, NULL, 'img/artistas/nirvana.png'),
 (4, "Quevedo", 0, NULL, 'img/artistas/quevedo.png');
 
-INSERT INTO `Comentarios` (`id`,`vinilo_id`,`autor`,`comentario`,`fecha`,`padre`) VALUES
+INSERT INTO `Comentarios` (`id`,`idVinilo`,`autor`,`comentario`,`fecha`,`padre`) VALUES
 (1, 2, 'user1', 'Muy buen disco', @INICIO, NULL),
-(2, 2, 'user3', 'Estoy de acuerdo', ADDTIME(@INICIO, '0:10:0'),1);
+(2, 2, 'user3', 'Estoy de acuerdo', ADDTIME(@INICIO, '0:10:0'),1),
+(3, 2, 'user2', 'Hola, qué tal?', @INICIO, null),
+(4, 2, 'user1', 'Nadie te ha preguntado', ADDTIME(@INICIO, '0:15:0'),3);
 
 INSERT INTO `Compras`(`id`, `user`, `idVinilo`, `precio`, `enCesta`, `comprado`, `fechaCompra`) VALUES 
 (1, 'user1', 2, 30, true, false, '2023-02-10'),

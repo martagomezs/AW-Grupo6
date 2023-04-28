@@ -2,15 +2,16 @@
 require_once 'includes/config.php';
 require_once 'includes/vistas/helpers/vinilos.php';
 require_once 'includes/vistas/helpers/autorizacion.php';
+require_once 'includes/vistas/helpers/comentarios.php';
 
 
 $id = $_GET['id'];
 
 $vinilo = Vinilo::buscaPorId($id);
 $canciones = Cancion::canciones($id);
+$comentarios = Comentario::buscaPorVinilo($id);
 
 $tituloPagina = "{$vinilo->titulo}";
-
 
 if(isset($_POST['idVinilo'])){
     if(!estaLogado()){
@@ -42,8 +43,22 @@ foreach($canciones as $cancion){
             </dl>';
 }
 
+$contenidoPrincipal .= '</div>';
+$contenidoPrincipal .= '<div class="comentarios">';
+$contenidoPrincipal .= '<h2>Comentarios</h2>';
+if($comentarios != null){
+    foreach($comentarios as $coment){
+        $contenidoPrincipal .= '<dl>';
+        $contenidoPrincipal .= visualizaComentario($coment);
+        $contenidoPrincipal .= '</dl>';  
+    }
+    
+}
+else{
+    $contenidoPrincipal .= '<p>Aún no hay comentarios</p>';
+}
+$contenidoPrincipal .= '</div>';
 $contenidoPrincipal .= <<< EOS
-        </div>
     </div>
     <p>{$vinilo->precio}€</p>
 EOS;

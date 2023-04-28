@@ -41,11 +41,36 @@ ul dl {
 
 .vinilo-canciones img {
     margin-right: 120px;
+
 }
 
 .canciones {
     height: 400px;
     overflow-y: auto;
+    margin-right: 100px;
+}
+
+.comentarios {
+    height: 400px;
+    overflow-y: auto;
+    width: 400px;
+}
+
+.comentarios p {
+    word-break: normal;
+    word-wrap: normal;
+}
+
+.comentarios dl {
+    margin: 20px 0;
+}
+
+.comentarios ul {
+    margin: -5px 0;
+}
+
+.comentarios h3 {
+    margin: 0px 0;
 }
 
 .titulo {
