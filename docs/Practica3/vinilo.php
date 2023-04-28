@@ -71,7 +71,7 @@ $contenidoPrincipal .= '<div class="escribir">';
 $contenidoPrincipal .= '<form action="" method="post">';
 $contenidoPrincipal .= '<input type="text" name="Comentario" required>';
 $contenidoPrincipal .= '<input type="submit" value="Enviar">';
-$contenidoPrincipal .= '</div></div>';
+$contenidoPrincipal .= '</form></div></div>';
 
 
 $contenidoPrincipal .= <<< EOS

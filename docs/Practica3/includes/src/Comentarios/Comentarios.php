@@ -6,8 +6,27 @@ class Comentario{
     public const MAX_SIZE = 140;
 
     public static function crea($idVinilo,$autor,$comentario,$padre = null){
-        $m = new Comentario($idVinilo,$autor,$comentario,date('Y-m-d H:i:s'),$padre);
+        $m = new Comentario($idVinilo,$autor,$comentario,date('Y-m-d H:i:s'),$padre,self::numFilas() + 1);
+        self::inserta($m);
         return $m;
+    }
+
+    private static function numFilas(){
+        $result = 0;
+
+        $conn = BD::getInstance()->getConexionBd();
+
+        $query = sprintf("SELECT COUNT(*) as total FROM Comentarios;");
+
+        $rs = $conn->query($query);
+
+        if($rs){
+            while($fila = $rs->fetch_assoc()){
+                $result = $fila['total'];
+            }
+            $rs->free();
+        }
+        return $result;
     }
 
     public static function buscaPorPadre($padre){
@@ -91,12 +110,13 @@ class Comentario{
 
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "INSERT INTP Comentarios(idVinilo, autor, comentario, fecha, padre) VALUES (%d, '%s', '%s', '%s', %s)",
+            "INSERT INTO Comentarios(idVinilo, autor, comentario, fecha, padre,id) VALUES (%d, '%s', '%s', '%s', %s, %d)",
             $comentario->idVinilo,
             $conn->real_escape_string($comentario->autor),
             $conn->real_escape_string($comentario->comentario),
-            $conn->real_escape_string($comentario->fecha),
-            !is_null($comentario->padre) ? $comentario->padre : 'null'
+            $conn->real_escape_string($comentario->fecha->format('Y-m-d H:i:s')),
+            !is_null($comentario->padre) ? $comentario->padre : 'null',
+            $comentario->id 
         );
         $result = $conn->query($query);
         if($result){
