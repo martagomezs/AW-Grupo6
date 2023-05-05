@@ -70,11 +70,11 @@ Mensaje::init();
 /* Clases que usan una BD para almacenar el estado */
 /* */
 require_once 'src/BD.php';
-require_once 'src/usuarios/bd/Usuario.php';
-require_once 'src/Vinilos/vinilos.php';
-require_once 'src/Vinilos/canciones.php';
-require_once 'src/Artistas/Artista.php';
-require_once 'src/Eventos/Eventos.php';
-require_once 'src/Compras/Compras.php';
-require_once 'src/Seguidos/Seguidos.php';
-require_once 'src/Comentarios/Comentarios.php';
+require_once 'src/Usuario/Usuario.php';
+require_once 'src/Vinilo/Vinilo.php';
+require_once 'src/Vinilo/Cancion.php';
+require_once 'src/Artista/Artista.php';
+require_once 'src/Evento/Evento.php';
+require_once 'src/Compra/Compra.php';
+require_once 'src/Seguir/Seguir.php';
+require_once 'src/Comentario/Comentario.php';

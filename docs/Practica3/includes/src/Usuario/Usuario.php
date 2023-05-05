@@ -20,7 +20,7 @@ class Usuario
     
     public static function crea($nombreUsuario, $password, $nombre, $correo)
     {
-        $user = new Usuario($nombreUsuario, $password, $nombre, $correo, 2,  null);
+        $user = new Usuario($nombreUsuario, $password, $nombre, $correo, 'usuario' ,  null);
         //$user->añadeRol($rol);
         // $user = new Usuario($nombreUsuario, self::hashPassword($password), $nombre, $correo, 2, null);
         return $user->guarda();
@@ -115,7 +115,7 @@ class Usuario
     {
         $result = false;
         $conn = BD::getInstance()->getConexionBd();
-        $query=sprintf("INSERT INTO Usuarios(username, password, nombre, correo, rol) VALUES ('%s', '%s', '%s', '%s', %s)"
+        $query=sprintf("INSERT INTO Usuarios(username, password, nombre, correo, rol) VALUES ('%s', '%s', '%s', '%s', '%s')"
             , $conn->real_escape_string($usuario->username)
             , $conn->real_escape_string($usuario->password)
             , $conn->real_escape_string($usuario->nombre)
