@@ -2,36 +2,41 @@
 require_once 'includes/config.php';
 require_once 'includes/vistas/helpers/autorizacion.php';
 
-$tituloPagina = 'Administrar Usuarios';
+if (isset($_POST['option'])) {
+    if ($_POST['option'] == 'Borra') {
+        header('Location: adminBorraUsuario.php');
+        exit;
+    } elseif ($_POST['option'] == 'Actualiza') {
+        header('Location: adminUpdateUsuario.php');
+        exit;
+    } elseif ($_POST['option'] == 'Inserta') {
+        header('Location: adminCreaUsuario.php');
+        exit;
+    }
+}
 
+$tituloPagina = 'Aministrar Usuarios';
+$users = Usuario::buscaUsuarios();
 if(!esAdmin()){
     Utils::paginaError(403, $tituloPagina, 'No eres admin', 'No tienes acceso a esta página');
 }
 
-$users = Usuario::buscaUsuarios();
+$contenidoPrincipal = '<h1>Gestión de usuarios</h1>';
 
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    foreach($users as $user){
-        if(isset($_POST[$user->username])){
-            Usuario::borra($user);
-        }
-    }
-    $users = Usuario::buscaUsuarios();
-}
-
-$contenidoPrincipal = '<h1>Lista de Usuarios</h1>';
-$contenidoPrincipal .= '<p>Selecciona los usuarios que quieres eliminar</p>';
+$contenidoPrincipal .= '<p>Seleccione qué quiere hacer:</p>';
 
 $contenidoPrincipal .= '<form method="post">';
 
-foreach($users as $user){
-    $contenidoPrincipal .= '<div>';
-        $contenidoPrincipal .= '<input type="checkbox" id="' . $user->username . '" name="' . $user->username . '">';
-        $contenidoPrincipal .= '<label for="' . $user->username . '">' . $user->username . '</label>';
-    $contenidoPrincipal .= '</div>';
-}
+$contenidoPrincipal .= '<input type="radio" id="delete" name="option" value="Borra">';
+$contenidoPrincipal .= '<label for="delete">Borrar</label>';
 
-$contenidoPrincipal .= '<input type="submit" value="Borrar" >';
+$contenidoPrincipal .= '<input type="radio" id="update" name="option" value="Actualiza">';
+$contenidoPrincipal .= '<label for="update">Actualizar</label>';
+
+$contenidoPrincipal .= '<input type="radio" id="insert" name="option" value="Inserta">';
+$contenidoPrincipal .= '<label for="insert">Crear</label>';
+
+$contenidoPrincipal .= '<br><input type="submit" value="Aceptar" >';
 
 $contenidoPrincipal .= '</form>';
 

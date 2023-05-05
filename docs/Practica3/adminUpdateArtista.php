@@ -10,11 +10,12 @@ if(!esAdmin()){
 
 if(isset($_POST['update'])){
     if(isset($_POST['id'])){
-        $nuevo = Artista::buscaPorId($_POST['id']);
+        $nuevo = Artista::buscaPorId($_POST['id']);   
     }
     if(isset($_POST['nombre'])){
         $nuevo->nombre = $_POST['nombre'];
         Artista::actualizaNombreAdmin($_POST['nombre'],$_POST['id']);
+        Vinilo::actualizaNombreArtistaAdmin($_POST['nombre'],$_POST['id']);
     }    
 }
 
@@ -37,7 +38,7 @@ if(isset($_POST['boton'])){
             <form method="post">
                 <div>
                 <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required minlength="1" size="10">
+                <input type="text" id="nombre" name="nombre" required minlength="1" size="15">
                 </div>
                 <input type="hidden" name="id" value="{$nuevo->id}">
                 <div>

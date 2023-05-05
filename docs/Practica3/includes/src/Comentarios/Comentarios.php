@@ -176,6 +176,25 @@ class Comentario{
         return $result;
     }
 
+    public static function borraPorUser($username)
+    {
+        if (!$username) {
+            return false;
+        }
+        $result = false;
+
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf("DELETE FROM Comentarios WHERE autor = '%s'", $username);
+        $result = $conn->query($query);
+        if (!$result) {
+            error_log($conn->error);
+        } else if ($conn->affected_rows != 1) {
+            error_log("Se han borrado '$conn->affected_rows' !");
+        }
+
+        return $result;
+    }
+
     private const DATE_FORMAT = 'Y-m-d H:i:s';
 
     private $id;

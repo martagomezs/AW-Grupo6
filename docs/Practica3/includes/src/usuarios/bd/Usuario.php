@@ -20,8 +20,9 @@ class Usuario
     
     public static function crea($nombreUsuario, $password, $nombre, $correo)
     {
-        $user = new Usuario($nombreUsuario, self::hashPassword($password), $nombre, $correo, 2, null);
+        $user = new Usuario($nombreUsuario, $password, $nombre, $correo, 2,  null);
         //$user->añadeRol($rol);
+        // $user = new Usuario($nombreUsuario, self::hashPassword($password), $nombre, $correo, 2, null);
         return $user->guarda();
     }
 
@@ -62,7 +63,7 @@ class Usuario
     public static function buscaPorUsername($username)
     {
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Usuarios WHERE username=%s", $username);
+        $query = sprintf("SELECT * FROM Usuarios WHERE username='%s'", $username);
         $rs = $conn->query($query);
         $result = false;
         if ($rs) {
@@ -77,6 +78,34 @@ class Usuario
         return $result;
     }
     
+    public static function actualizaNombreAdmin($nombre, $username){
+        $result = false;
+
+        $conn = BD::getInstance()->getConexionBd();
+
+        $query = sprintf(
+            "UPDATE usuarios U SET nombre = '%s' WHERE U.username = '%s'",
+            $nombre,
+            $username
+        );
+        $result = $conn->query($query);
+        return $result;
+    }
+
+    public static function actualizaCorreoAdmin($correo, $username){
+        $result = false;
+
+        $conn = BD::getInstance()->getConexionBd();
+
+        $query = sprintf(
+            "UPDATE usuarios U SET correo = '%s' WHERE U.username = '%s'",
+            $correo,
+            $username
+        );
+        $result = $conn->query($query);
+        return $result;
+    }
+
     private static function hashPassword($password)
     {
         return password_hash($password, PASSWORD_DEFAULT);

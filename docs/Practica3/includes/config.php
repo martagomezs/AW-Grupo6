@@ -73,7 +73,7 @@ require_once 'src/BD.php';
 require_once 'src/usuarios/bd/Usuario.php';
 require_once 'src/Vinilos/vinilos.php';
 require_once 'src/Vinilos/canciones.php';
-require_once 'src/Artistas/artistas.php';
+require_once 'src/Artistas/Artista.php';
 require_once 'src/Eventos/Eventos.php';
 require_once 'src/Compras/Compras.php';
 require_once 'src/Seguidos/Seguidos.php';

@@ -175,6 +175,20 @@ class Vinilo{
         return $result;
     }
 
+    public static function actualizaNombreArtistaAdmin($nombre, $idAutor){
+        $result = false;
+
+        $conn = BD::getInstance()->getConexionBd();
+
+        $query = sprintf(
+            "UPDATE vinilos V SET V.autor = '%s' WHERE V.idAutor = %d",
+            $nombre,
+            $idAutor
+        );
+        $result = $conn->query($query);
+        return $result;
+    }
+
     private static function borra($vinilo){
         return self::borraPorId($vinilo->id);
     }
