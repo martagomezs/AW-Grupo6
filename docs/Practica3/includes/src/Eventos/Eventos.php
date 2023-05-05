@@ -26,6 +26,34 @@ class Evento{
         return $result;
     }
 
+    public static function buscaEventos(){
+        $result = [];
+
+        $conn = BD::getInstance()->getConexionBd();
+
+        $query = sprintf("SELECT * FROM eventos E ORDER BY E.fecha DESC;");
+        $rs = $conn->query($query);
+        if($rs){
+            while($fila = $rs->fetch_assoc()){
+                $result[] = new Evento($fila['id'],$fila['fecha'],$fila['idArtista'],$fila['tipo'],$fila['descripcion']);            }
+            $rs->free();
+        }
+        return $result;
+    }
+
+    public static function insertaAdmin($fecha, $tipo , $idArtista, $descripcion){
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf(
+            "INSERT INTO eventos (fecha, idArtista, tipo, descripcion) VALUES ('%s', %d , '%s', '%s')",
+            $fecha,
+            $idArtista, 
+            $tipo,
+            $descripcion
+        );
+        $result = $conn->query($query);
+        return $result;
+    }
+
     public static function buscaPorArtista($idArtista){
         $result = [];
 
@@ -53,6 +81,23 @@ class Evento{
                 $result[] = new Evento($fila['id'],$fila['fecha'],$fila['idArtista'],$fila['tipo'],$fila['descripcion']);
             }
             $rs->free();
+        }
+        return $result;
+    }
+
+    public static function borraPorId($idEvento){
+        if(!$idEvento){
+            return false;
+        }
+        $result = false;
+        $conn = $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf("DELETE FROM eventos WHERE id = %d", $idEvento);
+        $result = $conn->query($query);
+        if(!$result){
+            error_log($conn->error);
+        }
+        else if($conn->affected_rows != 1){
+            error_log("Se han borrado '$conn->affected_rows' ");
         }
         return $result;
     }
