@@ -2,8 +2,13 @@
 require_once 'includes/config.php';
 require_once 'includes/vistas/helpers/vinilos.php';
 require_once 'includes/vistas/helpers/compras.php';
+require_once 'includes/vistas/helpers/autorizacion.php';
+
 
 $tituloPagina = 'Cesta';
+if(!estaLogado()){
+    Utils::paginaError(403, $tituloPagina, 'No estas logado', 'No tienes acceso a esta página');
+}
 
 
 if(isset($_POST['comprar'])){
