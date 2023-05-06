@@ -163,6 +163,12 @@ class Usuario
         if (!$username) {
             return false;
         } 
+        if (!Seguir::borraPorUsername($username)){
+            return false;
+        }
+        if(!Compra::borraPorUser($username)){
+            return false;
+        }
         if(!Comentario::borraPorUser($username)){
             return false;
         }

@@ -122,6 +122,26 @@ class Artista{
         return $result;
     }
 
+    
+    public static function actualizaSeguidores($idArtista, $numSeguidores){
+        $result = false;
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf("UPDATE SET SELECT COUNT(*) as num FROM Seguidos WHERE idArtista = %d;", $idArtista);
+        $query = sprintf(
+            "UPDATE artistas A set seguidores = %d WHERE A.id = %d",
+            $numSeguidores,
+            $idArtista
+        );
+        $result = $conn->query($query);
+        if(!$result){
+            error_log($conn->error);
+        }
+        else if($conn->affected_rows != 1){
+            error_log("Se han actualizado '$conn->affected_rows' ");
+        }
+        return $result;
+    }
+
     public static function actualizaNombreAdmin($nombre, $id){
         $result = false;
 
@@ -156,8 +176,18 @@ class Artista{
         if(!$idArtista){
             return false;
         }
-        $result = false;
-        Vinilo::borraPorArtista($idArtista);
+        if(!Vinilo::borraPorArtista($idArtista)){
+            echo "Error en borrar vinilos";
+            return false;
+        }
+        if(!Evento::borraPorArtista($idArtista)){
+            echo "Error en borrar eventos";
+            return false;
+        }
+        if(!Seguir::borraPorArtista($idArtista)){
+            echo "Error en borrar artistas";
+            return false;
+        }
         $conn = $conn = BD::getInstance()->getConexionBd();
         $query = sprintf("DELETE FROM artistas WHERE id = %d", $idArtista);
         $result = $conn->query($query);

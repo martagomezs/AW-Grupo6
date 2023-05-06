@@ -198,7 +198,15 @@ class Vinilo{
             return false;
         }
         $result = false;
-
+        if(!Compra::borraPorVinilo($idVinilo)){
+            return false;
+        }
+        if(!Comentario::borraPorVinilo($idVinilo)){
+            return false;
+        }
+        if(!Cancion::borraPorVinilo($idVinilo)){
+            return false;
+        }
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf("DELETE FROM vinilos WHERE id = %d", $idVinilo);
         $result = $conn->query($query);
@@ -215,17 +223,14 @@ class Vinilo{
         if(!$idArtista){
             return false;
         }
-        $result = false;
-        $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM vinilos WHERE idAutor = %d", $idArtista);
-        $result = $conn->query($query);
-        if(!$result){
-            error_log($conn->error);
+        $vinilos = self::buscaPorAutor($idArtista);
+        foreach($vinilos as $vinilo){
+            $idVinilo = $vinilo->id;
+            if(!Vinilo::borraPorId($idVinilo)){
+                return false;
+            }
         }
-        else if($conn->affected_rows != 1){
-            error_log("Se han borrado '$conn->affected_rows' ");
-        }
-        return $result;
+        return true;
     }
 
     private $id;

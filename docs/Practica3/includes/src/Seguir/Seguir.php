@@ -83,6 +83,41 @@ class Seguir{
         }
     }
 
+    public static function borraPorUsername($idUser){
+        $conn  = BD::getInstance()->getConexionBd();
+        $query = sprintf("DELETE FROM Seguidos WHERE idUser = '%s';",
+            $idUser
+        );
+        $rs = $conn->query($query);
+        if($rs){
+            $artistas = Artista::buscaArtistas();
+            foreach($artistas as $artista){
+                $idArtista = $artista->id;
+                $numSeguidores = Seguir::buscaSeguidores($idArtista);
+                if(!Artista::actualizaSeguidores($idArtista, $numSeguidores)){
+                    return false;
+                }
+            }
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    public static function borraPorArtista($idArtista){
+        $conn  = BD::getInstance()->getConexionBd();
+        $query = sprintf("DELETE FROM Seguidos WHERE idArtista = %d;",
+            $idArtista
+        );
+        $rs = $conn->query($query);
+        if($rs){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
 }
 
 ?>

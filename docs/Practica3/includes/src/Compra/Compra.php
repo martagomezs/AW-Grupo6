@@ -164,6 +164,23 @@ class Compra{
         return $result;
     }
 
+    public static function borraPorVinilo($idVinilo){
+        if(!$idVinilo){
+            return false;
+        }
+        $result = false;
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf("DELETE FROM compras WHERE idVinilo = %d",$idVinilo);
+        $result = $conn->query($query);
+        if(!$result){
+           error_log($conn->error); 
+        }
+        else if($conn->affected_rows != 1){
+            error_log("Se ha borrado '$conn->affected_rows' ");
+        }
+        return $result;
+    }
+
     public static function actualizaCestaCompra($user){
         $fecha_actual = date('Y-m-d');
 	    $cesta = Compra::buscaCesta($user);
