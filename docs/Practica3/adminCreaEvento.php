@@ -2,7 +2,7 @@
 require_once 'includes/config.php';
 require_once 'includes/vistas/helpers/autorizacion.php';
 
-$tituloPagina = 'Crear Artistas';
+$tituloPagina = 'Crear Eventos';
 
 if(!esAdmin()){
     Utils::paginaError(403, $tituloPagina, 'No eres admin', 'No tienes acceso a esta página');

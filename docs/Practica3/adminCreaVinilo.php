@@ -8,8 +8,6 @@ if(!esAdmin()){
     Utils::paginaError(403, $tituloPagina, 'No eres admin', 'No tienes acceso a esta página');
 }
 
-
-
 if(isset($_POST['create'])){
     $titulo = $_POST['titulo'];
     $idAutor = $_POST['id'];

@@ -2,7 +2,7 @@
 require_once 'includes/config.php';
 require_once 'includes/vistas/helpers/autorizacion.php';
 
-$tituloPagina = 'Borra Artistas';
+$tituloPagina = 'Borra Evento';
 if(!esAdmin()){
     Utils::paginaError(403, $tituloPagina, 'No eres admin', 'No tienes acceso a esta página');
 }
@@ -22,8 +22,8 @@ if(isset($_POST['boton'])){
 
 
 
-$contenidoPrincipal = '<h2>Lista de Artistas</h2>';
-$contenidoPrincipal .= '<p>Selecciona los artistas que quieres eliminar</p>';
+$contenidoPrincipal = '<h2>Lista de Eventos</h2>';
+$contenidoPrincipal .= '<p>Selecciona los eventos que quieres eliminar</p>';
 $contenidoPrincipal .= '<form method="post">';
 
 foreach($eventos as $evento){
