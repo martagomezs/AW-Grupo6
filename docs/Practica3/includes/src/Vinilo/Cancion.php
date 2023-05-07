@@ -65,7 +65,7 @@ class Cancion{
     public static function insertaAdmin($idVinilo, $titulo , $audio){
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "INSERT INTO canciones (id, titulo, audio) VALUES (%d , '%s', '%s')",
+            "INSERT INTO canciones (idVinilo, titulo, audio) VALUES (%d , '%s', '%s')",
             $idVinilo,
             $titulo, 
             $audio

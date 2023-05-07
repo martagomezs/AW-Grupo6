@@ -52,8 +52,7 @@ CREATE TABLE IF NOT EXISTS `Comentarios` (
     `fecha` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `padre` INT(11),
     PRIMARY KEY (`id`),
-    FOREIGN KEY (`autor`) REFERENCES `Usuarios`(`username`),
-    FOREIGN KEY (`padre`) REFERENCES `Comentarios`(`id`)
+    FOREIGN KEY (`autor`) REFERENCES `Usuarios`(`username`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `Compras`(

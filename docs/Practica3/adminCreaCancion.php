@@ -14,7 +14,7 @@ if(isset($_POST['create'])){
     $titulo = $_POST['titulo'];
     $audio = 'audio/prueba-audio.mp3';
     if (Cancion::insertaAdmin($idVinilo, $titulo , $audio)){
-        echo '<script>alert("Evento creado con éxito.")</script>';
+        echo '<script>alert("Cancion creada con éxito.")</script>';
     }
 }
 
@@ -23,6 +23,8 @@ $vinilos = Vinilo::buscaVinilos();
 $contenidoPrincipal = '<h2>Crea Nueva Canción</h2>';
 
 $contenidoPrincipal .= '<h2> Nueva canción </h2>';
+
+$contenidoPrincipal .= '<form method="post">';
 
 foreach($vinilos as $vinilo){
     $contenidoPrincipal .= '<input type="radio" id="'.$vinilo->id.'" name="vinilo" value="'.$vinilo->id.'" required>';
