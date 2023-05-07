@@ -15,14 +15,16 @@ function visualizaComentario($coment){
     $respuestas = Comentario::buscaPorPadre($coment->id);
 
     if($respuestas){
-        $c .= '<ul>';
+        $c .= '<div class="respuestas">';
+        $c .= '<ul class="respond">';
         foreach($respuestas as $respuesta){
-            $c .= '<dl>';
+            $c .= '<dl class="respuesta-dl">';
             $c .= '<h3>' . $respuesta->autor . '</h3>';
             $c .= '<p>' . $respuesta->comentario . '<p>';
             $c .= '</dl>';
         }
         $c .= '</ul>';
+        $c .= '</div>';
     }
 
     return $c;

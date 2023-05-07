@@ -73,8 +73,14 @@ ul dl {
     margin: 0px 0;
 }
 
-.escribir.enviar{
-    margin-left: 10px;
+.respond {
+    display: block;
+}
+
+.respuesta-dl {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
 }
 
 .titulo {

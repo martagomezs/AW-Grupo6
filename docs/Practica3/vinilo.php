@@ -24,14 +24,17 @@ if(isset($_POST['Comentario'])){
     }
     else{
         if(isset($_POST['dad'])){
-            $c = Comentario::crea($vinilo->id,$_SESSION['username'],$_POST['respuesta'],$_POST['dad']);
+            $c = Comentario::crea($vinilo->id,$_SESSION['username'],$_POST['Comentario'],$_POST['dad']);
         }
         else{
            $c = Comentario::crea($vinilo->id,$_SESSION['username'],$_POST['Comentario'],null); 
+           $comentarios[] = $c;
         }
-        $comentarios[] = $c;
+        
     }
 }
+
+$dialog = '';
 
 if(isset($_POST['idPadre'])){
     $padre = $_POST['idPadre'];
@@ -39,7 +42,7 @@ if(isset($_POST['idPadre'])){
         <dialog id="res">
             <p>Responder a: </p>
             <form action="" method="post">
-            <input type="text" name="respuesta" required>
+            <input type="text" name="Comentario" required>
             <input type="hidden" name="idVinilo" value="{$vinilo->id}">
             <input type="hidden" name="dad" value="{$padre}">
             <input type="submit" value="Enviar">
@@ -118,13 +121,16 @@ EOS;
     $contenidoPrincipal .= $dialog;
     $contenidoPrincipal .= <<<EOS
         <script>
-            var responderButton = document.querySelectorAll('.resp');
+            var responderButtons = document.querySelectorAll('.resp');
             var dialog = document.getElementById('res');
-            responderButton.addActionListener('click', function() {
-                dialog.showModal();
+            responderButtons.forEach(function(button) {
+                button.addEventListener('click', function(event) {
+                    dialog.showModal();
+                    event.preventDefault();
+                });
             });
-
-            var closeButton = document.querySelectorAll('.closeButton');
+            
+            var closeButton = document.querySelector('.closeButton');
             closeButton.addEventListener('click', function(){
                 this.parentNode.close();
             });
