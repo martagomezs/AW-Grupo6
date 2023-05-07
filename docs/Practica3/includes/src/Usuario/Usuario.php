@@ -84,7 +84,7 @@ class Usuario
         $conn = BD::getInstance()->getConexionBd();
 
         $query = sprintf(
-            "UPDATE usuarios U SET nombre = '%s' WHERE U.username = '%s'",
+            "UPDATE Usuarios U SET nombre = '%s' WHERE U.username = '%s'",
             $nombre,
             $username
         );
@@ -98,7 +98,7 @@ class Usuario
         $conn = BD::getInstance()->getConexionBd();
 
         $query = sprintf(
-            "UPDATE usuarios U SET correo = '%s' WHERE U.username = '%s'",
+            "UPDATE Usuarios U SET correo = '%s' WHERE U.username = '%s'",
             $correo,
             $username
         );

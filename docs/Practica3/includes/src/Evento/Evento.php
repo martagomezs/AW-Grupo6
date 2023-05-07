@@ -13,7 +13,7 @@ class Evento{
 
         $conn = BD::getInstance()->getConexionBd();
 
-        $query = sprintf("SELECT COUNT(*) as total FROM eventos;");
+        $query = sprintf("SELECT COUNT(*) as total FROM Eventos;");
 
         $rs = $conn->query($query);
 
@@ -31,7 +31,7 @@ class Evento{
 
         $conn = BD::getInstance()->getConexionBd();
 
-        $query = sprintf("SELECT * FROM eventos E ORDER BY E.fecha DESC;");
+        $query = sprintf("SELECT * FROM Eventos E ORDER BY E.fecha DESC;");
         $rs = $conn->query($query);
         if($rs){
             while($fila = $rs->fetch_assoc()){
@@ -44,7 +44,7 @@ class Evento{
     public static function insertaAdmin($fecha, $tipo , $idArtista, $descripcion){
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "INSERT INTO eventos (fecha, idArtista, tipo, descripcion) VALUES ('%s', %d , '%s', '%s')",
+            "INSERT INTO Eventos (fecha, idArtista, tipo, descripcion) VALUES ('%s', %d , '%s', '%s')",
             $fecha,
             $idArtista, 
             $tipo,
@@ -58,7 +58,7 @@ class Evento{
         $result = [];
 
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM eventos WHERE idArtista = %d;", $idArtista);
+        $query = sprintf("SELECT * FROM Eventos WHERE idArtista = %d;", $idArtista);
         $rs = $conn->query($query);
         if($rs){
             while($fila = $rs->fetch_assoc()){
@@ -74,7 +74,7 @@ class Evento{
 
         $conn = BD::getInstance()->getConexionBd();
         $date = date_format($fecha, "Y-m-d");
-        $query = sprintf("SELECT * FROM eventos WHERE fecha = '%s';", $date);
+        $query = sprintf("SELECT * FROM Eventos WHERE fecha = '%s';", $date);
         $rs = $conn->query($query);
         if($rs){
             while($fila = $rs->fetch_assoc()){
@@ -91,7 +91,7 @@ class Evento{
         }
         $result = false;
         $conn = $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM eventos WHERE id = %d", $idEvento);
+        $query = sprintf("DELETE FROM Eventos WHERE id = %d", $idEvento);
         $result = $conn->query($query);
         if(!$result){
             error_log($conn->error);
@@ -108,7 +108,7 @@ class Evento{
         }
         $result = false;
         $conn = $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM eventos WHERE idArtista = %d", $idArtista);
+        $query = sprintf("DELETE FROM Eventos WHERE idArtista = %d", $idArtista);
         $result = $conn->query($query);
         if(!$result){
             error_log($conn->error);

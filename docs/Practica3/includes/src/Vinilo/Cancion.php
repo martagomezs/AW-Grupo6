@@ -8,7 +8,7 @@ class Cancion{
 
         $conn = BD::getInstance()->getConexionBd();
 
-        $query = sprintf("SELECT * FROM canciones WHERE idVinilo = %d;", $idVinilo);
+        $query = sprintf("SELECT * FROM Canciones WHERE idVinilo = %d;", $idVinilo);
         $rs = $conn->query($query);
         if($rs && $rs->num_rows > 0){
             while($fila = $rs->fetch_assoc()){
@@ -24,7 +24,7 @@ class Cancion{
 
         $conn = BD::getInstance()->getConexionBd();
 
-        $query = sprintf("SELECT * FROM canciones C ORDER BY C.idVinilo DESC;");
+        $query = sprintf("SELECT * FROM Canciones C ORDER BY C.idVinilo DESC;");
         $rs = $conn->query($query);
         if($rs){
             while($fila = $rs->fetch_assoc()){
@@ -40,7 +40,7 @@ class Cancion{
         }
         $result = false;
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM canciones WHERE idVinilo = %d", $idVinilo);
+        $query = sprintf("DELETE FROM Canciones WHERE idVinilo = %d", $idVinilo);
         $result = $conn->query($query);
         if(!$result){
             error_log($conn->error);
@@ -54,7 +54,7 @@ class Cancion{
         }
         $result = false;
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM canciones WHERE id = %d", $id);
+        $query = sprintf("DELETE FROM Canciones WHERE id = %d", $id);
         $result = $conn->query($query);
         if(!$result){
             error_log($conn->error);
@@ -65,7 +65,7 @@ class Cancion{
     public static function insertaAdmin($idVinilo, $titulo , $audio){
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "INSERT INTO canciones (idVinilo, titulo, audio) VALUES (%d , '%s', '%s')",
+            "INSERT INTO Canciones (idVinilo, titulo, audio) VALUES (%d , '%s', '%s')",
             $idVinilo,
             $titulo, 
             $audio
