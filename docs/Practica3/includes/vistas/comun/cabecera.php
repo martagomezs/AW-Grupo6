@@ -11,8 +11,6 @@ require_once __DIR__.'/../helpers/usuarios.php';
 
         <input type="button" onclick="window.location.href = 'top.php';" name="TOP Ventas" value="TOP Ventas">
 
-        <input type="button" onclick="window.location.href = 'ofertas.php';" name="Ofertas" value="Ofertas">
-
         <input type="button" onclick="window.location.href = 'perfil.php';" name="Perfil" value="Perfil">
     </div>
 
