@@ -78,7 +78,7 @@ class Comentario{
     public static function buscaPorId($id){
         $result = null;
 
-        $conn = BD:: getInstance()->getConexionBd();
+        $conn = BD::getInstance()->getConexionBd();
         $query = sprintf('SELECT * FROM Comentarios WHERE id = %d;', $id);
         $rs = $conn->query($query);
         if($rs && $rs->num_rows == 1){

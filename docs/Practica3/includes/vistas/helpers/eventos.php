@@ -16,7 +16,7 @@ function calendario($eventos){
     $e = [];
     $i = 0;
     $calendario = '';
-    $dias = cal_days_in_month(CAL_GREGORIAN, $mes, $year);
+    $dias = date('t', mktime(0,0,0,$mes,1,$year));
     $primero = date('N', strtotime("$year-$mes-01"));
     $calendario = '<table>';
     $calendario .= '<tr><th colspan="7">' . date('F Y', strtotime("$year-$mes-01")) . '</th></tr>';

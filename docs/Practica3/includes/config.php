@@ -78,3 +78,4 @@ require_once 'src/Evento/Evento.php';
 require_once 'src/Compra/Compra.php';
 require_once 'src/Seguir/Seguir.php';
 require_once 'src/Comentario/Comentario.php';
+require_once 'src/Vinilo/Valoracion.php';

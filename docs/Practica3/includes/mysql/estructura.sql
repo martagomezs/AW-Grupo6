@@ -10,6 +10,7 @@ DROP TABLE IF EXISTS `Compras`;
 DROP TABLE IF EXISTS `Canciones`;
 DROP TABLE IF EXISTS `Seguidos`;
 DROP TABLE IF EXISTS `Eventos`;
+DROP TABLE IF EXISTS `Valoraciones`;
 
 CREATE TABLE IF NOT EXISTS `Usuarios` (
     `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL, 
@@ -40,6 +41,7 @@ CREATE TABLE IF NOT EXISTS `Vinilos` (
     `portada` varchar(50) NOT NULL,
     `ventas` INT(11) NOT NULL,
     `stock` INT(11) NOT NULL,
+    `valoracion` DECIMAL(10,2) NOT NULL,
     PRIMARY KEY (`id`),
     FOREIGN KEY (`idAutor`) REFERENCES `Artistas`(`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -53,6 +55,14 @@ CREATE TABLE IF NOT EXISTS `Comentarios` (
     `padre` INT(11),
     PRIMARY KEY (`id`),
     FOREIGN KEY (`autor`) REFERENCES `Usuarios`(`username`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS `Valoraciones`(
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `idVinilo` INT(11) NOT NULL,
+    `idUser` varchar(50) NOT NULL,
+    `valoracion` INT(11) NOT NULL,
+    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `Compras`(

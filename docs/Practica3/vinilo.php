@@ -35,6 +35,7 @@ if(isset($_POST['Comentario'])){
 }
 
 $dialog = '';
+$v = 0;
 
 if(isset($_POST['idPadre'])){
     $padre = $_POST['idPadre'];
@@ -50,6 +51,26 @@ if(isset($_POST['idPadre'])){
             <button class="closeButton">Cancelar</button>
         </dialog>
     EOS;
+}
+
+if(isset($_POST['valoracion'])){
+    $user = Valoracion::buscaPorUser($_SESSION['username']);
+    if($user == false){
+        Valoracion::añade($vinilo->id,$_SESSION['username'],$_POST['valoracion']);
+        $num = Valoracion::numFilas();
+        $valoraciones = Valoracion::buscaPorVinilo($vinilo->id);
+        $media = 0;
+        foreach($valoraciones as $valoracion){
+            $media += $valoracion->valoracion;
+        }
+        $media = $media / $num;
+        $vinilo->valoracion = $media;
+        Vinilo::actualiza($vinilo);
+        $vinilo = Vinilo::buscaPorId($vinilo->id);
+    }
+    else{
+        echo '<script>alert("No puedes valorar el mismo vinilo dos veces.")</script>';
+    }
 }
 
 if(isset($_POST['idVinilo'])){
@@ -104,10 +125,14 @@ $contenidoPrincipal .= '<input type="hidden" name="idVinilo" value="'. $vinilo->
 $contenidoPrincipal .= '<input type="submit" value="Enviar">';
 $contenidoPrincipal .= '</form></div></div>';
 
-
 $contenidoPrincipal .= <<< EOS
     </div>
     <p>{$vinilo->precio}€</p>
+    <p>Valoracion: {$vinilo->valoracion}<p>
+    <form method="post">
+        <input type="number" id="valoracion" name="valoracion" min="0" max="5" value="{$v}">
+        <input type="submit" value="Valorar">
+    </form>
 EOS;
 
 $contenidoPrincipal .= <<< EOS
@@ -115,6 +140,8 @@ $contenidoPrincipal .= <<< EOS
         <input type="hidden" name="idVinilo" value="{$vinilo->id}">
         <input type="submit" value="Añadir a Cesta">
     </form>
+    
+
 EOS;
 
 

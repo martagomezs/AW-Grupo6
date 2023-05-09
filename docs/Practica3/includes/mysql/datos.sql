@@ -15,12 +15,12 @@ INSERT INTO `Usuarios` (`username`, `password`, `nombre`,`correo`,`rol`) VALUES
 ('user4', 'user4pass', 'Lucia', 'lucia@gmail.com', 'usuario'),
 ('admin', 'adminpass', 'Fernando', 'admin@gmail.com', 'admin');
 
-INSERT INTO `Vinilos` (`id`, `titulo`, `autor`, `idAutor`, `precio`, `portada`, `ventas`, `stock`) VALUES 
-(1, 'The Dark Side Of The Moon', 'Pink Floyd', 1, 50, 'img/portadas/id1.jpg', 0, 30),
-(2, 'Motomami', 'Rosalia', 2, 35, 'img/portadas/id2.jpg', 0, 30),
-(3, 'Nevermind', 'Nirvana', 3, 40, 'img/portadas/id3.jpg', 0, 30),
-(4, 'El Mal Querer', 'Rosalia', 2, 40, 'img/portadas/id4.jpg', 0, 30),
-(5, 'Donde Quiero Estar', 'Quevedo', 4, 30, 'img/portadas/id5.jpg', 0, 30);
+INSERT INTO `Vinilos` (`id`, `titulo`, `autor`, `idAutor`, `precio`, `portada`, `ventas`, `stock`, `valoracion`) VALUES 
+(1, 'The Dark Side Of The Moon', 'Pink Floyd', 1, 50, 'img/portadas/id1.jpg', 0, 30, 0),
+(2, 'Motomami', 'Rosalia', 2, 35, 'img/portadas/id2.jpg', 0, 30, 0),
+(3, 'Nevermind', 'Nirvana', 3, 40, 'img/portadas/id3.jpg', 0, 30, 0),
+(4, 'El Mal Querer', 'Rosalia', 2, 40, 'img/portadas/id4.jpg', 0, 30, 0),
+(5, 'Donde Quiero Estar', 'Quevedo', 4, 30, 'img/portadas/id5.jpg', 0, 30, 0);
 
 INSERT INTO `Artistas` (`id`, `nombre`, `seguidores`, `eventos`, `foto`) VALUES
 (1, 'Pink Floyd', 0, NULL, 'img/artistas/pinkfloyd.png'),
