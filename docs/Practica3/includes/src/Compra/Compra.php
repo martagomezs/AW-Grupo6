@@ -62,6 +62,34 @@ class Compra{
         return $result;
     }
 
+    public static function compruebaComprado($idVinilo, $username){
+
+        $result = 0;
+
+        $conn = BD::getInstance()->getConexionBd();
+
+        $query = sprintf("SELECT COUNT(*) as total FROM Compras WHERE C.comprado = TRUE AND C.user = '%s' AND C.idVinilo = %d;", 
+                $username, 
+                $idVinilo
+            );
+
+        $rs = $conn->query($query);
+
+        if($rs){
+            while($fila = $rs->fetch_assoc()){
+                $result = $fila['total'];
+            }
+            $rs->free();
+        }
+        if ($result > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    
+    }
+
     public static function buscaPorUser($username){
         $result = [];
 
