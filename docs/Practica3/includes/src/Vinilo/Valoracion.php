@@ -27,6 +27,24 @@ class Valoracion{
         return $result; 
     }
 
+    public static function numValoraciones($idVinilo){
+        $result = 0;
+
+        $conn = BD::getInstance()->getConexionBd();
+
+        $query = sprintf("SELECT COUNT(*) as total FROM Valoraciones WHERE idVinilo = %d;", $idVinilo);
+
+        $rs = $conn->query($query);
+
+        if($rs){
+            while($fila = $rs->fetch_assoc()){
+                $result = $fila['total'];
+            }
+            $rs->free();
+        }
+        return $result;
+    }
+
     public static function buscaPorVinilo($idVinilo){
         $result = [];
 
@@ -43,12 +61,12 @@ class Valoracion{
         return $result;
     }
 
-    public static function buscaPorUser($idUser){
+    public static function haValorado($idUser, $idVinilo){
         $result = false;
 
         $conn = BD::getInstance()->getConexionBd();
 
-        $query = sprintf("SELECT idVinilo FROM Valoraciones WHERE idUser = '%s';", $idUser);
+        $query = sprintf("SELECT * FROM Valoraciones WHERE idUser = '%s' AND idVinilo = %d;", $idUser, $idVinilo);
         $rs = $conn->query($query);
         if($rs && $rs->num_rows == 1){
             $result = true;

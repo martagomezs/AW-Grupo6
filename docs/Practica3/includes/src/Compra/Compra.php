@@ -68,7 +68,7 @@ class Compra{
 
         $conn = BD::getInstance()->getConexionBd();
 
-        $query = sprintf("SELECT COUNT(*) as total FROM Compras WHERE C.comprado = TRUE AND C.user = '%s' AND C.idVinilo = %d;", 
+        $query = sprintf("SELECT COUNT(*) as total FROM Compras C WHERE C.comprado = TRUE AND C.user = '%s' AND C.idVinilo = %d;", 
                 $username, 
                 $idVinilo
             );

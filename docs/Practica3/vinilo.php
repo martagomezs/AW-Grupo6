@@ -20,7 +20,7 @@ $tituloPagina = "{$vinilo->titulo}";
 
 if(isset($_POST['Comentario'])){
     if(!estaLogado()){
-        Utils::paginaError(403, $tituloPagina, 'Usuario no conectado!', 'Debes iniciar sesión para poder publicar un comentario');
+        echo '<script>alert("No puedes comentar sin estar logeado.")</script>';
     }
     else{
         if(isset($_POST['dad'])){
@@ -54,23 +54,34 @@ if(isset($_POST['idPadre'])){
 }
 
 if(isset($_POST['valoracion'])){
-    $user = Valoracion::buscaPorUser($_SESSION['username']);
-    if($user == false){
-        Valoracion::añade($vinilo->id,$_SESSION['username'],$_POST['valoracion']);
-        $num = Valoracion::numFilas();
-        $valoraciones = Valoracion::buscaPorVinilo($vinilo->id);
-        $media = 0;
-        foreach($valoraciones as $valoracion){
-            $media += $valoracion->valoracion;
-        }
-        $media = $media / $num;
-        $vinilo->valoracion = $media;
-        Vinilo::actualiza($vinilo);
-        $vinilo = Vinilo::buscaPorId($vinilo->id);
+    if(!estaLogado()){
+        echo '<script>alert("No puedes valorar un vinilo sin estar logeado.")</script>';
     }
     else{
-        echo '<script>alert("No puedes valorar el mismo vinilo dos veces.")</script>';
+        if(Compra::compruebacomprado($vinilo->id,$_SESSION['username'])){
+            $user = Valoracion::haValorado($_SESSION['username'],$vinilo->id);
+            if($user == false){
+                Valoracion::añade($vinilo->id,$_SESSION['username'],$_POST['valoracion']);
+                $num = Valoracion::numValoraciones($vinilo->id);
+                $valoraciones = Valoracion::buscaPorVinilo($vinilo->id);
+                $media = 0;
+                foreach($valoraciones as $valoracion){
+                    $media += $valoracion->valoracion;
+                }
+                $media = $media / $num;
+                $vinilo->valoracion = $media;
+                Vinilo::actualiza($vinilo);
+                $vinilo = Vinilo::buscaPorId($vinilo->id);
+            }
+            else{
+                echo '<script>alert("No puedes valorar el mismo vinilo dos veces.")</script>';
+            }
+        }
+        else{
+            echo '<script>alert("No puedes valorar el vinilo si no lo has comprado.")</script>';
+        }
     }
+    
 }
 
 if(isset($_POST['idVinilo'])){
