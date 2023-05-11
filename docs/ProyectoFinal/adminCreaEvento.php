@@ -14,7 +14,6 @@ if(isset($_POST['create'])){
     $tipo = $_POST['tipo'];
     $idArtista = $_POST['artista'];
     $descripcion = $_POST['descripcion'];
-    echo "Valor de tipo_contenido: " . $tipo;
     if (es\ucm\fdi\aw\Evento\Evento::insertaAdmin($fecha, $tipo , $idArtista, $descripcion)){
         echo '<script>alert("Evento creado con éxito.")</script>';
     }

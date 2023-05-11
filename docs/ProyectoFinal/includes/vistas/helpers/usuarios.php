@@ -20,14 +20,4 @@ function saludo()
     return $html;
 }
 
-function logout()
-{
-    //Doble seguridad: unset + destroy
-    unset($_SESSION['username']);
-    //unset($_SESSION['roles']);
-    unset($_SESSION['nombre']);
-    unset($_SESSION['login']);
-    
-    session_destroy();
-    session_start();
-}
+

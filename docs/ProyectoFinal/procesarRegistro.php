@@ -9,7 +9,7 @@ $password = $_POST["password"] ?? null;
 $name = $_POST["name"];
 $mail = $_POST["mail"];
 
-$esValido = Usuario::buscaUsuario($username);
+$esValido = \es\ucm\fdi\aw\Usuario\Usuario::buscaUsuario($username);
 if ($esValido) {
 	$htmlFormLogin = buildFormularioRegistro($username, $name, $mail, $password);
 	$contenidoPrincipal=<<<EOS
@@ -21,13 +21,10 @@ if ($esValido) {
 	exit();
 }
 
-$insert = Usuario::crea($username,$password,$name,$mail);
+$user = \es\ucm\fdi\aw\Usuario\Usuario::crea($username,$password,$name,$mail);
 
 
-$_SESSION['idUsuario'] = $username;
-//$_SESSION['roles'] = $usuario->roles;
-$_SESSION['nombre'] = $name;
-$_SESSION['login'] = true;
+$app->login($user);
 
 $contenidoPrincipal=<<<EOS
 	<h1>Bienvenido ${_SESSION['nombre']}</h1>

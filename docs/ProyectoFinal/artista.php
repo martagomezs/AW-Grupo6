@@ -3,8 +3,8 @@ require_once __DIR__.'/includes/config.php';
 
 $id = $_GET['idAutor'];
 $user = null;
-if(estaLogado()){
-	$user = $_SESSION['username'];
+if($app->usuarioLogueado()){
+	$user = $app->username();
 }
 
 $artista = es\ucm\fdi\aw\Artista\Artista::buscaPorId($id);
@@ -13,21 +13,21 @@ $seguidores = es\ucm\fdi\aw\Seguir\Seguir::buscaSeguidores($artista->id);
 $tituloPagina = "{$artista->nombre}";
 
 if(isset($_POST['seguir'])){
-	if(estaLogado()){
-		$user = $_SESSION['username'];
+	if($app->usuarioLogueado()){
+		$user = $app->username();
 		if(!es\ucm\fdi\aw\Seguir\Seguir::seguir($artista->id,$user)){
-			Utils::paginaError(403, $tituloPagina, 'No se ha podido seguir', 'xxx');
+			echo '<script>alert("No se ha podido seguir")</script>';
 		}
 		$seguidores = es\ucm\fdi\aw\Seguir\Seguir::buscaSeguidores($artista->id);
 	}
 	else{
-		Utils::paginaError(403, $tituloPagina, 'Usuario no conectado!', 'Debes iniciar sesión para poder seguir al artista');
+		echo '<script>alert("Necesitas estar logueado para seguir a un artista")</script>';
 	}
 }
 if(isset($_POST['dejar'])){
-	$user = $_SESSION['username'];
+	$app->usuarioLogueado();
 	if(!es\ucm\fdi\aw\Seguir\Seguir::dejarDeSeguir($artista->id,$user)){
-		Utils::paginaError(403, $tituloPagina, 'Fallo al dejar de seguir', 'xxx');
+		echo '<script>alert("No se ha podido dejar de seguir")</script>';
 	}
 	$seguidores = es\ucm\fdi\aw\Seguir\Seguir::buscaSeguidores($artista->id);
 }
@@ -39,7 +39,7 @@ $contenidoPrincipal=<<<EOS
 	<img src="{$artista->foto}" width="400">
 	<p>Seguidores: {$seguidores}</p>
 EOS;
-if(!estaLogado() || !es\ucm\fdi\aw\Seguir\Seguir::siguiendo($artista->id,$user)){
+if(!$app->usuarioLogueado() || !es\ucm\fdi\aw\Seguir\Seguir::siguiendo($artista->id,$user)){
 	$contenidoPrincipal .= '<form method="post">
 		<input type="submit" name="seguir" value="Seguir">
 		</form>';

@@ -19,10 +19,7 @@ if (!$loged) {
 	exit();
 }
 
-$_SESSION['login'] = true;
-$_SESSION['username'] = $usuario->username;
-$_SESSION['rol'] = $usuario->rol;
-$_SESSION['nombre'] = $usuario->nombre;
+$app->login($usuario);
 
 if($_SESSION['rol'] == "usuario"){
 	$contenidoPrincipal=<<<EOS

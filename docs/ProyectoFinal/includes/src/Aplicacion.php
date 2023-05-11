@@ -141,6 +141,7 @@ class Aplicacion{
         $_SESSION['login'] = true;
         $_SESSION['nombre'] = $user->getNombre();
         $_SESSION['username'] = $user->getUsername();
+        $_SESSION['rol'] = $user->getRol();
     }
 
     public function logout() {
@@ -148,6 +149,7 @@ class Aplicacion{
         unset($_SESSION['login']);
         unset($_SESSION['nombre']);
         unset($_SESSION['username']);
+        unset($_SESSION['rol']);
 
         session_destroy();
         session_start();

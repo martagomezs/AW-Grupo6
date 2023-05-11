@@ -2,11 +2,9 @@
 require_once __DIR__.'/includes/config.php';
 
 $tituloPagina = 'Tu Perfil';
+$contenidoPrincipal = '';
 
-if (!$app->usuarioLogueado()) {
-    Utils::paginaError(403, $tituloPagina, 'Usuario no conectado!', 'Debes iniciar sesión para ver el contenido.');
-}
-else{
+if($app->usuarioLogueado()){
 	$user = $_SESSION['username'];
 
 	$artistas = es\ucm\fdi\aw\Seguir\Seguir::buscaSeguidos($user);
@@ -37,6 +35,11 @@ else{
 				<button type="submit">Aceptar</button>
 			</form>';
 }
+else{
+	$contenidoPrincipal = '<p>Necesitas estar logueado para acceder a tu perfil</p>';
+}
+
+
 
 
 $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
