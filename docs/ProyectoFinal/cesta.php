@@ -12,7 +12,7 @@ if($app->usuarioLogueado()){
 
     $contenidoPrincipal .= <<< EOS
         <form method="post">
-            <input type="submit" name="comprar" value="Comprar">
+            <input type="submit" class="boton" name="comprar" value="Comprar">
         </form>
     EOS;
 }

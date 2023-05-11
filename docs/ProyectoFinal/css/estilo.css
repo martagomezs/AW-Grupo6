@@ -127,7 +127,7 @@ ul dl {
     font-size: 40px;
     text-align: center;
     text-transform: uppercase;
-  }
+}
 
 .artista-contenido {
     display: flex;
@@ -156,8 +156,7 @@ section img:hover{
     opacity: 1;
     filter: contrast(120%);
 }
-<<<<<<< Updated upstream
-=======
+
 
 #formReg {
     border: 1px solid #ccc;
@@ -266,4 +265,11 @@ section img:hover{
     box-sizing: border-box;
     padding: 10px;
 }
->>>>>>> Stashed changes
+
+.seguir {
+    display: flex;
+}
+
+.seguir *{
+    margin: 3px;
+}

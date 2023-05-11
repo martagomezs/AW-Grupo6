@@ -37,20 +37,20 @@ $contenidoPrincipal=<<<EOS
 	<div class="artista-contenido">
 	<div class="art">
 	<img src="{$artista->foto}" width="400">
-	<p>Seguidores: {$seguidores}</p>
+	<div class="Seguir"><p>Seguidores: {$seguidores}</p>
 EOS;
 if(!$app->usuarioLogueado() || !es\ucm\fdi\aw\Seguir\Seguir::siguiendo($artista->id,$user)){
 	$contenidoPrincipal .= '<form method="post">
-		<input type="submit" name="seguir" value="Seguir">
+		<input type="submit" class="boton" name="seguir" value="Seguir">
 		</form>';
 }
 else if(es\ucm\fdi\aw\Seguir\Seguir::siguiendo($artista->id,$user)){
 	$contenidoPrincipal .= '<form method="post">
-		<input type="submit" name="dejar" value="Dejar de seguir">
+		<input type="submit" class="boton" name="dejar" value="Dejar de seguir">
 		</form>';
 }
 	$contenidoPrincipal .= 
-		'</div>
+		'</div></div>
 		<div class="discografia">
 		<h2>Discografía:</h2>
 		<section>';
