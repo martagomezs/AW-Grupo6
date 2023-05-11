@@ -27,9 +27,7 @@ class Usuario
     
     public static function crea($nombreUsuario, $password, $nombre, $correo)
     {
-        $user = new Usuario($nombreUsuario, $password, $nombre, $correo, 'usuario' ,  null);
-        //$user->añadeRol($rol);
-        // $user = new Usuario($nombreUsuario, self::hashPassword($password), $nombre, $correo, 2, null);
+        $user = new Usuario($nombreUsuario, self::hashPassword($password), $nombre, $correo, 'usuario' ,  null);
         return $user->guarda();
     }
 
@@ -230,8 +228,10 @@ class Usuario
 
     public function compruebaPassword($password)
     {
-        //return password_verify($password, $this->password);
-        return $password == $this->password;
+        if($this->rol == 'admin'){
+            return $password == $this->password;
+        }
+        return password_verify($password, $this->password);
     }
 
     public function cambiaPassword($nuevoPassword)
