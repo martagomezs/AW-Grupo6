@@ -130,28 +130,27 @@ $contenidoPrincipal .= '<div class="escribir">';
 $contenidoPrincipal .= '<form action="" method="post">';
 $contenidoPrincipal .= '<input type="text" name="Comentario" required>';
 $contenidoPrincipal .= '<input type="hidden" name="idVinilo" value="'. $vinilo->id .'">';
-$contenidoPrincipal .= '<input type="submit" value="Enviar">';
+$contenidoPrincipal .= '<input type="submit" class="boton" value="Enviar">';
 $contenidoPrincipal .= '</form></div></div>';
 
 $contenidoPrincipal .= <<< EOS
     </div>
-    <p>{$vinilo->precio}€</p>
-    <p>Valoracion: {$vinilo->valoracion}<p>
-    <form method="post">
-        <input type="number" id="valoracion" name="valoracion" min="0" max="5" value="{$v}">
-        <input type="submit" value="Valorar">
-    </form>
+    <div class="cesta-valoracion">
+        <h2>{$vinilo->precio}€</h2>
+        
+        <form method="post">
+            <input type="hidden" name="idVinilo" value="{$vinilo->id}">
+            <input type="submit" class="boton" value="Añadir a Cesta">
+        </form>
+        
+        <h3>Valoracion: {$vinilo->valoracion}</h3>
+        
+        <form method="post">
+            <input type="number" id="valoracion" name="valoracion" min="0" max="5" value="{$v}">
+            <input type="submit" class="boton" value="Valorar">
+        </form>
+    </div>
 EOS;
-
-$contenidoPrincipal .= <<< EOS
-    <form method="post">
-        <input type="hidden" name="idVinilo" value="{$vinilo->id}">
-        <input type="submit" value="Añadir a Cesta">
-    </form>
-    
-
-EOS;
-
 
     $contenidoPrincipal .= $dialog;
     $contenidoPrincipal .= <<<EOS

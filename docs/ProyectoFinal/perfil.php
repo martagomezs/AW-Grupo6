@@ -19,12 +19,14 @@ if($app->usuarioLogueado()){
 		<h1 class="titulo">Perfil</h1>
 	EOS;
 
+	$contenidoPrincipal .= '<div class="perfil"><div class="artista">';
 	$contenidoPrincipal .= '<h2>Artistas seguidos</h2>';
 	$contenidoPrincipal .= listaArtistas($a);
+	$contenidoPrincipal .= '</div>';
 
 	$mes = 1;
 	$year = 2023;
-	$contenidoPrincipal .= '<h2>Eventos</h2>';
+	$contenidoPrincipal .= '<div class="eventos"><h2>Eventos</h2>';
 	$contenidoPrincipal .= calendario($eventos);
 	$contenidoPrincipal .= 
 			'<form method="post">
@@ -32,8 +34,8 @@ if($app->usuarioLogueado()){
 				<input type="number" id="mes" name="mes" min="1" max="12" value= ' . $mes . '>
 				<label for="año">Año:</label>
 				<input type="number" id="año" name="año" min="2023" value=' . $year . '>
-				<button type="submit">Aceptar</button>
-			</form>';
+				<button class="boton" type="submit">Aceptar</button>
+			</form> </div> </div>';
 }
 else{
 	$contenidoPrincipal = '<p>Necesitas estar logueado para acceder a tu perfil</p>';
