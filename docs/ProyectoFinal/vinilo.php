@@ -16,10 +16,7 @@ $comentarios = es\ucm\fdi\aw\Comentario\Comentario::buscaPorVinilo($id);
 $tituloPagina = "{$vinilo->titulo}";
 
 if(isset($_POST['Comentario'])){
-    if(!estaLogado()){
-        echo '<script>alert("No puedes comentar sin estar logeado.")</script>';
-    }
-    else{
+    if($app->usuarioLogueado()){
         if(isset($_POST['dad'])){
             $c = es\ucm\fdi\aw\Comentario\Comentario::crea($vinilo->id,$_SESSION['username'],$_POST['Comentario'],$_POST['dad']);
         }
@@ -27,7 +24,10 @@ if(isset($_POST['Comentario'])){
            $c = es\ucm\fdi\aw\Comentario\Comentario::crea($vinilo->id,$_SESSION['username'],$_POST['Comentario'],null); 
            $comentarios[] = $c;
         }
+    }
+    else{
         
+        echo '<script>alert("No puedes comentar sin estar logeado.")</script>';
     }
 }
 
@@ -51,10 +51,7 @@ if(isset($_POST['idPadre'])){
 }
 
 if(isset($_POST['valoracion'])){
-    if(!estaLogado()){
-        echo '<script>alert("No puedes valorar un vinilo sin estar logeado.")</script>';
-    }
-    else{
+    if($app->usuarioLogueado()){
         if(es\ucm\fdi\aw\Compra\Compra::compruebacomprado($vinilo->id,$_SESSION['username'])){
             $user = es\ucm\fdi\aw\Vinilo\Valoracion::haValorado($_SESSION['username'],$vinilo->id);
             if($user == false){
@@ -78,17 +75,20 @@ if(isset($_POST['valoracion'])){
             echo '<script>alert("No puedes valorar el vinilo si no lo has comprado.")</script>';
         }
     }
+    else{
+        echo '<script>alert("No puedes valorar un vinilo sin estar logeado.")</script>';
+    }
     
 }
 
-if(isset($_POST['idVinilo'])){
-    if(!estaLogado()){
-        Utils::paginaError(403, $tituloPagina, 'Usuario no conectado!', 'Debes iniciar sesión para poder añadir el articulo a la cesta');
-    }
-    else{
+if(isset($_POST['idVinilo']) && !isset($_POST['Comentario'])){
+    if($app->usuarioLogueado()){
         $fecha_actual = date('Y-m-d');
         $compra = es\ucm\fdi\aw\Compra\Compra::añade($_SESSION['username'], $_POST['idVinilo'], $vinilo->precio, true, false, $fecha_actual);
         es\ucm\fdi\aw\Compra\Compra::inserta($compra);
+    }
+    else{
+        echo '<script>alert("Necesitas estar logueado para añadir un vinilo a la cesta")</script>';
     }
 }
 $contenidoPrincipal = '';
